@@ -1,2 +1,2 @@
 # Personnal Boilerplate for Slim Framework
-personnal work-out
+personnal work-out tests
