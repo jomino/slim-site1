@@ -1,0 +1,31 @@
+{
+	"id_lang" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spId,2}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "numeric"
+		}
+    },
+	"ref_lang" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "langue" }
+			]
+		},
+		"format" : {
+			"comment" : "type de ",
+			"type" : "values",
+			"values" : {
+				"en": "{langEN}",
+				"fr": "{langFR}",
+				"nl": "{langNL}"
+			}
+		}
+	}
+}

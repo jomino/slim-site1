@@ -1,0 +1,31 @@
+{
+	"id_cat" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spId,2}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "numeric"
+		}
+    },
+	"ref_cat" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "sekse" }
+			]
+		},
+		"format" : {
+			"comment" : "type de ",
+			"type" : "values",
+			"values" : {
+				"default": "{noinfo}",
+				"users": "{spUser}",
+				"properties": "{spBien}"
+			}
+		}
+	}
+}

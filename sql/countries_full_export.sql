@@ -1,0 +1,312 @@
+-- phpMyAdmin SQL Dump
+-- version 4.6.4
+-- https://www.phpmyadmin.net/
+--
+-- Client :  127.0.0.1
+-- Généré le :  Mer 29 Novembre 2017 à 19:42
+-- Version du serveur :  5.7.14
+-- Version de PHP :  5.6.25
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Base de données :  `ipefix`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `countries`
+--
+
+CREATE TABLE `countries` (
+  `id_cty` smallint(5) UNSIGNED NOT NULL,
+  `ref_cty` char(2) NOT NULL DEFAULT '',
+  `name` varchar(64) NOT NULL DEFAULT '',
+  `pattern` varchar(64) NOT NULL DEFAULT ''
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Contenu de la table `countries`
+--
+
+INSERT INTO `countries` (`id_cty`, `ref_cty`, `name`, `pattern`) VALUES
+(4, 'af', 'Afghanistan', ''),
+(710, 'za', 'Afrique du Sud', ''),
+(248, 'ax', 'Îles Åland', ''),
+(8, 'al', 'Albanie', ''),
+(12, 'dz', 'Algérie', ''),
+(276, 'de', 'Allemagne', '^(?:allemagne|duitsland|dutchland)$'),
+(20, 'ad', 'Andorre', ''),
+(24, 'ao', 'Angola', ''),
+(660, 'ai', 'Anguilla', ''),
+(10, 'aq', 'Antarctique', ''),
+(28, 'ag', 'Antigua-et-Barbuda', ''),
+(682, 'sa', 'Arabie saoudite', ''),
+(32, 'ar', 'Argentine', ''),
+(51, 'am', 'Arménie', ''),
+(533, 'aw', 'Aruba', ''),
+(36, 'au', 'Australie', ''),
+(40, 'at', 'Autriche', ''),
+(31, 'az', 'Azerbaïdjan', ''),
+(44, 'bs', 'Bahamas', ''),
+(48, 'bh', 'Bahreïn', ''),
+(50, 'bd', 'Bangladesh', ''),
+(52, 'bb', 'Barbade', ''),
+(112, 'by', 'Biélorussie', ''),
+(56, 'be', 'Belgique', '^belg(?:ïe|ique|ium)$'),
+(84, 'bz', 'Belize', ''),
+(204, 'bj', 'Bénin', ''),
+(60, 'bm', 'Bermudes', ''),
+(64, 'bt', 'Bhoutan', ''),
+(68, 'bo', 'Bolivie', ''),
+(535, 'bq', 'Pays-Bas caribéens', ''),
+(70, 'ba', 'Bosnie-Herzégovine', ''),
+(72, 'bw', 'Botswana', ''),
+(74, 'bv', 'Île Bouvet', ''),
+(76, 'br', 'Brésil', ''),
+(96, 'bn', 'Brunei', ''),
+(100, 'bg', 'Bulgarie', ''),
+(854, 'bf', 'Burkina Faso', ''),
+(108, 'bi', 'Burundi', ''),
+(136, 'ky', 'Îles Caïmans', ''),
+(116, 'kh', 'Cambodge', ''),
+(120, 'cm', 'Cameroun', ''),
+(124, 'ca', 'Canada', ''),
+(132, 'cv', 'Cap-Vert', ''),
+(140, 'cf', 'République centrafricaine', ''),
+(152, 'cl', 'Chili', ''),
+(156, 'cn', 'Chine', ''),
+(162, 'cx', 'Île Christmas', ''),
+(196, 'cy', 'Chypre (pays)', ''),
+(166, 'cc', 'Îles Cocos', ''),
+(170, 'co', 'Colombie', ''),
+(174, 'km', 'Comores (pays)', ''),
+(178, 'cg', 'République du Congo', ''),
+(180, 'cd', 'République démocratique du Congo', ''),
+(184, 'ck', 'Îles Cook', ''),
+(410, 'kr', 'Corée du Sud', ''),
+(408, 'kp', 'Corée du Nord', ''),
+(188, 'cr', 'Costa Rica', ''),
+(384, 'ci', 'Côte d\'Ivoire', ''),
+(191, 'hr', 'Croatie', ''),
+(192, 'cu', 'Cuba', ''),
+(531, 'cw', 'Curaçao', ''),
+(208, 'dk', 'Danemark', ''),
+(262, 'dj', 'Djibouti', ''),
+(214, 'do', 'République dominicaine', ''),
+(212, 'dm', 'Dominique', ''),
+(818, 'eg', 'Égypte', ''),
+(222, 'sv', 'Salvador', ''),
+(784, 'ae', 'Émirats arabes unis', ''),
+(218, 'ec', 'Équateur (pays)', ''),
+(232, 'er', 'Érythrée', ''),
+(724, 'es', 'Espagne', '^(?:espagne|spanje|spain)$'),
+(233, 'ee', 'Estonie', ''),
+(840, 'us', 'États-Unis', 'usa'),
+(231, 'et', 'Éthiopie', ''),
+(238, 'fk', 'Malouines', ''),
+(234, 'fo', 'Îles Féroé', ''),
+(242, 'fj', 'Fidji', ''),
+(246, 'fi', 'Finlande', ''),
+(250, 'fr', 'France', '^fr(?:ance|ankrijk)$'),
+(266, 'ga', 'Gabon', ''),
+(270, 'gm', 'Gambie', ''),
+(268, 'ge', 'Géorgie (pays)', ''),
+(239, 'gs', 'Géorgie du Sud-et-les Îles Sandwich du Sud', ''),
+(288, 'gh', 'Ghana', ''),
+(292, 'gi', 'Gibraltar', ''),
+(300, 'gr', 'Grèce', ''),
+(308, 'gd', 'Grenade (pays)', ''),
+(304, 'gl', 'Groenland', ''),
+(312, 'gp', 'Guadeloupe', ''),
+(316, 'gu', 'Guam', ''),
+(320, 'gt', 'Guatemala', ''),
+(831, 'gg', 'Guernesey', ''),
+(324, 'gn', 'Guinée', ''),
+(624, 'gw', 'Guinée-Bissau', ''),
+(226, 'gq', 'Guinée équatoriale', ''),
+(328, 'gy', 'Guyana', ''),
+(254, 'gf', 'Guyane', ''),
+(332, 'ht', 'Haïti', ''),
+(334, 'hm', 'Îles Heard-et-MacDonald', ''),
+(340, 'hn', 'Honduras', ''),
+(344, 'hk', 'Hong Kong', ''),
+(348, 'hu', 'Hongrie', ''),
+(833, 'im', 'Île de Man', ''),
+(581, 'um', 'Îles mineures éloignées des États-Unis', ''),
+(92, 'vg', 'Îles Vierges britanniques', ''),
+(850, 'vi', 'Îles Vierges des États-Unis', ''),
+(356, 'in', 'Inde', ''),
+(360, 'id', 'Indonésie', ''),
+(364, 'ir', 'Iran', ''),
+(368, 'iq', 'Irak', ''),
+(372, 'ie', 'Irlande (pays)', ''),
+(352, 'is', 'Islande', ''),
+(376, 'il', 'Israël', ''),
+(380, 'it', 'Italie', ''),
+(388, 'jm', 'Jamaïque', ''),
+(392, 'jp', 'Japon', ''),
+(832, 'je', 'Jersey', ''),
+(400, 'jo', 'Jordanie', ''),
+(398, 'kz', 'Kazakhstan', ''),
+(404, 'ke', 'Kenya', ''),
+(417, 'kg', 'Kirghizistan', ''),
+(296, 'ki', 'Kiribati', ''),
+(414, 'kw', 'Koweït', ''),
+(418, 'la', 'Laos', ''),
+(426, 'ls', 'Lesotho', ''),
+(428, 'lv', 'Lettonie', ''),
+(422, 'lb', 'Liban', ''),
+(430, 'lr', 'Liberia', ''),
+(434, 'ly', 'Libye', ''),
+(438, 'li', 'Liechtenstein', ''),
+(440, 'lt', 'Lituanie', ''),
+(442, 'lu', 'Luxembourg (pays)', ''),
+(446, 'mo', 'Macao', ''),
+(807, 'mk', 'République de Macédoine (pays)', ''),
+(450, 'mg', 'Madagascar', ''),
+(458, 'my', 'Malaisie', ''),
+(454, 'mw', 'Malawi', ''),
+(462, 'mv', 'Maldives', ''),
+(466, 'ml', 'Mali', ''),
+(470, 'mt', 'Malte', ''),
+(580, 'mp', 'Îles Mariannes du Nord', ''),
+(504, 'ma', 'Maroc', ''),
+(584, 'mh', 'Îles Marshall (pays)', ''),
+(474, 'mq', 'Martinique', ''),
+(480, 'mu', 'Maurice (pays)', ''),
+(478, 'mr', 'Mauritanie', ''),
+(175, 'yt', 'Mayotte', ''),
+(484, 'mx', 'Mexique', ''),
+(583, 'fm', 'Micronésie (pays)', ''),
+(498, 'md', 'Moldavie', ''),
+(492, 'mc', 'Monaco', ''),
+(496, 'mn', 'Mongolie', ''),
+(499, 'me', 'Monténégro', ''),
+(500, 'ms', 'Montserrat', ''),
+(508, 'mz', 'Mozambique', ''),
+(104, 'mm', 'Birmanie', ''),
+(516, 'na', 'Namibie', ''),
+(520, 'nr', 'Nauru', ''),
+(524, 'np', 'Népal', ''),
+(558, 'ni', 'Nicaragua', ''),
+(562, 'ne', 'Niger', ''),
+(566, 'ng', 'Nigeria', ''),
+(570, 'nu', 'Niue', ''),
+(574, 'nf', 'Île Norfolk', ''),
+(578, 'no', 'Norvège', ''),
+(540, 'nc', 'Nouvelle-Calédonie', ''),
+(554, 'nz', 'Nouvelle-Zélande', ''),
+(86, 'io', 'Territoire britannique de l\'océan Indien', ''),
+(512, 'om', 'Oman', ''),
+(800, 'ug', 'Ouganda', ''),
+(860, 'uz', 'Ouzbékistan', ''),
+(586, 'pk', 'Pakistan', ''),
+(585, 'pw', 'Palaos', ''),
+(275, 'ps', 'Palestine', ''),
+(591, 'pa', 'Panama', ''),
+(598, 'pg', 'Papouasie-Nouvelle-Guinée', ''),
+(600, 'py', 'Paraguay', ''),
+(528, 'nl', 'Pays-Bas', ''),
+(604, 'pe', 'Pérou', ''),
+(608, 'ph', 'Philippines', ''),
+(612, 'pn', 'Îles Pitcairn', ''),
+(616, 'pl', 'Pologne', ''),
+(258, 'pf', 'Polynésie française', ''),
+(630, 'pr', 'Porto Rico', ''),
+(620, 'pt', 'Portugal', ''),
+(634, 'qa', 'Qatar', ''),
+(638, 're', 'La Réunion', ''),
+(642, 'ro', 'Roumanie', ''),
+(826, 'gb', 'Royaume-Uni', ''),
+(643, 'ru', 'Russie', ''),
+(646, 'rw', 'Rwanda', ''),
+(732, 'eh', 'République arabe sahraouie démocratique', ''),
+(652, 'bl', 'Saint-Barthélemy', ''),
+(659, 'kn', 'Saint-Christophe-et-Niévès', ''),
+(674, 'sm', 'Saint-Marin', ''),
+(663, 'mf', 'Saint-Martin', ''),
+(534, 'sx', 'Saint-Martin', ''),
+(666, 'pm', 'Saint-Pierre-et-Miquelon', ''),
+(336, 'va', 'Saint-Siège (État de la Cité du Vatican)', ''),
+(670, 'vc', 'Saint-Vincent-et-les Grenadines', ''),
+(654, 'sh', 'Sainte-Hélène, Ascension et Tristan da Cunha', ''),
+(662, 'lc', 'Sainte-Lucie', ''),
+(90, 'sb', 'Salomon', ''),
+(882, 'ws', 'Samoa', ''),
+(16, 'as', 'Samoa américaines', ''),
+(678, 'st', 'Sao Tomé-et-Principe', ''),
+(686, 'sn', 'Sénégal', ''),
+(688, 'rs', 'Serbie', ''),
+(690, 'sc', 'Seychelles', ''),
+(694, 'sl', 'Sierra Leone', ''),
+(702, 'sg', 'Singapour', ''),
+(703, 'sk', 'Slovaquie', ''),
+(705, 'si', 'Slovénie', ''),
+(706, 'so', 'Somalie', ''),
+(729, 'sd', 'Soudan', ''),
+(728, 'ss', 'Soudan du Sud', ''),
+(144, 'lk', 'Sri Lanka', ''),
+(752, 'se', 'Suède', ''),
+(756, 'ch', 'Suisse', ''),
+(740, 'sr', 'Suriname', ''),
+(744, 'sj', 'Svalbard et ile Jan Mayen', ''),
+(748, 'sz', 'Swaziland', ''),
+(760, 'sy', 'Syrie', ''),
+(762, 'tj', 'Tadjikistan', ''),
+(158, 'tw', 'Taïwan / (République de Chine (Taïwan))', ''),
+(834, 'tz', 'Tanzanie', ''),
+(148, 'td', 'Tchad', ''),
+(203, 'cz', 'Tchéquie', ''),
+(260, 'tf', 'Terres australes et antarctiques françaises', ''),
+(764, 'th', 'Thaïlande', ''),
+(626, 'tl', 'Timor oriental', ''),
+(768, 'tg', 'Togo', ''),
+(772, 'tk', 'Tokelau', ''),
+(776, 'to', 'Tonga', ''),
+(780, 'tt', 'Trinité-et-Tobago', ''),
+(788, 'tn', 'Tunisie', ''),
+(795, 'tm', 'Turkménistan', ''),
+(796, 'tc', 'Îles Turks-et-Caïcos', ''),
+(792, 'tr', 'Turquie', ''),
+(798, 'tv', 'Tuvalu', ''),
+(804, 'ua', 'Ukraine', ''),
+(858, 'uy', 'Uruguay', ''),
+(548, 'vu', 'Vanuatu', ''),
+(862, 've', 'Venezuela', ''),
+(704, 'vn', 'Viêt Nam', ''),
+(876, 'wf', 'Wallis-et-Futuna', ''),
+(887, 'ye', 'Yémen', ''),
+(894, 'zm', 'Zambie', ''),
+(716, 'zw', 'Zimbabwe', '');
+
+--
+-- Index pour les tables exportées
+--
+
+--
+-- Index pour la table `countries`
+--
+ALTER TABLE `countries`
+  ADD PRIMARY KEY (`id_cty`);
+
+--
+-- AUTO_INCREMENT pour les tables exportées
+--
+
+--
+-- AUTO_INCREMENT pour la table `countries`
+--
+ALTER TABLE `countries`
+  MODIFY `id_cty` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=895;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

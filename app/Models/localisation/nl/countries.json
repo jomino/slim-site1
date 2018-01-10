@@ -1,0 +1,55 @@
+{
+	"id_cty" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spId,2}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "numeric"
+		}
+    },
+	"ref_cty" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "iso ref." }
+			]
+		},
+		"format" : {
+			"comment" : "type de ",
+			"type" : "values",
+			"values" : {
+				"be": "belgïe",
+				"fr": "frankrijk",
+				"de": "duitsland",
+				"es": "spanje",
+				"kr": "kroatië",
+				"it": "italië",
+				"lu": "luxemburg",
+				"gr": "griekenland",
+				"tn": "tunesië",
+				"pt": "portugal",
+				"ma": "marokko",
+				"sn": "senegal",
+				"ch": "zwitserland",
+				"tr": "turkije",
+				"us": "usa"
+			}
+		}
+	},
+	"name" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spName}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "text"
+		}
+	}
+}

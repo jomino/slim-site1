@@ -1,0 +1,30 @@
+{% block block_table_util_top %}{% endblock %}
+<table id="{% block block_table_id %}{% endblock %}" class="table table-striped" data-paging="true" data-sorting="true" data-filtering="true"></table>
+{% block block_table_util_bot %}{% endblock %}
+<script type="text/javascript">
+;(function($,document){
+    var _launch = function(){
+            $('#{% block script_table_id %}{% endblock %}').footable({
+                paging: {% block block_table_paging %}{ enabled: true }{% endblock %},
+                columns: {% block block_table_defs %}{% endblock %},
+                rows: {% block block_table_hdl %}{% endblock %}
+            });
+        };
+    var loadScripts = function(){
+            var $ = $ || window.$;
+            var _load = function(){
+                if(!($.fn.footable)){
+                    $.jo.loadScripts({% block block_table_scripts %}{% endblock %}, _launch);
+                }else{
+                    _launch();
+                }
+            };
+            if($){
+                if($.jo.loadScripts){ _load(); }
+                else{ $(document).on('jo.init', _load); }
+            }
+        };
+    if($){ loadScripts(); }
+    else{ document.addEventListener('DOMContentLoaded', loadScripts); }
+})(window.jQuery,window.document);
+</script>

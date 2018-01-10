@@ -1,0 +1,31 @@
+{
+	"id_atype" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spId,2}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "numeric"
+		}
+    },
+	"ref_atype" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "verzekering {spType}" }
+			]
+		},
+		"format" : {
+			"comment" : "type de ",
+			"type" : "values",
+			"values" : {
+				"default": "{noinfo}",
+				"abandon": "abandon de recours",
+				"risk": "verhuur verzekering"
+			}
+		}
+    }
+}

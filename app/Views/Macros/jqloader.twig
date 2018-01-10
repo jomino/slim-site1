@@ -1,0 +1,14 @@
+{% macro jqScript(scripts) %}
+<script type="text/javascript">
+;(function($,document){
+    var JQContentLoaded = function(){
+        var $ = $ || window.$;
+        if($){
+            {{ scripts|raw }}
+        }
+    };
+    if($){ JQContentLoaded(); }
+    else{ document.addEventListener('DOMContentLoaded',JQContentLoaded); }
+})(window.jQuery,window.document);
+</script>
+{% endmacro %}

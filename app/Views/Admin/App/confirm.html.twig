@@ -1,0 +1,19 @@
+{% import "Macros/jqloader.twig" as jqLoader %}
+
+<div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading">{{ trans(confirmEl.title)|capitalize }}</div>
+    <div class="panel-body">
+        {{ confirmEl.message|raw }}
+    </div>
+    <!-- List group -->
+    <ul class="list-group">
+    {% for link in confirmEl.links %}
+        {% if link.id %}<li class="list-group-item">
+            <a href="#" id="{{ link.id }}" role="button">
+            <i class="fa fa-arrow-right"></i>&#160;{{ link.text|trans }}</a></li>
+            {{ jqLoader.jqScript(link.on_click) }} 
+        {% endif %}
+    {% endfor %}
+    </ul>
+</div>

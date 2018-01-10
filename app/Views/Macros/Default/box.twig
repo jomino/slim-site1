@@ -1,0 +1,33 @@
+{% macro render(item) %}
+<div{% if item.id %} id="{{ item.id }}"{% endif %} class="box box-primary{% if item.collapsed %} collapsed-box{% endif %}">
+  <div class="box-header with-border">
+    {% if item.title %}<h3 class="box-title">{{ trans(item.title)|capitalize }}</h3>{% endif %}
+    {% if item.expandable %}
+    <div class="box-tools pull-right">
+      <button type="button" class="btn btn-box-tool" data-widget="collapse">
+        <i class="fa {% if item.collapsed %}fa-plus{% else %}fa-minus{% endif %}"></i>
+      </button>
+    </div>
+    {% endif %}
+    {% if item.closable %}
+    <div class="box-tools pull-right">
+      <button type="button" class="btn btn-box-tool" data-widget="remove">
+        <i class="fa fa-times"></i>
+      </button>
+    </div>
+    {% endif %}
+  </div>
+  <!-- /.box-header -->
+  <div class="box-body">
+    {{ item.body|raw }}
+  </div>
+  <!-- /.box-body -->
+  {% if item.footer %}
+  <div class="box-footer">
+    {{ item.footer|raw }}
+  </div>
+  <!-- box-footer -->
+  {% endif %}
+</div>
+<!-- /.box -->
+{% endmacro %}

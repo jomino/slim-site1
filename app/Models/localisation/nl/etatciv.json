@@ -1,0 +1,34 @@
+{
+	"id_eciv" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spId,2}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "numeric"
+		}
+    },
+	"ref_eciv" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "beleefdheid" }
+			]
+		},
+		"format" : {
+			"comment" : "type de ",
+			"type" : "values",
+			"values" : {
+				"nc": "{noinfo}",
+				"alone": "single",
+				"maried": "getrouwd",
+				"separate": "gescheiden",
+				"divorced": "gescheiden",
+				"widower": "weduwnaar"
+			}
+		}
+	}
+}

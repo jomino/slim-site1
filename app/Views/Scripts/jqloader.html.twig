@@ -1,0 +1,14 @@
+<script type="text/javascript">
+;(function($,document){
+    var loadHtml = function(){
+        var $ = $ || window.$;
+        var load = ()=>$.jo.loadHtml("{{ fwHref|raw }}","{{ fwFor|raw }}","{{ fwParams|raw }}");
+        if($){
+            if($.jo){ load(); }
+            else{ $(document).on("jo.init",load); }
+        }
+    };
+    if($){ loadHtml(); }
+    else{ document.addEventListener("DOMContentLoaded",loadHtml); }
+})(window.jQuery,window.document);
+</script>

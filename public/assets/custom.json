@@ -1,0 +1,16 @@
+{
+    "default": {
+        "dist": {
+            "js": ["default/js/app.js"],
+            "css" : ["default/css/app.css"],
+            "images" : ["./assets/images/*"]
+        }
+    },
+    "admin": {
+        "dist": {
+            "js": ["admin/js/*"],
+            "css" : ["admin/css/*"],
+            "images" : ["admin/images/*"]
+        }
+    }
+}

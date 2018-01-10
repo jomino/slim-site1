@@ -1,0 +1,108 @@
+{% extends "Layouts/document.html.twig" %}
+
+{# HEADER #}
+{% block doc_title %}
+    {% if title %}
+        {{ title }}
+    {% else %}
+        ProMan
+    {% endif %}
+{% endblock %}
+
+{% block ie_spec %}{{ parent() }}{% endblock %}
+
+{% block doc_stylesheets %}
+    {{ assets("default_lib","css","vendor")|raw }}
+    {{ assets("bootstrap_lib","css","vendor")|raw }}
+    {{ assets("util_lib","css","vendor")|raw }}
+    {{ assets("fa_lib","css","vendor")|raw }}
+    {{ assets("ionicons_lib","css","vendor")|raw }}
+    {{ assets("alte_lib","css","vendor")|raw }}
+    {{ assets("glyphicons_lib","css","vendor")|raw }}
+    {{ assets("icheck_lib","css","vendor")|raw }}
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+{% endblock %}
+
+{% block doc_scripts %}
+    {{ assets("default_lib","js","vendor")|raw }}
+    {{ assets("moment_lib","js","vendor")|raw }}
+    {{ assets("jquery_lib","js","vendor")|raw }}
+    {{ assets("bootstrap_lib","js","vendor")|raw }}
+    {{ assets("fastclick_lib","js","vendor")|raw }}
+    {{ assets("icheck_lib","js","vendor")|raw }}
+    {{ assets("alte_lib","js","vendor")|raw }}
+{% endblock %}
+
+{# BODY #}
+{% block body_id %}{{ parent() }}{% endblock %}
+
+{% block doc_flash %}
+    {% if flash %}
+        {# --TODO-- #}
+    {% endif %}
+{% endblock %}
+
+{% block doc_logger %}
+    {% if logger %}
+        {# --TODO-- #}
+    {% endif %}
+{% endblock %}
+
+{% block added_scripts %}
+    {{ assets("util_lib","js","vendor")|raw }}
+    {{ assets("default","js","custom")|raw }}
+    {% if scripts %}
+        {% if scripts.assets %}
+            {% for asset in scripts.assets %}
+                {{ assets(asset.lib,"js",asset.type)|raw }}
+            {% endfor %}
+        {% else %}
+            {{ scripts|raw }}
+        {% endif %}
+    {% endif %}
+{% endblock %}
+
+{% block added_stylesheets %}
+    {% if stylesheets %}
+        {# --TODO-- #}
+    {% endif %}
+    {{ assets("default","css","custom")|raw }}
+{% endblock %}
+
+{% set bodyCls = "hold-transition skin-blue sidebar-mini" %}
+
+{% block body_cls %}
+    {% if bodyCls %}
+        {{ bodyCls }}
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}
+
+{% block doc_body %}
+    {% if body %}
+        {% if body.elements %}
+            {% if body.elements.header %}
+                {% set headerEl = body.elements.header %}
+                {% include "Default/App/header.html.twig" %}
+            {% endif %}
+            {% if body.elements.aside %}
+                {% set asideEl = body.elements.aside %}
+                {% include "Default/App/aside.html.twig" %}
+            {% endif %}
+            {% if body.elements.content %}
+                {% set contentEl = body.elements.content %}
+                {% include "Default/App/content.html.twig" %}
+            {% endif %}
+            {% if body.elements.footer %}
+                {% set footerEl = body.elements.footer %}
+                {% include "Default/App/footer.html.twig" %}
+            {% endif %}
+        {% else %}
+            {{ body|raw }}
+        {% endif %}
+    {% else %}
+        {# <h1>{{ trans("messages.hello") }}</h1> #}
+        {% include "Default/App/Content/default.html.twig" %}
+    {% endif %}
+{% endblock %}

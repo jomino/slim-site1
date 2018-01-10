@@ -1,0 +1,149 @@
+{% macro render(item) %}
+    <input type="hidden"{% if item.form %} form="{{ item.form }}"{% endif %} id="hidden-{{ item.id }}" name="{{ item.name }}" value="{{ item.raw }}"{% if item.readonly %} readonly{% endif %}{% if item.required %} required{% endif %}>        
+    <table style="margin-bottom: 5px;" width="100%" border="0">
+        <tr>
+            {% if item.label %}
+            <td width="30%" style="min-width: 30%;">
+                <span class="control-label" style="white-space: nowrap; font-weight: bold; color: inherit;">{{ trans(item.label)|capitalize }}</span>
+            </td>
+            {% endif %}
+            <td style="text-align: left;{% if not item.label %} width: 100%;{% endif %}">
+                <div class="btn-group dropdown" id="{{ item.id }}-dpdn">
+                    <button type="button" class="btn btn-default btn-xs btn-dpdn" style="min-width: 130px;" readonly="readonly">
+                        {% if item.value %}{{ trans(item.value)|capitalize }}
+                        {% elseif item.placeholder %}<span class="placeholder text-default">{{ trans(item.placeholder)|raw }}</span>
+                        {% else %}<i class="fa fa-minus"></i>{% endif %}
+                    </button>
+                    <button type="button" class="btn btn-default btn-xs dropdown-toggle{% if item.readonly %} disabled{% endif %}" data-toggle="dropdown"{% if item.readonly %} disabled{% endif %}>
+                        <span class="caret"></span>
+                    </button>
+                {% if item.list|length %}
+                    <ul class="dropdown-menu" role="menu">
+                        {% for list_item in item.list %}
+                            <li><a class="a-dpdn" href="#" style="white-space: nowrap;" data-for="hidden-{{ item.id }}" 
+                                {% if list_item.value %}data-value="{{ list_item.value|raw }}"{% endif %}> 
+                                {% if list_item.href %}data-href="{{ list_item.href|raw }}"{% endif %}>
+                                {% if list_item.name %}{{ list_item.name|raw }}
+                                {% else %} - {% endif %}    
+                            </a></li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                    <div id="{{ item.id }}-status" class="help-block with-errors"></div>
+                </div>
+            </td>
+        </tr>
+    </table>
+<script type="text/javascript">
+;(function($,document){
+    var JQContentLoaded = function(){
+        var $ = $ || window.$;
+        if($){
+            var _id = '{{ item.id }}';
+            var _oldValue = '{{ item.raw }}';
+            var _required = '{{ item.required }}';
+            var _error = '{{ item.error }}';
+            var $element = $('#'+_id+'-dpdn');
+            var $elements = $('.a-dpdn',$element);
+            var $selected = $('.btn-dpdn',$element);
+            var $error = $('div.with-errors',$element);
+            var $hidden = $('input#hidden-'+_id);
+            var _isError = false;
+            var _value, _text;
+            $elements.on('click', function(){
+                _isError = false;
+                _value = $(this).attr('data-value');
+                _text = $(this).text();
+                $error.text('').hide();
+                if(_value=='none' && _required){
+                    $error.text(_error).show();
+                    _isError = true;
+                }
+            });
+            $element.off('hide.bs.dropdown').on('hide.bs.dropdown', function(){
+                if(!_isError){
+                    $hidden.val(_value);
+                    $selected.text(_text);
+                }
+            });
+        }
+    };
+    if($){ JQContentLoaded(); }
+    else{ document.addEventListener('DOMContentLoaded',JQContentLoaded); }
+})(window.jQuery,window.document);
+</script>
+{% endmacro %}
+
+{% macro render2(item) %}
+<div class="form-group {% if item.classes %}{{ item.classes|join(' ') }}{% endif %}"><!-- begin-bs-button -->
+<input type="hidden" {% if item.form %} form="{{ item.form }}"{% endif %} id="hidden-{{ item.name }}" value="{% if item.raw %}{{ item.raw }}{% else %}-1{% endif %}">
+{% if item.label %}
+    <label class="control-label text-nowrap" for="{{ item.id }}">{{ trans(item.label)|capitalize }}</label>
+{% endif %}
+<select id="{{ item.id }}" name="{{ item.name }}" class="form-control select2"{% if item.placeholder %} placeholder="{{ trans(item.placeholder)|raw }}"{% endif %}{% if item.readonly %} readonly{% endif %}{% if item.required %} required{% endif %}>
+{% if item.list|length %}
+    {% if item.reset %}
+        <option{% if not item.value and item.value != '0' %} selected="selected"{% endif %} value="-1">    
+            {{ trans('messages.html_select')|capitalize }}
+        </option>
+    {% endif %}
+    {% for list_item in item.list %}
+        <option {% if list_item.name == item.value %} selected="selected"{% endif %}
+            {% if list_item.value or list_item.value == '0' %} value="{{ list_item.value|raw }}"
+            {% else %} value=""{% endif %}>    
+            {% if list_item.name %}{{ list_item.name|raw }}
+            {% else %} - {% endif %}    
+        </option>
+    {% endfor %}
+{% endif %}
+</select>
+<!-- <div id="{{ item.id }}-status" class="help-block with-errors"></div> -->
+<script type="text/javascript">
+;(function($,document){
+    var JQContentLoaded = function(){
+        var $ = $ || window.$;
+        if($){
+            var _lang = '{{ lang() }}';
+            var _required = '{{ item.required }}';
+            var $element = $('#{{ item.id }}');
+            var $parent = $element.parent('.form-group');
+            var $form = $element.parents('form');
+            var $hidden = $('input#hidden-{{ item.name }}');
+            var _value, _hidval, _text;
+            $element.on('change', function(e){
+                var $option = $('option:selected',$(this)).first();
+                _value = $option.val();
+                _text = $option.text();
+                _hidval = $hidden.val();
+                $parent.removeClass('has-error');
+                if($.fn.validate){
+                    if(_hidval!=_value){ $hidden.val(_value).change(); }
+                    if(!$form.validate().element('#'+this.id)){
+                        $parent.addClass('has-error');
+                    }
+                }
+            });
+            $hidden.on('change', function(){
+                var _val = $element.val(), $val = $(this).val();
+                if(_val!=$val){ $element.val($val).change(); }
+            });
+            if($.fn.select2){
+                var selectOptions = { width: '100%' };
+                {% if item.placeholder %}selectOptions['placeholder'] = '{{- trans(item.placeholder)|raw -}}';{% endif %}
+                $element.select2(selectOptions);
+            }
+            if($.fn.validate){
+                if(!$.validator.methods.select2){
+                    $.validator.addMethod('select2', function(value, element){
+                        return element.required ? (value!='-1'):true;
+                    }, '{{- trans("messages.no_empty_allowed")|capitalize -}}');
+                }
+            }
+        }
+    };
+    if($){ JQContentLoaded(); }
+    else{ document.addEventListener('DOMContentLoaded',JQContentLoaded); }
+})(window.jQuery,window.document);
+</script>
+</div><!-- end-bs-button -->
+{% endmacro %}

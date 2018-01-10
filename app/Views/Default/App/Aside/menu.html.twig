@@ -1,0 +1,28 @@
+{% import "Macros/treeview.twig" as Treeview %}
+
+<li class="header" style="padding: 0px; padding-left: 7px;">
+    <span class="h1" style="margin-top: -10px;margin-bottom: -10px;">{{ sidebarmenu.label }}</span>
+    {% if sidebarmenu.label_small %}<span class="h6">{{ sidebarmenu.label_small|raw }}</span>{% endif %}
+</li>
+{% for item in sidebarmenu.items %}
+    <li class="treeview"{% if item.id %} id="{{ item.id }}"{% endif %}>
+        {% if item.menu %}
+            <a href="#">
+                {% if item.iconCls %}<i class="{{ item.iconCls }}"></i>{% endif %}
+                <span>{{ item.label }}</span>
+                <i class="fa fa-angle-left pull-right"></i>
+            </a>
+            <ul class="treeview-menu">
+            {% for menuitem in item.menu %}
+                {{ Treeview.recursiveMenu(menuitem) }}
+            {% endfor %}
+            </ul>
+        {% else %}
+            <a href="javascript:" data-link="{{ item.type }}" data-href="{{ item.href }}" data-params="{{ item.params }}" data-for="{{ item.for }}">
+                {% if item.iconCls %}<i class="{{ item.iconCls }}"></i>{% endif %}
+                {{ item.label }}{% if item.widget %}
+                    <span class="badge {{ item.widget.cls }}">{{ item.widget.label }}</span>{% endif %}
+            </a>
+        {% endif %}
+    </li>   
+{% endfor %}

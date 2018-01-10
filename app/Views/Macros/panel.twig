@@ -1,0 +1,23 @@
+{% macro bsPanel(datas) %}
+    <div class="panel panel-{{ datas.type }}">
+        {% if datas.title %}<div class="panel-heading">{{ datas.title }}</div>{% endif %}
+        <div class="panel-body">
+        {% for element in datas.elements %}
+            {{ element|raw }}
+        {% endfor %}
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro bsLog(datas) %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="panel panel-{{ datas.type }}">
+                <div class="panel-heading">{{ datas.title }}</div>
+                <div class="panel-body"><pre>{{ datas.message|raw }}</pre></div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endmacro %}

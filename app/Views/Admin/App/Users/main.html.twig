@@ -1,0 +1,17 @@
+{% if contactEl.links %}
+<div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading">{{ contactEl.title }}</div>
+    <div class="panel-body">
+        {{ contactEl.message|raw }}
+    </div>
+    <!-- List group -->
+    <ul class="list-group">
+    {% for link in contactEl.links %}
+        {% if link.href and link.type %}<li class="list-group-item">
+            <a href="#" data-link="{{ link.type }}" data-href="{{ link.href }}" data-for="{{ link.for }}" role="button">
+            <i class="fa fa-arrow-right"></i>&#160;{{ link.text|trans }}</a></li>{% endif %}
+    {% endfor %}
+    </ul>
+</div>
+{% endif %}

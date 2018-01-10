@@ -1,0 +1,32 @@
+{% macro render(item) %}
+<div class="form-group {% if item.classes %}{{ item.classes|join(' ') }}{% endif %}">
+    <input type="hidden"{% if item.form %} form="{{ item.form }}"{% endif %} id="hidden-{{ item.name }}" value="{% if item.raw %}{{ item.raw }}{% endif %}">
+    {% if item.label %}<label class="control-label text-nowrap" for="{{ item.id }}">{{ trans(item.label)|capitalize }}</label>{% endif %}
+    {% if item.icon_after or item.icon_before %}<div class="input-group">{% endif %}
+    {% if item.icon_before %}<span class="input-group-addon">{{ item.icon_before|raw }}</span>{% endif %}
+    <input class="form-control" type="{{ item.type }}" id="{{ item.id }}" name="{{ item.name }}" value="{% if item.value or item.value == '0' %}{{ item.value }}{% endif %}"{% if item.form %} form="{{ item.form }}"{% endif %}{% if item.placeholder %} placeholder="{{ trans(item.placeholder) }}"{% endif %}{% if item.readonly %} readonly{% endif %} aria-describedby="{{ item.id }}-status">
+    {% if item.icon_after %}<span class="input-group-addon">{{ item.icon_after|raw }}</span>{% endif %}
+    {% if item.icon_after or item.icon_before %}</div>{% endif %}
+<script type="text/javascript">
+;(function($){
+    var JQContentLoaded = function(){
+        var $ = $ || window.$;
+        if($){
+            var $element = $('#{{ item.id }}');
+            var $hidden = $('input#hidden-{{ item.name }}');
+            $element.on('input', function(){
+                var _val = $hidden.val(), $val = $(this).val();
+                if(_val!=$val){ $hidden.val($val).change(); }
+            });
+            $hidden.on('change', function(){
+                var _val = $element.val(), $val = $(this).val();
+                if(_val!=$val){ $element.val($val).change(); }
+            });
+        }
+    };
+    if($){ JQContentLoaded(); }
+    else{ document.addEventListener('DOMContentLoaded',JQContentLoaded); }
+})(window.jQuery);
+</script>
+</div>
+{% endmacro %}

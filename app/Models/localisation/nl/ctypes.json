@@ -1,0 +1,32 @@
+{
+	"id_ctype" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spId,2}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "numeric"
+		}
+    },
+	"ref_ctype" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spType}" }
+			]
+		},
+		"format" : {
+			"comment" : "type de ",
+			"type" : "values",
+			"values" : {
+				"other": "{spOther}",
+				"phone": "{spTPhone}",
+				"email": "{spMail}",
+				"fax": "fax"
+			}
+		}
+    }
+}

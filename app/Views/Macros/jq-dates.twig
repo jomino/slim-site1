@@ -1,0 +1,147 @@
+{% macro render(item) %}
+<div id="{{ item.id }}-jqdate" class="form-group {% if item.classes %}{{ item.classes|join(' ') }}{% endif %}">
+    {% if item.label %}<label class="control-label text-nowrap" for="{{ item.id }}">{{ trans(item.label)|capitalize }}</label>{% endif %}
+    {% if item.icon_after or item.icon_before %}<div class="input-group">{% endif %}
+    {% if item.icon_before %}<span class="input-group-addon">{{ item.icon_before|raw }}</span>{% endif %}
+    <input class="form-control" type="{{ item.type }}" id="{{ item.id }}" name="{{ item.name }}" value="{% if item.value %}{{ item.value }}{% endif %}"{% if item.form %} form="{{ item.form }}"{% endif %}{% if item.placeholder %} placeholder="{{ trans(item.placeholder) }}"{% endif %}{% if item.readonly %} readonly{% endif %}{% if item.required %} required{% endif %} aria-describedby="{{ item.id }}-status">
+    {% if item.icon_after %}<span class="input-group-addon">{{ item.icon_after|raw }}</span>{% endif %}
+    {% if item.icon_after or item.icon_before %}</div>{% endif %}
+    <div id="{{ item.id }}-status" class="help-block with-errors"></div>
+<script type="text/javascript">
+;(function($){
+    var _defaults = {
+        fr: {
+            monthsFull: [ 'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre' ],
+            monthsShort: [ 'Jan', 'Fev', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Aou', 'Sep', 'Oct', 'Nov', 'Dec' ],
+            weekdaysFull: [ 'Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi' ],
+            weekdaysShort: [ 'Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam' ],
+            today: 'Aujourd\'hui',
+            clear: 'Effacer',
+            close: 'Fermer',
+            firstDay: 1,
+            format: 'dd mmmm yyyy',
+            formatSubmit: 'yyyy-mm-dd',
+            labelMonthNext:"Mois suivant",
+            labelMonthPrev:"Mois précédent",
+            labelMonthSelect:"Sélectionner un mois",
+            labelYearSelect:"Sélectionner une année"
+        },
+        nl: {
+            monthsFull: [ 'januari', 'februari', 'maart', 'april', 'mei', 'juni', 'juli', 'augustus', 'september', 'oktober', 'november', 'december' ],
+            monthsShort: [ 'jan', 'feb', 'maa', 'apr', 'mei', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec' ],
+            weekdaysFull: [ 'zondag', 'maandag', 'dinsdag', 'woensdag', 'donderdag', 'vrijdag', 'zaterdag' ],
+            weekdaysShort: [ 'zo', 'ma', 'di', 'wo', 'do', 'vr', 'za' ],
+            today: 'Vandaag',
+            clear: 'wissen',
+            close: 'Sluiten',
+            firstDay: 1,
+            format: 'dddd d mmmm yyyy',
+            formatSubmit: 'yyyy-mm-dd',
+            labelMonthNext:"Volgende maand",
+            labelMonthPrev:"Vorige maand",
+            labelMonthSelect:"Selecteer een maand",
+            labelYearSelect:"Selecteer een jaar"
+        }
+    };
+    var JQContentLoaded = function(){
+        var $ = $ || window.$;
+        if($){
+            if($.fn.pickadate){
+                var $input = $('input#{{ item.id }}');
+                var $parent = $input.parents('.form-group');
+                var _disabled = {% if item.readonly %}true{% else %}false{% endif %};
+                var _name = $input.attr('name');
+                var _value = $input.val();
+                var _lang = $.jo.getLang();
+                var formatDate = $.jo.formatDate;
+                var _options = {
+                    container: '#'+$parent[0].id,
+                    format: 'dd/mm/yyyy',
+                    hiddenPrefix: 'hidden-',
+                    hiddenSuffix: _name,
+                    formatSubmit: 'yyyy-mm-dd'
+                };
+                //$.jo.debugStop();
+                $input.removeAttr('name');
+                if(_disabled){ _options['disable'] = true; }
+                $.each(_defaults, function(i){
+                    if(_lang.indexOf(i)!=-1){
+                        if(!(JSON.stringify($.fn.pickadate.defaults)===JSON.stringify(_defaults[i]))){
+                            $.extend($.fn.pickadate.defaults,_defaults[i]);
+                        }
+                    }
+                });
+                $input.pickadate(_options);
+                $('input[name="hidden-'+_name+'"]',$parent).on('change',function(){
+                    $input.val(formatDate($(this).val()));
+                });
+            }
+        }
+    };
+    if($){ JQContentLoaded(); }
+    else{ document.addEventListener('DOMContentLoaded',JQContentLoaded); }
+})(window.jQuery);
+</script>
+</div>
+{% endmacro %}
+
+{% macro render2(item) %}
+<div id="{{ item.id }}-bsdate" class="form-group {% if item.classes %}{{ item.classes|join(' ') }}{% endif %}">
+    <input type="hidden"{% if item.form %} form="{{ item.form }}"{% endif %} id="hidden-{{ item.name }}" value="{% if item.raw >= 0 %}{{ item.raw }}{% endif %}">
+    {% if item.label %}<label class="control-label text-nowrap" for="{{ item.id }}">{{ trans(item.label)|capitalize }}</label>{% endif %}
+    {% if item.icon_after or item.icon_before %}<div class="input-group">{% endif %}
+    {% if item.icon_before %}<span class="input-group-addon">{{ item.icon_before|raw }}</span>{% endif %}
+    <input class="form-control" type="text" id="{{ item.id }}" name="{{ item.name }}" value="{% if item.value %}{{ item.value }}{% endif %}"{% if item.form %} form="{{ item.form }}"{% endif %}{% if item.placeholder %} placeholder="{{ trans(item.placeholder) }}"{% endif %}{% if item.required %} required{% endif %} readonly>
+    {% if item.icon_after %}<span class="input-group-addon">{{ item.icon_after|raw }}</span>{% endif %}
+    {% if item.icon_after or item.icon_before %}</div>{% endif %}
+<script type="text/javascript">
+;(function($,document){
+    var JQContentLoaded = function(){
+        var $ = $ || window.$;
+        if($){
+            var _lang = '{{ lang() }}';
+            var $element = $('#{{ item.id }}');
+            var $hidden = $('input#hidden-{{ item.name }}');
+            var formatDate = $.jo.formatDate;
+            /*$element.on('change', function(){
+                //$.jo.debugStop();
+                var formated = formatDate.apply(this,[$(this).val(),'en']);
+                if(formated){ $hidden.val(formated); }
+                else{ $hidden.val(''); }
+            });*/
+            $hidden.on('change', function(){
+                //$.jo.debugStop();
+                var formated = formatDate.apply(this,[$(this).val(),'fr']);
+                if(formated){ $element.val(formated); }
+                else{ $element.val(''); }
+            });
+            //$.jo.debugStop();
+            if($.fn.datetimepicker){
+                var _launch = function(){
+                    var options = {
+                        format: 'DD/MM/YYYY',
+                        ignoreReadonly: true,
+                        widgetParent: $hidden.parent()
+                    };
+                    if(_lang!='en'){ options['locale'] = _lang; }
+                    $element.on('dp.change', function(e){
+                        //$.jo.debugStop();
+                        var formated = e.date.format('YYYY-MM-DD');
+                        if(formated){ $hidden.val(formated); }
+                        else{ $hidden.val(''); }
+                    }).datetimepicker(options);
+                };
+                if(_lang!='en'){
+                    $.jo.loadScripts(['/./assets/resources/moment_locale_'+_lang+'.js'], _launch);
+                }else{
+                    _launch();
+                }
+            }
+        }
+    };
+    if($){ JQContentLoaded(); }
+    else{ document.addEventListener('DOMContentLoaded',JQContentLoaded); }
+})(window.jQuery);
+</script>
+</div>
+{% endmacro %}

@@ -1,0 +1,31 @@
+{
+	"id_stat" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spId,2}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "numeric"
+		}
+    },
+	"ref_stat" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spStatus}" }
+			]
+		},
+		"format" : {
+			"comment" : "type de ",
+			"type" : "values",
+			"values" : {
+				"activ": "{spActiv}",
+				"waiting": "verwachting",
+				"suspended": "geschorst"
+			}
+		}
+	}
+}

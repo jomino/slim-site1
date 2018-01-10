@@ -1,0 +1,126 @@
+{
+	"id_cli" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spId,2}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "numeric"
+		}
+	},
+	"id_user" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spUser,0} {spType,1}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "numeric"
+		}
+	},
+	"id_grp" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "groupe {spType,1}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "numeric"
+		}
+	},
+	"id_lvl" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "niveau {spType,1}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "numeric"
+		}
+    },
+	"id_clit" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "client {spType,1}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "numeric"
+		}
+    },
+	"connected" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spStatus}" }
+			]
+		},
+		"format" : {
+			"type" : "values",
+			"values" : {
+				"0" : "déconnecté",
+				"1" : "connecté"
+			}
+		}
+    },
+	"uri" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "uri" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "text"
+		}
+	},
+	"log" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "login" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "text"
+		}
+	},
+	"pwd" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "password" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "text"
+		}
+	},
+	"least" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spDate}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "date",
+			"pattern" : "d/m/Y"
+		}
+	}
+}

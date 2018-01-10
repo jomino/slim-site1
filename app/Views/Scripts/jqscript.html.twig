@@ -1,0 +1,19 @@
+<script type="text/javascript">
+;(function($,document){
+    {% if script_done %}
+    var _done = function(){
+        {{ script_done|raw }}
+    };
+    {% endif %}
+    var loadScripts = function(){
+        var $ = $ || window.$;
+        var load = ()=>$.jo.loadScripts(['{{ scripts|join("\',\'")|raw }}'], _done || (()=>{}));
+        if($){
+            if($.jo){ load(); }
+            else{ $(document).on('jo.init',load); }
+        }
+    };
+    if($){ loadScripts(); }
+    else{ document.addEventListener('DOMContentLoaded',loadScripts); }
+})(window.jQuery,window.document);
+</script>

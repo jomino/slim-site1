@@ -1,0 +1,941 @@
+{
+	"formats" : {
+		"ouinon" : {
+			"comment" : "choix binaire 0:non,1:oui",
+			"type" : "values",
+			"values" : {
+				"0" : "_default_NON",
+				"1" : "_default_OUI"
+			}
+		},
+		"xon" : {
+			"comment" : "(*)n.c. = \\'non communiqué\\'",
+			"type" : "values",
+			"values" : {
+				"X" : "_default_nc",
+				"O" : "_default_OUI",
+				"N" : "_default_NON"
+			}
+		},
+		"conform" : {
+			"type" : "values",
+			"values" : {
+				"X" : "_default_noinfo",
+				"N" : "_default_NON",
+				"P" : "{OUI}, niet conform",
+				"O" : "{OUI}, conform"
+			}
+		}
+	},
+	"generic" : {
+		"dec2m2" : {
+			"comment" : "Exprime la surface",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "m²" },
+				{ "text" : "vierkante meter(s)" }
+			]
+		},
+		"meter" : {
+			"comment" : "Exprime la longueur",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "m" },
+				{ "text" : "meter(s)" }
+			]
+		},
+		"nc" : {
+			"comment" : "Exprime l\\'absence de donnée",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "n.g." },
+				{ "text" : "niet gesproken" }
+			]
+		},
+		"currency" : {
+			"comment" : "Unité monnaitaire [EUR]",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "euro(s)" },
+				{ "text" : "&euro;" },
+				{ "text" : "€" }
+			]
+		},
+		"spA" : {
+			"comment" : "Préposition [à]",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "tot" },
+				{ "text" : "te" }
+			]
+		},
+		"spActiv" : {
+			"comment" : "ajouter",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "actief" },
+				{ "text" : "actieve" },
+				{ "text" : "inactieve" }
+			]
+		},
+		"spAdd" : {
+			"comment" : "ajouter/nouveau",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "toevoegen" },
+				{ "text" : "nieuw" },
+				{ "text" : "extra" }
+			]
+		},
+		"spAddress" : {
+			"comment" : "Localisation géographique textuel",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "adres" },
+				{ "text" : "adressen" }
+			]
+		},
+		"spAgency" : {
+			"comment" : "Indique l\\'url du site",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "kantoor" },
+				{ "text" : "kantoren" }
+			]
+		},
+		"spAll" : {
+			"comment" : "Préposition [tous]",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "alle" },
+				{ "text" : "alles" }
+			]
+		},
+		"spAnnul" : {
+			"comment" : "annuler",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "annuleren" },
+				{ "text" : "annulering" }
+			]
+		},
+		"spAppart" : {
+			"comment" : "Type de bien: appartement",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "appartement" },
+				{ "text" : "appartementen" }
+			]
+		},
+		"spBien" : {
+			"comment" : "Désigne un \\'bien\\' ",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "pand" },
+				{ "text" : "panden" },
+				{ "text" : "pand(en)" },
+				{ "text" : "{spNatio,0} {spBien,1}" },
+				{ "text" : "{spEtranger,0} {spBien,1}" },
+				{ "text" : "{spAll,0} {spBien,1}" },
+				{ "text" : "{spBien} {spAdd}" },
+				{ "text" : "{spAdd,1} {spBien,0}" }
+			]
+		},
+		"spCat" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "categorie" },
+				{ "text" : "categorieën" },
+				{ "text" : "subcategorie" }
+			]
+		},
+		"spChambre" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "kamer" },
+				{ "text" : "kamers" }
+			]
+		},
+		"spChoice" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "keuze" },
+				{ "text" : "selecteer" }
+			]
+		},
+		"spCity" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "stad" }
+			]
+		},
+		"spClick" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "klik hier" }
+			]
+		},
+		"spClose" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "sluiten" }
+			]
+		},
+		"spCommand" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "bestellen" },
+				{ "text" : "besteld" },
+				{ "text" : "besteld" },
+				{ "text" : "besteld" }
+			]
+		},
+		"spCommu" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "mededeling" },
+				{ "text" : "mededelingen" }
+			]
+		},
+		"spCommune" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "gemeente" },
+				{ "text" : "gemeenten" },
+				{ "text" : "gem." }
+			]
+		},
+		"spConfirm" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "bevestigen" },
+				{ "text" : "bevestiging" }
+			]
+		},
+		"spContact" : {
+			"comment" : "Libellé pour les coordos de personnes",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "contact" },
+				{ "text" : "contacten" },
+				{ "text" : "{spContact} {spAdd}" },
+				{ "text" : "{spAll,0} {spContact,1}" },
+				{ "text" : "{spAdd,2} {spContact,1}" },
+				{ "text" : "{spAdd,1} {spContact,0}" }
+			]
+		},
+		"spContinue" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "doorgaan" }
+			]
+		},
+		"spCourse" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "wedstrijd" }
+			]
+		},
+		"spCp" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "p.c." },
+				{ "text" : "post code" }
+			]
+		},
+		"spDate" : {
+			"comment" : "Décrit une date",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "datum" },
+				{ "text" : "datum" },
+				{ "text" : "dt." }
+			]
+		},
+		"spDateShort" : {
+			"comment" : "Décrit mois/année en abr.",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "mm/dd" }
+			]
+		},
+		"spDel" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "uitwissen" }
+			]
+		},
+		"spDelivery" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "levering" },
+				{ "text" : "leveringen" }
+			]
+		},
+		"spDescr" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "beschrijving" },
+				{ "text" : "beschrijvingen" }
+			]
+		},
+		"spDisplay" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "bekijken" },
+				{ "text" : "weergave" },
+				{ "text" : "weergegeven" },
+				{ "text" : "weergegeven" }
+			]
+		},
+		"spDriver" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "chauffeur" }
+			]
+		},
+		"spEdit" : {
+			"comment" : "Décrit la modification : éditer",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "uitgeven" }
+			]
+		},
+		"spEncode" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "coderen" },
+				{ "text" : "gecodeerde" }
+			]
+		},
+		"spEnd" : {
+			"comment" : "Décrit la modification : éditer",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "aankomst" },
+				{ "text" : "ronden" }
+			]
+		},
+		"spEtranger" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "buitenlands" }
+			]
+		},
+		"spExport" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "export" },
+				{ "text" : "exporteren" },
+				{ "text" : "geëxporteerd" },
+				{ "text" : "geëxporteerd" }
+			]
+		},
+		"spFilter" : {
+			"comment" : "Décrit la modification : filtrer",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "filter" }
+			]
+		},
+		"spGes" : {
+			"comment" : "titre \\'Gestion\\'",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "beheer van de {spBien}" }
+			]
+		},
+		"spHide" : {
+			"comment" : "Décrit pas visible",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "verborg" },
+				{ "text" : "verborgen" }
+			]
+		},
+		"spHours" : {
+			"comment" : "Décrit l\\'heure",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "huur" }
+			]
+		},
+		"spHouse" : {
+			"comment" : "type de bien: maison",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "huis" },
+				{ "text" : "huizen" }
+			]
+		},
+		"spId" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "identificatie" },
+				{ "text" : "identificatiecodes" },
+				{ "text" : "id" }
+			]
+		},
+		"spImport" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "importeren" },
+				{ "text" : "importeren van een {spBien}" },
+				{ "text" : "stop het importeren" }
+			]
+		},
+		"spLabel" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "label" },
+				{ "text" : "tekst" }
+			]
+		},
+		"spList" : {
+			"comment" : "Message durant l\\'attente",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "lijst" },
+				{ "text" : "listing" }
+			]
+		},
+		"spLoads" : {
+			"comment" : "Message durant l\\'attente",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "laden" },
+				{ "text" : "inladen" }
+			]
+		},
+		"spMail" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "e-mail" },
+				{ "text" : "e-mails" }
+			]
+		},
+		"spMerci" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "dankjewel" }
+			]
+		},
+		"spMr" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "meneer" },
+				{ "text" : "Dhr." }
+			]
+		},
+		"spMs" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "mevrouw" },
+				{ "text" : "Mw." }
+			]
+		},
+		"spName" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "naam" },
+				{ "text" : "namen" }
+			]
+		},
+		"spNatio" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "nationaal" },
+				{ "text" : "nationaal" },
+				{ "text" : "nationaliteit" }
+			]
+		},
+		"spNum" : {
+			"comment" : "Exprime ce qui n\\'est pas celui-ci",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "nummer" },
+				{ "text" : "nummers" }
+			]
+		},
+		"spOption" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "optie" },
+				{ "text" : "opties" },
+				{ "text" : "met optie" }
+			]
+		},
+		"spOther" : {
+			"comment" : "Exprime ce qui n\\'est pas celui-ci",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "anders" },
+				{ "text" : "andere" }
+			]
+		},
+		"spOwner" : {
+			"comment" : "type d\\'utilisateur",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "eigenaar" },
+				{ "text" : "eigenaars" }
+			]
+		},
+		"spPays" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "land" },
+				{ "text" : "landen" }
+			]
+		},
+		"spPhoto" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "foto" },
+				{ "text" : "foto\\'s" }
+			]
+		},
+		"spPrice" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "prijs" }
+			]
+		},
+		"spPwd" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "wachtwoord" }
+			]
+		},
+		"spTPhone" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "telefoon" },
+				{ "text" : "telefoons" },
+				{ "text" : "tel." }
+			]
+		},
+		"spPrint" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "afdrukken" }
+			]
+		},
+		"spProjet" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "bouwproject" },
+				{ "text" : "bouwprojecten" },
+				{ "text" : "{spAdd,1} {spProjet,0}" }
+			]
+		},
+		"spProxim" : {
+			"comment" : "Exprime ce qui est tout près",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "nabijheid" }
+			]
+		},
+		"spProspect" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "prospect" },
+				{ "text" : "prospects" }
+			]
+		},
+		"spProvince" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "provincie" },
+				{ "text" : "provincies" }
+			]
+		},
+		"spPub" : {
+			"comment" : "Exprime ce qui n\\'est pas celui-ci",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "publicatie" },
+				{ "text" : "publicaties" },
+				{ "text" : "{spVos} {spPub}" }
+			]
+		},
+		"spQuit" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "buiten" }
+			]
+		},
+		"spRec" : {
+			"comment" : "Décrit une entrée dans la DB",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "record" },
+				{ "text" : "records" },
+				{ "text" : "opgenomen" },
+				{ "text" : "opgenomen" }
+			]
+		},
+		"spRef" : {
+			"comment" : "Décrit une ref",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "referentie" }
+			]
+		},
+		"spRefresh" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "vernieuwen" }
+			]
+		},
+		"spRem" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "opmerking" },
+				{ "text" : "opmerkingen" },
+				{ "text" : "opmerking(en)" }
+			]
+		},
+		"spRet" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "terugkeer" },
+				{ "text" : "doorgaan" }
+			]
+		},
+		"spRoom" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "kamer" },
+				{ "text" : "kamers" }
+			]
+		},
+		"spSave" : {
+			"comment" : "Crée un nouveau ...",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "besparen" }
+			]
+		},
+		"spSelect" : {
+			"comment" : "Sélection",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "selecteer" },
+				{ "text" : "geselecteerd" },
+				{ "text" : "geselecteerde" },
+				{ "text" : "selectie" }
+			]
+		},
+		"spSend" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "sturen" },
+				{ "text" : "verzending" }
+			]
+		},
+		"spStart" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "vertrek" }
+			]
+		},
+		"spStatus" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "status" }
+			]
+		},
+		"spStep" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "stap" },
+				{ "text" : "volgende" },
+				{ "text" : "volgende" }
+			]
+		},
+		"spSuccess" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "succes" }
+			]
+		},
+		"spSur" : {
+			"comment" : "Préposition [sur]",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "op" },
+				{ "text" : "v/d" },
+				{ "text" : "van de" }
+			]
+		},
+		"spTenant" : {
+			"comment" : "type d\\'utilisateur",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "huurder" },
+				{ "text" : "huurders" }
+			]
+		},
+		"spTitle" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "titel" },
+				{ "text" : "titels" },
+				{ "text" : "zonder titel" }
+			]
+		},
+		"spTrans" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "transactie" }
+			]
+		},
+		"spType" : {
+			"comment" : "Décrit le caractère",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "type" },
+				{ "text" : "types" }
+			]
+		},
+		"spUndef" : {
+			"comment" : "Décrit ce qui n\\'est pas défini",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "onbepaald" }
+			]
+		},
+		"spUser" : {
+			"comment" : "Décrit un utilisateur",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "gebruiker" }
+			]
+		},
+		"spUploads" : {
+			"comment" : "Message durant l\\'attente",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "opladen" }
+			]
+		},
+		"spVos" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "uw" }
+			]
+		},
+		"spYear" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "jaar" }
+			]
+		},
+		"langFR" : {
+			"comment" : "Type de langue",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "frans" }
+			]
+		},
+		"langNL" : {
+			"comment" : "Type de langue",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "nederlands" }
+			]
+		},
+		"langEN" : {
+			"comment" : "Type de langue",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "engels" }
+			]
+		},
+		"langDE" : {
+			"comment" : "Type de langue",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "duits" }
+			]
+		}
+	},
+	"all" : {
+		"OUI" : {
+			"comment" : "On est d\\'accord",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "ya" }
+			]
+		},
+		"NON" : {
+			"comment" : "On est pas d\\'accord",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "nee" }
+			]
+		},
+		"ET" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "en" }
+			]
+		},
+		"OU" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "of" }
+			]
+		},
+		"UN" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "een" },
+				{ "text" : "een" }
+			]
+		},
+		"DE" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "van" },
+				{ "text" : "van" }
+			]
+		},
+		"DU" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "van het" }
+			]
+		},
+		"noinfo" : {
+			"comment" : "Pas d\\'information disponnible",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "geen inlichting" }
+			]
+		},
+		"norec" : {
+			"comment" : "Pas d\\'entrée dans la DB",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "geen record" }
+			]
+		},
+		"notcorrect" : {
+			"comment" : "erreur ou pas correcte",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "is onjuiste" },
+				{ "text" : "is vergissing" },
+				{ "text" : "fout" }
+			]
+		},
+		"infoc" : {
+			"comment" : "Coordonnée des contacts",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "contactpersoon" }
+			]
+		},
+		"required" : {
+			"comment" : "Alert champ obligatoir",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "dit veld is verplicht" },
+				{ "text" : "alleen de numerieke waarden" }
+			]
+		},
+		"level1" : {
+			"comment" : "type d\\'utilisateur",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "gebruiker" },
+				{ "text" : "gebruikers" }
+			]
+		},
+		"level2" : {
+			"comment" : "type d\\'utilisateur",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "super gebruiker" },
+				{ "text" : "super gebruikers" }
+			]
+		},
+		"level3" : {
+			"comment" : "type d\\'utilisateur",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "administrator" },
+				{ "text" : "administrators" }
+			]
+		},
+		"level4" : {
+			"comment" : "type d\\'utilisateur",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "super administrator" },
+				{ "text" : "super administrators" }
+			]
+		}
+	}
+}

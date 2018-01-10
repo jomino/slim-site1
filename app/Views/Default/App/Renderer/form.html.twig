@@ -1,0 +1,184 @@
+{% extends 'Globals/bs-form.html.twig' %}
+
+{% block block_form_lang %}{% if lang() != 'en' %}
+ lang="{{ lang() }}" {% else %}
+ {{ parent() }}{% endif %}
+{% endblock %}
+
+{% block block_form_id %}{% if form_id %}
+ id="{{ form_id }}" {% else %}
+ {{ parent() }}{% endif %}
+{% endblock %}
+
+{% block block_form_name %}{% if form_name %}
+ name="{{ form_name }}" {% elseif form_id %}
+ name="{{ form_id }}" {% else %}
+{{ parent() }}{% endif %}
+{% endblock %}
+
+{% block block_form_target %}{% if form_target %}
+ target="{{ form_target }}" {% else %}
+ {{ parent() }}{% endif %}
+{% endblock %}
+
+{% block block_form_method %}{% if form_method %}
+ method="{{ form_method }}" {% else %}
+ {{ parent() }}{% endif %}
+{% endblock %}
+
+{% block block_form_action %}{% if form_action %}
+ action="{{ form_action }}" {% else %}
+ {{ parent() }}{% endif %}
+{% endblock %}
+
+{% block block_form_hiddens %}{% if form_hiddens %}
+{% for hidden in form_hiddens %}
+<input type="hidden" value="{{ hidden.value }}" class="hidden {% if hidden.classes %}{{ hidden.classes|join(' ') }}{% endif %}"{% if hidden.name %} id="hidden-{{ hidden.name }}"{% endif %}{% if hidden.form %} form="{{ hidden.form }}"{% endif %}>
+{% endfor %}
+{% endif %}
+{% endblock %}
+
+{% block block_form_content %}{% if form_items %}
+{% set items = form_items %}
+{% include "Default/App/Renderer/bs-form.html.twig" %}{% else %}
+{{ parent() }}{% endif %}
+{% endblock %}
+
+{% block block_form_script %}
+<script type="text/javascript">
+;(function($){
+    var JQContentLoaded = function(){
+        var $ = $ || window.$;
+        if($){
+            var _lang = '{{ lang() }}';
+            var _form = '{{ form_id }}';
+            var $form = $('form#'+_form);
+            var $submit = $('button.btn-submit',$form);
+            var $reset = $('button.btn-reset',$form);
+            var _action = $form.attr('action');
+            var _isError = {};
+            var formManager = $.jo.formManager;
+            var _init = function(){
+                formManager.register( _form, $.extend({},_getValues()));
+            };
+            var _getValues = function(){
+                var data = {};
+                $('input[id^="hidden-"]',$form).each( function(){
+                    var _name = this.id.replace('hidden-','') || null;
+                    if(_name && _name!=''){ data[_name] = $(this).val() || ''; }
+                });
+                return data;
+            };
+            var _success = function(repsonse){
+                var _text = [];
+                if(repsonse.success){
+                    formManager.remove(_form);
+                    $.jo.refreshPage('default');
+                }else{
+                    if(typeof repsonse.message == 'object'){
+                        $.each( repsonse.message, function(i){
+                            var text = '<strong>['+i+']</strong>:'+this.join('<br>');
+                            _isError[i] = text;
+                            _text.push(text);
+                        });
+                    }else{
+                        _text.push(repsonse.message);
+                    }
+                    $('body').MessageBox({
+                        title: '{{ trans("messages.title_error_alert")|capitalize }}:',
+                        text: _text.join('<br>'),
+                        onclose: function(){
+                            $form.validate().showErrors($.extend({},_isError));
+                        }
+                    });
+                }
+                {% if form_script_success %}{{ form_script_success|raw }}
+                {% else %}return;{% endif %}
+            };
+            var _error = function(e){
+                $('body').MessageBox({
+                    title: '{{ trans("messages.title_attention_alert")|capitalize }}:',
+                    text: '{{ trans("messages.no_send_form") }}'
+                });
+                {% if form_script_error %}{{ form_script_error|raw }}
+                {% else %}return;{% endif %}
+            };
+            var _send = function(){
+                //$.jo.debugStop();
+                var _values = _getValues();
+                if(formManager.modified(_form,$.extend({},_values))){
+                    $.jo.jqXhr.apply($.jo,[_action,_values,_success,_error,'json','post']);
+                }else{
+                    $('body').MessageBox({
+                        title: '{{ trans("messages.title_attention_alert")|capitalize }}:',
+                        text: '{{ trans("messages.no_change_form") }}'
+                    });
+                }
+            };
+            var _reset = function(){
+                _isError = {};
+                formManager.reset(_form);
+                $form.validate().resetForm();
+                $('.form-group',$form).removeClass('has-error');
+            };
+            $submit.on('click',function(e){
+                //$.jo.debugStop();
+                if(!Object.keys(_isError).length && $form.validate().form()){
+                    _send();
+                }else{
+                    $('body').MessageBox({
+                        title: '{{ trans("messages.title_attention_alert")|capitalize }}:',
+                        text: '{{ trans("messages.form_has_errors") }}'
+                    });
+                }
+            });
+            $reset.on('click',function(e){
+                _reset();
+            });
+            if($.fn.iCheck){
+                $('input').iCheck({ radioClass: 'iradio_flat-blue' });
+            }
+            {% if form_validate %}
+            var _rules = {{ form_validate|json_encode()|raw }};
+            var _launch = function(){
+                $form.validate($.extend({
+                    debug: true,
+                    showErrors: function(errorMap, errorList){
+                        $.each( errorMap, function(i){
+                            _isError[i] = this+'';
+                            $('input[id="hidden-'+i+'"]').parent().addClass('has-error');
+                        });
+                        this.defaultShowErrors();
+                    },
+                    success: function(label, element){
+                        if(Object.keys(_isError).indexOf(element.name)>-1){
+                            delete(_isError[element.name]);
+                            $('input[id="hidden-'+element.name+'"]').parent().removeClass('has-error');
+                        }
+                    },
+                    errorPlacement: function($label,$element){
+                        var $last = $element.parents('.form-group').children().last();
+                        $label.insertAfter($last);
+                    }
+                }, _rules));
+                _init();
+            };
+            if($.fn.validate){
+                if(_lang!='en'){
+                    $.jo.loadScripts(['/./assets/resources/jq_validation_messages_'+_lang+'.js'], _launch);
+                }else{
+                    _launch();
+                }
+            }
+            {% else %}
+                window.setTimeout( function(){
+                    _init();
+                }, 100);
+            {% endif %}
+        }
+    };
+    if($){ JQContentLoaded(); }
+    else{ document.addEventListener('DOMContentLoaded',JQContentLoaded); }
+})(window.jQuery);
+</script>
+{% endblock %}

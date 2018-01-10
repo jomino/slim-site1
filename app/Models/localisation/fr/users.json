@@ -1,0 +1,273 @@
+{
+	"id_user" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spId,2} unique" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "numeric"
+		}
+	},
+	"id_lang" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spId,2} langue" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "numeric"
+		}
+	},
+	"id_civil" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spId,2} civilité" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "numeric"
+		}
+	},
+	"id_eciv" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spId,2} état-civil" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "numeric"
+		}
+    },
+	"id_stat" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spId,2} statut" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "numeric"
+		}
+    },
+	"id_utype" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spId,2} type" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "numeric"
+		}
+    },
+	"id_ref" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spId,2} software" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "numeric"
+		}
+    },
+	"pnom" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "prénom" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "text"
+		}
+	},
+	"nom" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spName}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "text"
+		}
+    },
+	"street" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spAddress}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "text"
+		}
+	},
+	"cp" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spCp}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "text"
+		}
+	},
+	"ville" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spCommune}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "text"
+		}
+	},
+	"id_cty" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spId,2} pays" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "numeric"
+		}
+    },
+	"soc" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "société" },
+				{ "text" : "soc." }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "text"
+		}
+    },
+	"num" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "numéro" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "text"
+		}
+    },
+	"datein" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spDate}" },
+				{ "text" : "inscrit le" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "date",
+			"pattern" : "d/m/Y"
+		}
+    },
+	"datemod" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spDate}" },
+				{ "text" : "modifié le" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "date",
+			"pattern" : "d/m/Y"
+		}
+	},
+	"born" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spDate}" },
+				{ "text" : "né le" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "date",
+			"pattern" : "d/m/Y"
+		}
+	},
+	"wborn" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "lieu de naissance" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "text"
+		}
+	},
+	"natio" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spNatio,2}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "text"
+		}
+	},
+	"numnat" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spNum} {spNatio}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "text"
+		}
+	},
+	"comment" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spCommu}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "text"
+		}
+	}
+}

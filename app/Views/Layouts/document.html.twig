@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block doc_title %}{% endblock %}</title>
+        <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+        {% block doc_stylesheets %}{% endblock %}
+        {% block added_stylesheets %}{% endblock %}
+        {% block ie_spec %}
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+        {% endblock %}
+    </head>
+    <body class="{% block body_cls %}{% endblock %}"{% block body_id %} data-id="default"{% endblock %}>
+        {% block doc_flash %}{% endblock %}
+        {% block doc_body %}{% endblock %}
+        {% block doc_logger %}{% endblock %}
+        {% block doc_scripts %}{% endblock %}
+        {% block added_scripts %}{% endblock %}
+    </body>
+</html>

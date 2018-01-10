@@ -1,0 +1,25 @@
+{% macro recursiveMenu(menuitem) %}
+    {% if menuitem.menu %}
+        <li{% if menuitem.id %} id="{{ menuitem.id }}"{% endif %}>
+            <a href="#">
+                {% if menuitem.iconCls %}<i class="{{ menuitem.iconCls }}"></i>{% endif %}
+                {{ menuitem.label }}{% if menuitem.widget %}
+                    <span class="badge {{ menuitem.widget.cls }}">{{ menuitem.widget.label }}</span>{% endif %}
+                {% if not menuitem.widget %}<i class="fa fa-angle-left pull-right"></i>{% endif %}
+            </a>
+            <ul class="treeview-menu">
+                {% for child in menuitem.menu %}
+                    {{ _self.recursiveMenu(child) }}
+                {% endfor %}
+            </ul>
+        </li>
+    {% else %}
+        <li{% if menuitem.id %} id="{{ menuitem.id }}"{% endif %}>
+            <a href="javascript:" data-link="{{ menuitem.type }}" data-href="{{ menuitem.href }}" data-params="{{ menuitem.params }}" data-for="{{ menuitem.for }}">
+                {% if menuitem.iconCls %}<i class="{{ menuitem.iconCls }}"></i>{% endif %}
+                {{ menuitem.label }}{% if menuitem.widget %}
+                    <span class="badge {{ menuitem.widget.cls }}">{{ menuitem.widget.label }}</span>{% endif %}
+            </a>
+        </li>
+    {% endif %}
+{% endmacro %}

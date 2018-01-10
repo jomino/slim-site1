@@ -1,0 +1,58 @@
+{% extends "Layouts/document.html.twig" %}
+
+{# HEADER #}
+{% block doc_title %}
+    {% if title %}
+        {{ title }}
+    {% else %}
+        No Name Page
+    {% endif %}
+{% endblock %}
+
+{% block doc_stylesheets %}{{ parent() }}{% endblock %}
+
+{% block doc_scripts %}{{ parent() }}{% endblock %}
+
+{# BODY #}
+{% block doc_flash %}
+    {% if flash %}
+        {# --TODO-- #}
+    {% endif %}
+{% endblock %}
+
+{% block doc_logger %}
+    {% if logger %}
+        {# --TODO-- #}
+    {% endif %}
+{% endblock %}
+
+{% block added_scripts %}
+    {% if scripts %}
+        {# --TODO-- #}
+    {% endif %}
+{% endblock %}
+
+{% block doc_body %}
+    {% if body %}
+        {% if body.elements %}
+            {% if body.elements.header %}
+                {# --TODO-- #}
+            {% endif %}
+            {% if body.elements.aside %}
+                {# --TODO-- #}
+            {% endif %}
+            {% if body.elements.content %}
+                {# --TODO-- #}
+            {% endif %}
+            {% if body.elements.footer %}
+                {# --TODO-- #}
+            {% endif %}
+        {% else %}
+            {{ body|raw }}
+        {% endif %}
+    {% else %}
+        <h1>{{ trans("messages.hello") }}</h1>
+    {% endif %}
+{% endblock %}
+
+

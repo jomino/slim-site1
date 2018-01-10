@@ -1,0 +1,35 @@
+{
+	"id_dtype" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spId,2}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "numeric"
+		}
+    },
+	"ref_dtype" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spType} de document" }
+			]
+		},
+		"format" : {
+			"comment" : "type de ",
+			"type" : "values",
+			"values" : {
+				"default": "{noinfo}",
+				"service": "contrat de service",
+				"lease": "contrat de bail",
+				"insurance": "contrat d\\'assurance",
+				"state": "état des lieux",
+				"guarantee": "garantie locative",
+				"other": "{spOther}"
+			}
+		}
+    }
+}

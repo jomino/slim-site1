@@ -1,0 +1,137 @@
+{
+	"idpay" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spId,2}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "numeric"
+		}
+	},
+	"idgesloc" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spId,2} contrat" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "numeric"
+		}
+    },
+	"paytype" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spType} de frais" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "numeric"
+		}
+    },
+	"agence" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "uri client" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "text"
+		}
+    },
+	"debitsum" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "débité" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "numeric"
+		}
+    },
+	"creditsum" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "crédité" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "numeric"
+		}
+    },
+	"dt_debit" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spDate} de débit" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "date",
+			"pattern" : "d/m/Y"
+		}
+    },
+	"dt_credit" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spDate} de crédit" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "date",
+			"pattern" : "d/m/Y"
+		}
+    },
+	"dt_revers" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spDate} de reversement" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "date",
+			"pattern" : "d/m/Y"
+		}
+    },
+	"refpay" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "ref. payement" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "text"
+		}
+    },
+	"rem" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "remarque" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "text"
+		}
+    }
+}

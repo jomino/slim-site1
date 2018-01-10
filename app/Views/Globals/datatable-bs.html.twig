@@ -1,0 +1,67 @@
+<table id="{% block block_table_id %}{% endblock %}" class="display compact table table-sm" cellspacing="0" width="100%">
+    <thead>
+        <tr>
+        {% block block_table_header %}{% endblock %}
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="{% block block_table_len %}{% endblock %}">
+                <i class="fa fa-refresh fa-spin pull-left" style="margin: 3px;"></i>&nbsp;
+                <span style="font-size: 300;">{% block block_table_loading %}{% endblock %}</span>
+            </td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+        {% block block_table_footer %}{{ block("block_table_header") }}{% endblock %}
+        </tr>
+    </tfoot>
+</table>
+<script type="text/javascript">
+;(function($,document){
+    var _launch = function(){
+        $('#{% block elem_table_id %}{{ block("block_table_id") }}{% endblock %}').DataTable( {
+            responsive: true,
+            serverSide: true,
+            searching: false,
+            lengthChange: false,
+            pagingType: "simple_numbers",
+            columns: [{% block block_table_defs %}{% endblock %}],
+            {% block block_table_orderby %}{% endblock %}
+            language: { url: "{% block block_table_lang %}{% endblock %}" },
+            ajax: $.fn.dataTable.pipeline({
+                url: "{% block block_table_hdl %}{% endblock %}",
+                onbeforeload: function(){
+                    if(typeof($.fn.AWaiter)!='undefined'){ $('body').AWaiter('show'); };
+                },
+                onafterload: function(){
+                    if(typeof($.fn.AWaiter)!='undefined'){ $('body').AWaiter('hide'); };
+                }
+            }),
+            drawCallback: function() {
+                var _id = '{% block script_table_id %}{{ block("block_table_id") }}{% endblock %}';
+                $('#'+String.trim(_id)+' th[aria-controls="'+String.trim(_id)+'"]').off('click').on( 'click', function() {
+                    if(typeof($.fn.AWaiter)!='undefined'){ $('body').AWaiter('show'); }    
+                });
+            }
+        });
+    };
+    var loadScripts = function(){
+        var $ = $ || window.$;
+        var _load = function(){
+            if(!($.fn.dataTable)){
+                $.jo.loadScripts([{% block block_table_scripts %}{% endblock %}], _launch);
+            }else{
+                _launch();
+            }
+        };
+        if($){
+            if($.jo.loadScripts){ _load(); }
+            else{ $(document).on('jo.init', _load); }
+        }
+    };
+    if($){ loadScripts(); }
+    else{ document.addEventListener('DOMContentLoaded', loadScripts); }
+})(window.jQuery,window.document);
+</script>

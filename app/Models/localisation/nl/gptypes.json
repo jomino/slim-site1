@@ -1,0 +1,37 @@
+{
+	"id_gptype" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spId,2}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "numeric"
+		}
+    },
+	"ref_gptype" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "betaling {spType}" }
+			]
+		},
+		"format" : {
+			"comment" : "type de ",
+			"type" : "values",
+			"values" : {
+				"rent": "huur",
+				"insurance": "verzekering",
+				"heating": "verwarming",
+				"countdown": "tellen",
+				"maintains": "boiler/gasconv. onderhoudt",
+				"allowances": "voordelen",
+				"cleaning": "schoonmaak",
+				"recall": "terugroepen",
+				"other": "{spOther}"
+			}
+		}
+    }
+}

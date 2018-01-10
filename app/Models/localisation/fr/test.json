@@ -1,0 +1,26 @@
+{
+	"id" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spId,2}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "numeric"
+		}
+    },
+	"data" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spName}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "text"
+		}
+    }
+}

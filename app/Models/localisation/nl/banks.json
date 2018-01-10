@@ -1,0 +1,29 @@
+{
+	"id_bank" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spId,2}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "numeric"
+		}
+    },
+	"name" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spName}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "text"
+		}
+	},
+	"from" : {},
+	"to" : {},
+	"bic" : {}
+}

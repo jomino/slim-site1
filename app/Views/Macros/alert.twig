@@ -1,0 +1,8 @@
+{% macro bsAlert(datas) %}
+<div class="alert alert-{{ datas.type }}">
+    <a href="#" class="close" data-dismiss="alert">&times;</a>
+    <div class="alert-header">
+        <span>{% if datas.title %}<strong>{{ datas.title }}</strong> {% endif %}{{ datas.message|raw }}</span>
+    </div>
+</div>
+{% endmacro %}

@@ -1,0 +1,35 @@
+{
+	"id_dtype" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spId,2}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "numeric"
+		}
+    },
+	"ref_dtype" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "document {spType}" }
+			]
+		},
+		"format" : {
+			"comment" : "type de ",
+			"type" : "values",
+			"values" : {
+				"default": "{noinfo}",
+				"service": "servicecontract",
+				"lease": "huurovereenkomst",
+				"insurance": "Verzekeringscontract",
+				"state": "stand van zaken",
+				"guarantee": "huurgarantie",
+				"other": "{spOther}"
+			}
+		}
+    }
+}

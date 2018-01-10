@@ -1,0 +1,37 @@
+{
+	"id_gptype" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spId,2}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "numeric"
+		}
+    },
+	"ref_gptype" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spType} de payement" }
+			]
+		},
+		"format" : {
+			"comment" : "type de ",
+			"type" : "values",
+			"values" : {
+				"rent": "loyer",
+				"insurance": "assurance",
+				"heating": "chauffage",
+				"countdown": "décompte",
+				"maintains": "entr. chaud. / entr. conv.",
+				"allowances": "indemnités",
+				"cleaning": "nettoyage",
+				"recall": "rappel",
+				"other": "{spOther}"
+			}
+		}
+    }
+}

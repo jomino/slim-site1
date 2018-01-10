@@ -1,0 +1,32 @@
+{
+	"id_vptype" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spId,2}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "numeric"
+		}
+    },
+	"ref_vptype" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "betaling {spType}" }
+			]
+		},
+		"format" : {
+			"comment" : "type de ",
+			"type" : "values",
+			"values" : {
+				"default": "{noinfo}",
+				"monthly": "mensuel",
+				"quarterly": "trimestriel",
+				"ondemand": "à la demande"
+			}
+		}
+    }
+}

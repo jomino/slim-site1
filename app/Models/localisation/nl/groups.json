@@ -1,0 +1,26 @@
+{
+	"id_grp" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spId,2}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "numeric"
+		}
+    },
+	"ref_grp" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "groep" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "text"
+		}
+	}
+}

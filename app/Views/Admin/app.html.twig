@@ -1,0 +1,30 @@
+{% if body.elements %}
+    {% if body.elements.contacts %}
+        {% set contactEl = body.elements.contacts %}
+        {% include "Admin/App/Users/main.html.twig" %}
+    {% endif %}
+    {% if body.elements.properties %}
+        {% set propertyEl = body.elements.properties %}
+        {% include "Admin/App/Properties/main.html.twig" %}
+    {% endif %}
+    {% if body.elements.gesloc %}
+        {% set geslocEl = body.elements.gesloc %}
+        {% include "Admin/App/Gesloc/main.html.twig" %}
+    {% endif %}
+    {% if body.elements.geslocpay %}
+        {% set geslocpayEl = body.elements.geslocpay %}
+        {% include "Admin/App/Geslocpay/main.html.twig" %}
+    {% endif %}
+    {% if body.elements.geslochisto %}
+        {% set geslochistoEl = body.elements.geslochisto %}
+        {% include "Admin/App/Geslochisto/main.html.twig" %}
+    {% endif %}
+    {% if body.elements.geslocdoc %}
+        {% set geslocdocEl = body.elements.geslocdoc %}
+        {% include "Admin/App/Geslocdoc/main.html.twig" %}
+    {% endif %}
+    {% if body.elements.confirm %}
+        {% set confirmEl = body.elements.confirm %}
+        {% include "Admin/App/confirm.html.twig" %}
+    {% endif %}
+{% endif %}

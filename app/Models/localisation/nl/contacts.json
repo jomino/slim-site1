@@ -1,0 +1,50 @@
+{
+	"id_ctc" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spId,2}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "numeric"
+		}
+	},
+	"id_user" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spUser,0} {spType,1}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "numeric"
+		}
+	},
+	"id_ctype" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spContact,0} {spType,1}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "numeric"
+		}
+    },
+	"contact" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{infoc}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "text"
+		}
+	}
+}

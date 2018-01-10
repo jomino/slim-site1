@@ -1,0 +1,273 @@
+{
+	"id_user" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "uniek {spId,2}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "numeric"
+		}
+	},
+	"id_lang" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "taalige {spId,2}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "numeric"
+		}
+	},
+	"id_civil" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "beleefdheidt {spId,2}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "numeric"
+		}
+	},
+	"id_eciv" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "burgerlijke staat {spId,2}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "numeric"
+		}
+    },
+	"id_stat" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "status {spId,2}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "numeric"
+		}
+    },
+	"id_utype" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "type {spId,2}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "numeric"
+		}
+    },
+	"id_ref" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "software {spId,2}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "numeric"
+		}
+    },
+	"pnom" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "voornaam" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "text"
+		}
+	},
+	"nom" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spName}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "text"
+		}
+	},
+	"street" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spAddress}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "text"
+		}
+	},
+	"cp" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spCp}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "text"
+		}
+	},
+	"ville" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spCommune}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "text"
+		}
+	},
+	"id_cty" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "land {spId,2}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "numeric"
+		}
+    },
+	"soc" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "maatschappij" },
+				{ "text" : "maatsch." }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "text"
+		}
+	},
+	"num" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "numer" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "text"
+		}
+	},
+	"datein" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spDate}" },
+				{ "text" : "inscrit le" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "date",
+			"pattern" : "d/m/Y"
+		}
+    },
+	"datemod" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spDate}" },
+				{ "text" : "modifié le" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "date",
+			"pattern" : "d/m/Y"
+		}
+	},
+	"born" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spDate}" },
+				{ "text" : "geboren op" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "date",
+			"pattern" : "d/m/Y"
+		}
+	},
+	"wborn" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "geboorteplaats" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "text"
+		}
+	},
+	"natio" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spNatio,2}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "text"
+		}
+	},
+	"numnat" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spNatio} {spNum}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "text"
+		}
+	},
+	"comment" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spCommu}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "text"
+		}
+	}
+}

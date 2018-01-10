@@ -1,0 +1,32 @@
+{
+	"id_civil" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spId,2}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "numeric"
+		}
+    },
+	"ref_civil" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "civilité" }
+			]
+		},
+		"format" : {
+			"comment" : "type de ",
+			"type" : "values",
+			"values" : {
+				"nc": "{noinfo}",
+				"mister": "{spMr}",
+				"missis": "{spMs}",
+				"mrms": "{spMr,1} {spAnd,0} {spMs,1}"
+			}
+		}
+	}
+}

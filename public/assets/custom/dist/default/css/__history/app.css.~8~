@@ -1,0 +1,128 @@
+body{
+  background-color: #444444;
+}
+
+.overlay{
+    position: absolute;
+    background: #333333;
+    opacity: .5;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 10000;
+}
+
+.dataTable thead .sorting {
+	overflow-wrap: none;
+	vertical-align: top;
+	white-space: nowrap;
+}
+
+div.dataTables_info {
+	white-space: normal !important;
+	overflow-wrap: normal;
+}
+
+#app-loader {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-left: -16px;
+	z-index:1;
+}
+
+.loader,
+.loader:before,
+.loader:after {
+  background: #555555;
+  -webkit-animation: load1 1s infinite ease-in-out;
+  animation: load1 1s infinite ease-in-out;
+  width: 1em;
+  height: 4em;
+}
+.loader:before,
+.loader:after {
+  position: absolute;
+  top: 0;
+  content: "";
+}
+.loader:before {
+  left: -1.5em;
+}
+.loader {
+  text-indent: -9999em;
+  margin: 8em auto;
+  position: relative;
+  font-size: 12px;
+  -webkit-animation-delay: -0.16s;
+  animation-delay: -0.16s;
+}
+.loader:after {
+  left: 1.5em;
+  -webkit-animation-delay: -0.32s;
+  animation-delay: -0.32s;
+}
+@-webkit-keyframes load1 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 0 #3E8BB9;
+    height: 4em;
+  }
+  40% {
+    box-shadow: 0 -2em #3E8BB9;
+    height: 5em;
+  }
+}
+@keyframes load1 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 0 #3E8BB9;
+    height: 4em;
+  }
+  40% {
+    box-shadow: 0 -2em #3E8BB9;
+    height: 5em;
+  }
+}
+
+.table tr th {
+  background-color: #3E8BB9;
+  color: white;
+}
+
+.footable-filtering {
+	display: none;
+}
+
+.jo-gesloc-coins-0 {
+	background-image: url(/./assets/images/coins.png);
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.jo-gesloc-coins-1 {
+	background-image: url(/./assets/images/coins.png);
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.jo-gesloc-coins-2 {
+	background-image: url(/./assets/images/coins_alert.png);
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.jo-gesloc-info {
+	background-image: url(/./assets/images/information.png);
+	background-repeat: no-repeat;
+	background-position: center 2px;
+}
+
+i.jo-icon:after{
+	content: url(/./assets/images/16x16.png);
+	width: 16px;
+	height: 16px;
+}

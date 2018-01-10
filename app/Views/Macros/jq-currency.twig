@@ -1,0 +1,62 @@
+{% macro render(item) %}
+<div class="form-group {% if item.classes %}{{ item.classes|join(' ') }}{% endif %}">
+    <input type="hidden"{% if item.form %} form="{{ item.form }}"{% endif %} id="hidden-{{ item.name }}" value="{% if item.raw %}{{ item.raw }}{% else %}0.00{% endif %}">
+    {% if item.label %}<label class="control-label text-nowrap" for="{{ item.id }}">{{ trans(item.label)|capitalize }}</label>{% endif %}
+    {% if item.icon_after or item.icon_before %}<div class="input-group">{% endif %}
+    {% if item.icon_before %}<span class="input-group-addon">{{ item.icon_before|raw }}</span>{% endif %}
+    <input class="form-control" type="{{ item.type }}" name="{{ item.name }}" id="{{ item.id }}" value="{% if item.value or item.value == '0' %}{{ item.value }}{% endif %}"{% if item.form %} form="{{ item.form }}"{% endif %}{% if item.placeholder %} placeholder="{{ trans(item.placeholder) }}"{% endif %}{% if item.readonly %} readonly{% endif %}{% if item.required %} required{% endif %}>
+    {% if item.icon_after %}<span class="input-group-addon">{{ item.icon_after|raw }}</span>{% endif %}
+    {% if item.icon_after or item.icon_before %}</div>{% endif %}
+<script type="text/javascript">
+;(function($){
+    var JQContentLoaded = function(){
+        var $ = $ || window.$;
+        if($){
+            {% if item.debug %}/*
+                {{ item.debug|raw }}
+            */{% endif %}
+            var $input = $('input#{{ item.id }}');
+            var $hidden = $('input#hidden-{{ item.name }}');
+            $input.on('focus', function(){
+                this.select();
+            });
+            $input.on('input', function(){
+                $.jo.debugStop();
+                var start = this.selectionStart, end = this.selectionEnd, _value = $(this).val();
+                if(_value!='-'){
+                    var f_num = $.jo.formatNumber(_value);
+                    var v_num = $.jo.formatNumber(f_num,'string');
+                    var _hidval = $hidden.val();
+                    if(_hidval!=f_num){ $hidden.val(f_num); }
+                    // bug => put value both on 'attr' and 'val' method
+                    $(this).attr('value',v_num);
+                    $(this).val(v_num);
+                }
+                this.selectionStart = start, this.selectionEnd = end;
+            });
+            $hidden.on('change', function(){
+                //$.jo.debugStop();
+                var _hidval = $(this).val();
+                $(this).val($.jo.formatNumber(_hidval));
+                var _value = $.jo.formatNumber(_hidval,'string');
+                if($input.val()!=_value){
+                    $input.val(_value);
+                    $input.trigger('input');
+                }
+            });
+            if($.fn.validate){
+                if(!$.validator.methods.form_currency){
+                    $.validator.addMethod('form_currency', function(value, element){
+                        //$.jo.debugStop();
+                        return element.required ? value!='0,00':true;
+                    }, '{{- trans("messages.no_empty_allowed")|capitalize -}}');
+                }
+            }
+        }
+    };
+    if($){ JQContentLoaded(); }
+    else{ document.addEventListener('DOMContentLoaded',JQContentLoaded); }
+})(window.jQuery);
+</script>
+</div>
+{% endmacro %}

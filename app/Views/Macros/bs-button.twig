@@ -1,0 +1,17 @@
+{% macro render(item) %}
+    {% if item.form %}
+    <form style="display: inline-block;"{% if item.form.name %} name="{{ item.form.name }}"{% endif %}{% if item.form.id %} id="{{ item.form.id }}"{% endif %}{% if item.form.target %} target="{{ item.form.target }}"{% endif %}{% if item.form.action %} action="{{ item.form.action }}"{% endif %} method="{% if item.form.method %}{{ item.form.method }}{% else %}post{% endif %}">
+        {% if item.form.fields %}
+            {% for field in item.form.fields %}
+                <input type="hidden"{% if field.id %} id="{{ field.id }}"{% endif %} name="{{ field.name }}" value="{% if field.value %}{{ field.value }}{% endif %}">
+            {% endfor %}
+        {% endif %}
+    {% endif %}
+        <button id="{{ item.id }}" type="{{ item.type }}" class="btn {% if item.classes %}{{ item.classes|join(' ') }}{% endif %}">{% if item.label %}{{ trans(item.label)|capitalize }}{% else %}default{% endif %}</button>
+    {% if item.form %}
+    </form>
+    {% endif %}
+    {% if item.script %}
+        {{ item.script|raw }}
+    {% endif %}
+{% endmacro %}

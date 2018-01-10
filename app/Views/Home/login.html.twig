@@ -1,0 +1,58 @@
+{% extends "Layouts/document.html.twig" %}
+
+{# HEADER #}
+{% block doc_title %}
+    {% if title %}
+        {{ title }}
+    {% else %}
+        ProMan Login form
+    {% endif %}
+{% endblock %}
+
+{% block doc_stylesheets %}
+    {{ assets("default_lib","css","vendor")|raw }}
+    {{ assets("fa_lib","css","vendor")|raw }}
+    {{ assets("ionicons_lib","css","vendor")|raw }}
+    {{ assets("alte_lib","css","vendor")|raw }}
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+{% endblock %}
+
+{% block doc_scripts %}
+    {{ assets("default_lib","js","vendor")|raw }}
+    {{ assets("alte_lib","js","vendor")|raw }}
+{% endblock %}
+
+{# BODY #}
+{% block doc_flash %}
+    {% if flash %}
+        {# --TODO-- #}
+    {% endif %}
+{% endblock %}
+
+{% block doc_logger %}
+    {% if logger %}
+        {# --TODO-- #}
+    {% endif %}
+{% endblock %}
+
+{% block added_scripts %}
+    {% if scripts %}
+        {# --TODO-- #}
+    {% endif %}
+{% endblock %}
+
+{% block doc_body %}
+<div class="row" style="margin: 7% 0px;">
+    <div class="row">
+        <div class="col-md-12" style="background-color: #387AA2;">&#160;</div>
+    </div>
+    <div class="row">
+        {% include "Home/Login/form.html.twig" %}
+    </div>
+    <div class="row">
+        <div class="col-md-12" style="background-color: #387AA2;">&#160;</div>
+    </div>
+</div>
+{% endblock %}
+
+

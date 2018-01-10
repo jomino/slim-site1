@@ -1,0 +1,952 @@
+{
+	"formats" : {
+		"ouinon" : {
+			"comment" : "",
+			"type" : "values",
+			"values" : {
+				"1" : "_default_OUI",
+				"0" : "_default_NON"
+			}
+		},
+		"xon" : {
+			"comment" : "",
+			"type" : "values",
+			"values" : {
+				"X" : "_default_nc",
+				"O" : "_default_OUI",
+				"N" : "_default_NON"
+			}
+		},
+		"conform" : {
+			"type" : "values",
+			"values" : {
+				"X" : "{noinfo}",
+				"N" : "{NON}",
+				"P" : "{OUI}, non conforme",
+				"O" : "{OUI}, conforme"
+			}
+		}
+	},
+	"generic" : {
+		"dec2m2" : {
+			"comment" : "Exprime la surface",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "m²" },
+				{ "text" : "mètre(s) carré(s)" }
+			]
+		},
+		"meter" : {
+			"comment" : "Exprime la longueur",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "m" },
+				{ "text" : "mètre(s)" }
+			]
+		},
+		"nc" : {
+			"comment" : "Exprime l\\'absence de donnée",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "n.c." },
+				{ "text" : "non communiqué" }
+			]
+		},
+		"currency" : {
+			"comment" : "Unité monnaitaire [EUR]",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "euro(s)" },
+				{ "text" : "&euro;" },
+				{ "text" : "€" }
+			]
+		},
+		"spA" : {
+			"comment" : "Préposition [à]",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "à" },
+				{ "text" : "à" }
+			]
+		},
+		"spActiv" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "actif" },
+				{ "text" : "active" },
+				{ "text" : "inactif" }
+			]
+		},
+		"spAdd" : {
+			"comment" : "ajouter",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "ajouter" },
+				{ "text" : "nouveau" },
+				{ "text" : "nouvel" },
+				{ "text" : "additionnels" }
+			]
+		},
+		"spAddress" : {
+			"comment" : "Localisation géographique textuel",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "adresse" },
+				{ "text" : "adresses" }
+			]
+		},
+		"spAgency" : {
+			"comment" : "Indique l\\'url du site",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "agence" },
+				{ "text" : "agences" }
+			]
+		},
+		"spAll" : {
+			"comment" : "Préposition [tous]",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "tous" },
+				{ "text" : "toutes" }
+			]
+		},
+		"spAnnul" : {
+			"comment" : "annul",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "annuler" },
+				{ "text" : "annulation" }
+			]
+		},
+		"spAppart" : {
+			"comment" : "type de bien",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "appartement" },
+				{ "text" : "appartements" }
+			]
+		},
+		"spBien" : {
+			"comment" : "Désigne un \\'bien\\' ",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "bien" },
+				{ "text" : "biens" },
+				{ "text" : "bien(s)" },
+				{ "text" : "{spBien,1} {spNatio,1}" },
+				{ "text" : "{spBien,1} {spEtranger,1}" },
+				{ "text" : "{spAll,0} {spVos,0} {spBien,1}" },
+				{ "text" : "{spAdd} {UN} {spBien}" },
+				{ "text" : "{spAdd,1} {spBien,0}" }
+			]
+		},
+		"spCat" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "catégorie" },
+				{ "text" : "catégories" },
+				{ "text" : "sous-catégorie" }
+			]
+		},
+		"spChambre" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "chambre" },
+				{ "text" : "chambres" }
+			]
+		},
+		"spChoice" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "choix" },
+				{ "text" : "choisissez" }
+			]
+		},
+		"spCity" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "ville" }
+			]
+		},
+		"spClick" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "cliquez ici" }
+			]
+		},
+		"spClose" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "fermer" }
+			]
+		},
+		"spCommand" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "commander" },
+				{ "text" : "commandé" },
+				{ "text" : "commandés" },
+				{ "text" : "commande" }
+			]
+		},
+		"spCommu" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "communication" },
+				{ "text" : "communications" }
+			]
+		},
+		"spCommune" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "commune" },
+				{ "text" : "communes" },
+				{ "text" : "com." }
+			]
+		},
+		"spConfirm" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "confirmer" },
+				{ "text" : "confirmation" }
+			]
+		},
+		"spContact" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "contact" },
+				{ "text" : "contacts" },
+				{ "text" : "{spAdd} {UN} {spContact}" },
+				{ "text" : "{spAll,0} {spVos,0} {spContact,1}" },
+				{ "text" : "{spContact,1} {spAdd,3}" },
+				{ "text" : "{spAdd,1} {spContact,0}" }
+			]
+		},
+		"spContinue" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "continuer" }
+			]
+		},
+		"spCourse" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "course" }
+			]
+		},
+		"spCp" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "c.p." },
+				{ "text" : "code postal" }
+			]
+		},
+		"spDate" : {
+			"comment" : "Désigne une date",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "date" },
+				{ "text" : "dates" },
+				{ "text" : "dt." }
+			]
+		},
+		"spDateShort" : {
+			"comment" : "Décrit mois/année",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "mm/aa" }
+			]
+		},
+		"spDel" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "effacer" }
+			]
+		},
+		"spDelivery" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "livraison" },
+				{ "text" : "livraisons" }
+			]
+		},
+		"spDescr" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "description" },
+				{ "text" : "descriptions" }
+			]
+		},
+		"spDisplay" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "afficher" },
+				{ "text" : "affichage" },
+				{ "text" : "affiché" },
+				{ "text" : "affichée" }
+			]
+		},
+		"spDriver" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "chauffeur" }
+			]
+		},
+		"spEdit" : {
+			"comment" : "Décrit la modification",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "éditer" }
+			]
+		},
+		"spEnd" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "arrivée" },
+				{ "text" : "finaliser" }
+			]
+		},
+		"spEncode" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "encodage" },
+				{ "text" : "encodé" }
+			]
+		},
+		"spEtranger" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "étranger" },
+				{ "text" : "étrangers" }
+			]
+		},
+		"spExport" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "exportation" },
+				{ "text" : "exporter" },
+				{ "text" : "exporté" },
+				{ "text" : "exportés" }
+			]
+		},
+		"spFilter" : {
+			"comment" : "Décrit ",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "filtrer" }
+			]
+		},
+		"spGes" : {
+			"comment" : "titre \\'Gestion\\'",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "gestion" }
+			]
+		},
+		"spHide" : {
+			"comment" : "Décrit pas visible",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "caché" },
+				{ "text" : "cachés" }
+			]
+		},
+		"spHours" : {
+			"comment" : "Décrit ",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "heure" }
+			]
+		},
+		"spHouse" : {
+			"comment" : "type de bien: maison",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "maison" },
+				{ "text" : "maisons" }
+			]
+		},
+		"spId" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "identifiant" },
+				{ "text" : "identifiants" },
+				{ "text" : "id" }
+			]
+		},
+		"spImport" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "importer" },
+				{ "text" : "ne plus importer" }
+			]
+		},
+		"spLabel" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "label" },
+				{ "text" : "libellé" }
+			]
+		},
+		"spList" : {
+			"comment" : "Message collection",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "liste" },
+				{ "text" : "listing" }
+			]
+		},
+		"spLoads" : {
+			"comment" : "Message durant l\\'attente",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "chargement" },
+				{ "text" : "charger" }
+			]
+		},
+		"spMail" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "e-mail" },
+				{ "text" : "e-mails" }
+			]
+		},
+		"spMerci" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "merci" }
+			]
+		},
+		"spMr" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "monsieur" },
+				{ "text" : "Mr." }
+			]
+		},
+		"spMs" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "madame" },
+				{ "text" : "Mm." }
+			]
+		},
+		"spName" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "nom" },
+				{ "text" : "noms" }
+			]
+		},
+		"spNatio" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "national" },
+				{ "text" : "nationaux" },
+				{ "text" : "nationalité" }
+			]
+		},
+		"spNone" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "aucun" },
+				{ "text" : "aucune" }
+			]
+		},
+		"spNum" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "numéro" },
+				{ "text" : "numéros" }
+			]
+		},
+		"spOption" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "option" },
+				{ "text" : "options" },
+				{ "text" : "sous option" }
+			]
+		},
+		"spOther" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "autre" },
+				{ "text" : "autres" }
+			]
+		},
+		"spOwner" : {
+			"comment" : "type d\\'utilisateur",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "propriétaire" },
+				{ "text" : "propriétaires" }
+			]
+		},
+		"spPays" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "pays" }
+			]
+		},
+		"spPhoto" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "photo" },
+				{ "text" : "photos" }
+			]
+		},
+		"spPrice" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "prix" }
+			]
+		},
+		"spPwd" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "mot de passe" }
+			]
+		},
+		"spTPhone" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "téléphone" },
+				{ "text" : "téléphones" },
+				{ "text" : "tel." }
+			]
+		},
+		"spPrint" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "imprimer" }
+			]
+		},
+		"spProjet" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "projet" },
+				{ "text" : "projets" },
+				{ "text" : "{spAdd,1} {spProjet,0}" }
+			]
+		},
+		"spProxim" : {
+			"comment" : "Exprime ce qui est tout près",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "proximité" }
+			]
+		},
+		"spProspect" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "prospect" },
+				{ "text" : "prospects" }
+			]
+		},
+		"spProvince" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "province" },
+				{ "text" : "provinces" }
+			]
+		},
+		"spPub" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "publication" },
+				{ "text" : "publications" },
+				{ "text" : "{spAll,1} {spVos,0} {spPub,1}" }
+			]
+		},
+		"spQuit" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "quitter" }
+			]
+		},
+		"spRec" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "enregistrement" },
+				{ "text" : "enregistrements" },
+				{ "text" : "enregistré" },
+				{ "text" : "enregistrée" }
+			]
+		},
+		"spRef" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "référence" }
+			]
+		},
+		"spRefresh" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "rafraîchir" }
+			]
+		},
+		"spRem" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "remarque" },
+				{ "text" : "remarques" },
+				{ "text" : "remarque(s)" }
+			]
+		},
+		"spRet" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "retour" },
+				{ "text" : "retourner" }
+			]
+		},
+		"spRoom" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "pièce" },
+				{ "text" : "pièces" }
+			]
+		},
+		"spSave" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "sauver" },
+				{ "text" : "sauvegarder" }
+			]
+		},
+		"spSelect" : {
+			"comment" : "Sélection par defaut des listes",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "sélectionnez" },
+				{ "text" : "sélection" },
+				{ "text" : "sélections" },
+				{ "text" : "en sélection" }
+			]
+		},
+		"spSend" : {
+			"comment" : "Sélection par defaut des listes",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "envoyer" },
+				{ "text" : "envoi" }
+			]
+		},
+		"spStart" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "départ" }
+			]
+		},
+		"spStatus" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "statut" }
+			]
+		},
+		"spStep" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "étape" },
+				{ "text" : "suivant" },
+				{ "text" : "suivante" }
+			]
+		},
+		"spSuccess" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "succès" }
+			]
+		},
+		"spSur" : {
+			"comment" : "Préposition [sur]",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "sur" },
+				{ "text" : "sur" },
+				{ "text" : "de l\\'" }
+			]
+		},
+		"spTenant" : {
+			"comment" : "type d\\'utilisateur",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "locataire" },
+				{ "text" : "locataires" }
+			]
+		},
+		"spTitle" : {
+			"comment" : "Décrit le caractère de la donnée",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "titre" },
+				{ "text" : "titres" },
+				{ "text" : "sans titre" }
+			]
+		},
+		"spTrans" : {
+			"comment" : "Décrit le caractère de la donnée",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "transaction" },
+				{ "text" : "transactions" }
+			]
+		},
+		"spType" : {
+			"comment" : "Décrit le caractère de la donnée",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "type" },
+				{ "text" : "types" }
+			]
+		},
+		"spUndef" : {
+			"comment" : "Décrit ce qui n\\'est pas défini",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "indéfini" }
+			]
+		},
+		"spUser" : {
+			"comment" : "Décrit un utilisateur",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "utilisateur" }
+			]
+		},
+		"spVos" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "vos" }
+			]
+		},
+		"spUploads" : {
+			"comment" : "Message durant l\\'attente",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "téléchargement" }
+			]
+		},
+		"spYear" : {
+			"comment" : "Décrit le caractère de la donnée",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "an" },
+				{ "text" : "année" }
+			]
+		},
+		"langFR" : {
+			"comment" : "Type de langue utilisée",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "français" }
+			]
+		},
+		"langNL" : {
+			"comment" : "Type de langue utilisée",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "néérlandais" }
+			]
+		},
+		"langEN" : {
+			"comment" : "Type de langue utilisée",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "anglais" }
+			]
+		},
+		"langDE" : {
+			"comment" : "Type de langue utilisée",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "allemand" }
+			]
+		}
+	},
+	"all" : {
+		"OUI" : {
+			"comment" : "yes",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "oui" }
+			]
+		},
+		"NON" : {
+			"comment" : "no",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "non" }
+			]
+		},
+		"ET" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "et" }
+			]
+		},
+		"OU" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "ou" }
+			]
+		},
+		"UN" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "un" },
+				{ "text" : "une" }
+			]
+		},
+		"DE" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "de" },
+				{ "text" : "des" }
+			]
+		},
+		"DU" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "du" }
+			]
+		},
+		"noinfo" : {
+			"comment" : "Pas d\\'information disponnible",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "pas d\\'info" }
+			]
+		},
+		"norec" : {
+			"comment" : "Pas d\\'entrée dans la DB",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "aucun {spRec}" }
+			]
+		},
+		"notcorrect" : {
+			"comment" : "erreur ou pas correcte",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "incorrecte" },
+				{ "text" : "en erreur" },
+				{ "text" : "erreur" }
+			]
+		},
+		"infoc" : {
+			"comment" : "Coordonnée des contacts",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "infos de contact" }
+			]
+		},
+		"required" : {
+			"comment" : "Alert champ requis",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "ce champ est requis" },
+				{ "text" : "valeurs numériques uniquement" }
+			]
+		},
+		"level1" : {
+			"comment" : "type d\\'utilisateur",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "utilisateur" },
+				{ "text" : "utilisateurs" }
+			]
+		},
+		"level2" : {
+			"comment" : "type d\\'utilisateur",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "super utilisateur" },
+				{ "text" : "super utilisateurs" }
+			]
+		},
+		"level3" : {
+			"comment" : "type d\\'utilisateur",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "administrateur" },
+				{ "text" : "administrateurs" }
+			]
+		},
+		"level4" : {
+			"comment" : "type d\\'utilisateur",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "super administrateur" },
+				{ "text" : "super administrateurs" }
+			]
+		}
+	}
+}

@@ -1,0 +1,34 @@
+{
+	"id_eciv" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spId,2}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "numeric"
+		}
+    },
+	"ref_eciv" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "état civil" }
+			]
+		},
+		"format" : {
+			"comment" : "type de ",
+			"type" : "values",
+			"values" : {
+				"nc": "{noinfo}",
+				"alone": "célibataire",
+				"maried": "marié",
+				"separate": "séparé",
+				"divorced": "divorcé",
+				"widower": "veuf"
+			}
+		}
+	}
+}

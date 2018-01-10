@@ -1,0 +1,38 @@
+{% extends 'Globals/datatable-bs.html.twig' %}
+
+{% block block_table_id %}{% if table_id %}{{ table_id }}{% endif %}{% endblock %}
+
+{% block script_table_id %}{{ parent() }}{% endblock %}
+
+{% block elem_table_id %}{{ parent() }}{% endblock %}
+
+{% block block_table_lang %}
+{% if table_lang %}
+{{ table_lang }}{% endif %}
+{% endblock %}
+
+{% block block_table_header %}{% if table.columns %}{% for hcol in table.columns %}<th>{{ hcol.label|raw }}</th>{% endfor %}{% endif %}{% endblock %}
+
+{% block block_table_footer %}{{ parent() }}{% endblock %}
+
+{% block block_table_len %}{% if table.columns %}{{ table.columns|length }}{% endif %}{% endblock %}
+
+{% block block_table_defs %}{% if table_defs %}{% for column_def in table_defs %}
+{ data : {{ column_def.data|raw }}{% if column_def.visible %}, visible : {{ column_def.visible }}{% endif %}{% if column_def.render %}, render : {{ column_def.render|raw }}{% endif %}{% if column_def.orderable %}, orderable : {{ column_def.orderable }}{% endif %}{% if column_def.searchable %}, searchable : {{ column_def.searchable }}{% endif %} } {% if not loop.last %},{% endif %}{% endfor %}{% endif %}
+{% endblock %}
+
+{% block block_table_orderby %}
+{% if table_orderby|length %}order: [{{ table_orderby|join(',')|raw }}],
+{% endif %}{% endblock %}
+
+{% block block_table_hdl %}
+{% if table_hdl %}{{ table_hdl|raw }}{% endif %}
+{% endblock %}
+
+{% block block_table_loading %}
+{% if table_loading %}{{ table_loading }}{% endif %}
+{% endblock %}
+
+{% block block_table_scripts %}
+{% if table_scripts %}"{{ table_scripts|join('","')|raw }}"{% endif %}
+{% endblock %}
