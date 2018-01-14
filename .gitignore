@@ -4,8 +4,10 @@
 /app/Views/Test/*
 /app/Parameters.php
 /public/assets/vendor/
-!/sql/*.svg
-!/sql/*.xml
+!/public/assets/vendor/admin-lte/
+!/public/assets/vendor/Ionicons/
+/sql/*.svg
+/sql/*.xml
 /logs/*
 !/logs/.gitkeep
 
