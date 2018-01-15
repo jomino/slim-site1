@@ -4,7 +4,7 @@
             "js" : ["dist/jquery.js"]
         },
         "bootstrap": {
-            "js" : ["dist/js/*"],
+            "js" : ["dist/js/bootstrap.min.js"],
             "css" : ["dist/css/bootstrap.min.css","dist/css/bootstrap-theme.min.css"]
         }
     },
