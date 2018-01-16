@@ -105,8 +105,10 @@
     {% endif %}
 {% endmacro %}
 
+{% import _self as Renderer %}
+
 {% for item in items %}
 <!-- begin_setItems ID: {{ item.id|raw }} -->
-    {{ _self.setItems(item) }}
+    {{ Renderer.setItems(item) }}
 <!-- end_setItems -->
 {% endfor %}
