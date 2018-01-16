@@ -15,7 +15,7 @@ class PropertiesDeleteDefaultController extends \Core\Controller
 
         $ingo = Ingoing::all(array(
             "id_cli = ?" => $client->id_cli,
-            "id_cat = ?" => \App\Statics\Models::CATEGORY_TYPE_PROPERTIES
+            "id_cat = ?" => \App\Statics\Models::CATEGORY_TYPE_PROPERTY
         ));
 
         $count_ingo = 0;
