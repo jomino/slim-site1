@@ -5,7 +5,7 @@
 {% import 'Macros/jq-currency.twig' as jqCurrency %}
 {% import 'Macros/jq-dates.twig' as jqDate %}
     {% if item.items %}
-    <!-- begin_with_items -->
+    <!-- begin_with_items-{% if item.id %}{{ item.id|raw }}{% endif %} -->
         {% if item.tpl == "form-panel" %}
             <div class="panel panel-default"{% if item.id %} id="{{ item.id|raw }}"{% endif %}>
                 <div class="panel-heading">
