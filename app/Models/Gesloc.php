@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Auth\Auth as Auth;
+
 use App\Models\Ingoing;
 
 class Gesloc extends \Framework\Model
