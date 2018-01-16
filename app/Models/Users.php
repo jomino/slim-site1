@@ -17,6 +17,11 @@ class Users extends \Framework\Model
     protected $_withLocal = false;
 
     /**
+    * @readwrite
+    */
+    protected $_auth;
+
+    /**
     * @read
     */
     protected $_dependencies = array(
@@ -49,18 +54,25 @@ class Users extends \Framework\Model
         }
         return false;
     }
+
+    protected function getAuth()
+    {
+        if(empty($this->_auth)){
+            $this->_auth = new Auth();
+        }
+        return $this->_auth;
+    }
     
     /**
     * @override
     */
     public function insert()
     {
-        $auth = new Auth();
-        $client = $auth->user()->model;
+        $client = $this->auth->user()->model;
         $insertId = parent::insert();
         if($insertId>0){
             $ingoing = (new Ingoing( array( "data" => array( 
-                "id_cli" => $client->getRaw()->id_cli,
+                "id_cli" => $client->id_cli,
                 "id_cat" => \App\Statics\Models::CATEGORY_TYPE_USERS,
                 "id_ref" => $insertId
             ))))->insert();

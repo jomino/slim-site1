@@ -13,6 +13,11 @@ class Gesloc extends \Framework\Model
     protected $_withLocal = false;
 
     /**
+    * @readwrite
+    */
+    protected $_auth;
+
+    /**
     * @column
     * @primary
     * @readwrite
@@ -20,17 +25,25 @@ class Gesloc extends \Framework\Model
     * @label id contract
     */
     protected $_idgesloc;
+
+    protected function getAuth()
+    {
+        if(empty($this->_auth)){
+            $this->_auth = new Auth();
+        }
+        return $this->_auth;
+    }
     
     /**
     * @override
     */
     public function insert()
     {
-        $client = $this->client->model;
+        $client = $this->auth->user()->model;
         $insertId = parent::insert();
         if($insertId>0){
             $ingoing = (new Ingoing( array( "data" => array( 
-                "id_cli" => $client->getRaw()->id_cli,
+                "id_cli" => $client->id_cli,
                 "id_cat" => \App\Statics\Models::CATEGORY_TYPE_CONTRACT,
                 "id_ref" => $insertId
             ))))->insert();
