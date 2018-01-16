@@ -15,6 +15,11 @@ class Gesloc extends \Framework\Model
     protected $_withLocal = false;
 
     /**
+    * @read
+    */
+    protected $_dependencies = array();
+
+    /**
     * @readwrite
     */
     protected $_auth;
@@ -33,7 +38,33 @@ class Gesloc extends \Framework\Model
         if(empty($this->_auth)){
             $this->_auth = new Auth();
         }
-        return $this->_auth;
+        return $this->_auth->user();
+    }
+    
+    /**
+    * @override
+    */
+    public function delete($where=array())
+    {
+        if(!empty($this->_raw)){
+            $col_name = $this->primaryColumn["name"];
+            if(!empty($col_name)){
+                $_id = $this->{$col_name};
+            }
+        }
+        if(isset($_id)){
+            $t_where = array("{$col_name} = ?" => $_id);
+            for($i=0;$i<sizeof($this->_dependencies);$i++){
+                $class = $this->_dependencies[$i];
+                $class::deleteAll($t_where);
+            }
+            Ingoing::deleteAll(array(
+                "id_ref = ?" => $_id,
+                "id_cat = ?" => \App\Statics\Models::CATEGORY_TYPE_CONTRACT
+            ));
+            return parent::delete($where);
+        }
+        return false;
     }
     
     /**
@@ -41,7 +72,7 @@ class Gesloc extends \Framework\Model
     */
     public function insert()
     {
-        $client = $this->auth->user()->model;
+        $client = $this->auth->model;
         $insertId = parent::insert();
         if($insertId>0){
             $ingoing = (new Ingoing( array( "data" => array( 

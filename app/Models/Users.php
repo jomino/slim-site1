@@ -35,13 +35,13 @@ class Users extends \Framework\Model
     public function delete($where=array())
     {
         if(!empty($this->_raw)){
-            $col_name = $this->getPrimaryColumn()["name"];
+            $col_name = $this->primaryColumn["name"];
             if(!empty($col_name)){
-                $_id = $this->getRaw()->{$col_name};
+                $_id = $this->{$col_name};
             }
         }
         if(isset($_id)){
-            $t_where = array("id_user = ?" => $_id);
+            $t_where = array("{$col_name} = ?" => $_id);
             for($i=0;$i<sizeof($this->_dependencies);$i++){
                 $class = $this->_dependencies[$i];
                 $class::deleteAll($t_where);
@@ -60,7 +60,7 @@ class Users extends \Framework\Model
         if(empty($this->_auth)){
             $this->_auth = new Auth();
         }
-        return $this->_auth;
+        return $this->_auth->user();
     }
     
     /**
@@ -68,7 +68,7 @@ class Users extends \Framework\Model
     */
     public function insert()
     {
-        $client = $this->auth->user()->model;
+        $client = $this->auth->model;
         $insertId = parent::insert();
         if($insertId>0){
             $ingoing = (new Ingoing( array( "data" => array( 

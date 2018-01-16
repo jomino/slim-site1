@@ -15,6 +15,16 @@ class Properties extends \Framework\Model
     protected $_withLocal = false;
 
     /**
+    * @read
+    */
+    protected $_dependencies = array();
+
+    /**
+    * @readwrite
+    */
+    protected $_auth;
+
+    /**
     * @column
     * @primary
     * @readwrite
@@ -22,14 +32,47 @@ class Properties extends \Framework\Model
     * @label id
     */
     protected $_id_prop;
+
+    protected function getAuth()
+    {
+        if(empty($this->_auth)){
+            $this->_auth = new Auth();
+        }
+        return $this->_auth->user();
+    }
+    
+    /**
+    * @override
+    */
+    public function delete($where=array())
+    {
+        if(!empty($this->_raw)){
+            $col_name = $this->primaryColumn["name"];
+            if(!empty($col_name)){
+                $_id = $this->{$col_name};
+            }
+        }
+        if(isset($_id)){
+            $t_where = array("{$col_name} = ?" => $_id);
+            for($i=0;$i<sizeof($this->_dependencies);$i++){
+                $class = $this->_dependencies[$i];
+                $class::deleteAll($t_where);
+            }
+            Ingoing::deleteAll(array(
+                "id_ref = ?" => $_id,
+                "id_cat = ?" => \App\Statics\Models::CATEGORY_TYPE_PROPERTY
+            ));
+            return parent::delete($where);
+        }
+        return false;
+    }
     
     /**
     * @override
     */
     public function insert()
     {
-        $auth = new Auth();
-        $client = $auth->user()->model;
+        $client = $this->auth->model;
         $insertId = parent::insert();
         if($insertId>0){
             $ingoing = (new Ingoing( array( "data" => array( 
