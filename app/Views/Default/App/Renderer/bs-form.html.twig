@@ -1,6 +1,5 @@
 
 {% macro setItems(item) %}
-{% import _self as self %}
 {% import 'Macros/bs-input.twig' as bsInput %}
 {% import 'Macros/bs-select.twig' as bsSelect %}
 {% import 'Macros/bs-button.twig' as bsButton %}
@@ -22,12 +21,12 @@
                             {% if loop.index0 % item.vertical == 0 %}
                                 <!-- begin_v --><div class="{{ item.layout }}">
                             {% endif %}
-                            {{ self.setItems(item_1) }}
+                            {{ _self.setItems(item_1) }}
                             {% if (loop.index0 % item.vertical == ( item.vertical - 1 ) ) or loop.last %}
                                 </div><!-- end_v -->
                             {% endif %}
                         {% else %}
-                            <div class="{{ item.layout }}">{{ self.setItems(item_1) }}</div>
+                            <div class="{{ item.layout }}">{{ _self.setItems(item_1) }}</div>
                         {% endif %}
                     {% endfor %}                
                 </div>
