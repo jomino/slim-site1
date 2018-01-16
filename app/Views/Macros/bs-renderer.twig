@@ -1,4 +1,5 @@
 {% macro setItems(item) %}
+{% import _self as self %}
 {% import 'Macros/bs-input.twig' as bsInput %}
 {% import 'Macros/bs-select.twig' as bsSelect %}
 {% import 'Macros/bs-button.twig' as bsButton %}
@@ -20,12 +21,12 @@
                             {% if loop.index0 % item.vertical == 0 %}
                                 <!-- begin_v --><div class="{{ item.layout }}">
                             {% endif %}
-                            {{ _self.setItems(item_1) }}
+                            {{ self.setItems(item_1) }}
                             {% if (loop.index0 % item.vertical == ( item.vertical - 1 ) ) or loop.last %}
                                 </div><!-- end_v -->
                             {% endif %}
                         {% else %}
-                            <div class="{{ item.layout }}">{{ _self.setItems(item_1) }}</div>
+                            <div class="{{ item.layout }}">{{ self.setItems(item_1) }}</div>
                         {% endif %}
                     {% endfor %}                
                 </div>
@@ -46,7 +47,7 @@
             <div class="tab-content">
                 {% for item_body in item.items %}
                     <div class="tab-pane{% if loop.first %} active{% endif %}" id="tab_{{ item.id }}-{{ loop.index }}">
-                        <div class="{{ item.layout }}">{{ _self.setItems(item_body) }}</div>
+                        <div class="{{ item.layout }}">{{ self.setItems(item_body) }}</div>
                     </div>
                 {% endfor %} 
             </div>
@@ -54,7 +55,7 @@
             <div class="row">
                 <div class="{% if item.layout %}{{ item.layout }}{% else %}col-md-10 col-md-offset-2{% endif %}">
                 {% for item_v in item.items %}
-                    {{ _self.setItems(item_v) }}
+                    {{ self.setItems(item_v) }}
                 {% endfor %} 
                 </div>
             </div>
@@ -62,7 +63,7 @@
             {% if item.tpl %}<div class="{{ item.tpl }}">{% endif %}
             {% for item_n in item.items %}
                 {% if item.layout %}<div class="{{ item.layout }}">{% endif %}
-                    {{ _self.setItems(item_n) }}
+                    {{ self.setItems(item_n) }}
                 {% if item.layout %}</div>{% endif %}
             {% endfor %} 
             {% if item.tpl %}</div>{% endif %}
