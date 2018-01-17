@@ -1212,8 +1212,9 @@ namespace Framework
                         $ref_field = $record->getSecondaryColumn();
                         if(!empty($ref_field)){
                             //delete previus record by ref
+                            $n_field = $ref_field['name'];
                             $is_previus = self::first(array(
-                                "{$ref_field['name']} = ?" => $record->getRaw()->{$ref_field}
+                                "{$n_field} = ?" => $record->{$ref_field}
                             ));
                             if(!empty($is_previus)){
                                 $is_previus->delete();
@@ -1222,10 +1223,11 @@ namespace Framework
                         if($record->validate()){
                             //insert the new record
                             $insertId = array(
-                                $this->primaryColumn["name"] => $record->insert()
+                                $this->getPrimaryColumn()["name"] => $record->insert()
                             );
                             //set the dependent records's values
-                            foreach($_row->columns as $col=>$prop)
+                            $cols = $_class::getColumnsInfos();
+                            foreach($cols as $col=>$prop)
                             {
                                 if($prop["setter"])
                                 {
