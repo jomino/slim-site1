@@ -1244,7 +1244,7 @@ namespace Framework
                                     if(method_exists($_row,$method))
                                     {
                                         //$_row->$method($insertId);
-                                        call_user_func_array(array($_row,$method),array($insertId));
+                                        call_user_func_array(array(&$_row,$method),array($insertId));
                                     }
                                 }
                             }
