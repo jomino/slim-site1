@@ -1240,7 +1240,7 @@ namespace Framework
                                 if($prop["setter"])
                                 {
                                     $method = "set".ucfirst($prop["name"]);
-                                    $this->logger->debug("{$col} setter for: ".$prop["name"]);
+                                    $this->logger->debug("{$method}()",$insertId);
                                     if(method_exists($_row,$method))
                                     {
                                         $_row->$method($insertId);
