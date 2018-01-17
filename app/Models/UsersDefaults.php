@@ -76,7 +76,7 @@ class UsersDefaults extends \Framework\Model
         
     public function setTelbur($param=array())
     {
-        $v_ref = trim($this->_telbur);
+        $v_ref = trim($this->telbur);
         $this->logger->debug("setTelbur()",array($v_ref));
         if(!empty($v_ref)){
             $class = \App\Models\Contacts::class;
@@ -99,7 +99,7 @@ class UsersDefaults extends \Framework\Model
         
     public function setFax($param=array())
     {
-        $v_ref = trim($this->_fax);
+        $v_ref = trim($this->fax);
         $this->logger->debug("setFax()",array($v_ref));
         if(!empty($v_ref)){
             $class = \App\Models\Contacts::class;
@@ -122,7 +122,7 @@ class UsersDefaults extends \Framework\Model
         
     public function setGsm($param=array())
     {
-        $v_ref = trim($this->_gsm);
+        $v_ref = trim($this->gsm);
         $this->logger->debug("setGsm()",array($v_ref));
         if(!empty($v_ref)){
             $class = \App\Models\Contacts::class;
@@ -145,7 +145,7 @@ class UsersDefaults extends \Framework\Model
         
     public function setCompte($param=array())
     {
-        $v_ref = trim(preg_replace("#[^a-zA-Z0-9-]*#","",$this->_compte));
+        $v_ref = trim(preg_replace("#[^a-zA-Z0-9-]*#","",$this->compte));
         $this->logger->debug("setCompte()",array($v_ref));
         if(!empty($v_ref)){
             $id_bank = 0;
