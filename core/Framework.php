@@ -25,6 +25,9 @@ class Framework
         ));
         \Framework\Registry::set("localisation", $localisation->initialize(substr($_SERVER['HTTP_ACCEPT_LANGUAGE'],0,2)));
 
+        // container passthru
+        \Framework\Registry::set("container", $container);
+        
         // unset locals
         unset($configuration);
         unset($database);

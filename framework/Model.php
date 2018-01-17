@@ -13,6 +13,12 @@ namespace Framework
     
     class Model extends Base
     {
+        
+        /**
+        * @readwrite
+        */
+        protected $_logger;
+
         /**
         * @read
         */
@@ -168,6 +174,8 @@ namespace Framework
         
         public function __construct($options = array())
         {
+
+            $this->_logger = Registry::get("container")->logger;
 
             if(isset($options["data"])){
                 $data = $options["data"];
@@ -1232,10 +1240,11 @@ namespace Framework
                                 if($prop["setter"])
                                 {
                                     $method = "set".ucfirst($prop["name"]);
+                                    $this->logger->debug("{$col} setter for: ".$prop["name"]);
                                     if(method_exists($_row,$method))
                                     {
-                                        //$_row->$method($insertId);
-                                        call_user_func_array(array($_row,$method),array($insertId));
+                                        $_row->$method($insertId);
+                                        //call_user_func_array(array($_row,$method),array($insertId));
                                     }
                                 }
                             }
