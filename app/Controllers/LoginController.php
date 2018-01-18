@@ -2,8 +2,6 @@
 
 namespace App\Controllers;
 
-use App\Auth\Auth as Auth;
-
 class LoginController extends \Core\Controller
 {
     public function __invoke($request, $response, $args)

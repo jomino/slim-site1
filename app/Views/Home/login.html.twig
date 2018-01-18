@@ -17,6 +17,16 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 {% endblock %}
 
+{% block added_stylesheets %}
+<style>
+body {
+    background-image: url("./assets/images/bckgrd-login.jpg");
+    background-repeat: no-repeat;
+    background-position: -125px -125px;
+}
+</style>
+{% endblock %}
+
 {% block doc_scripts %}
     {{ assets("default_lib","js","vendor")|raw }}
     {{ assets("alte_lib","js","vendor")|raw }}
@@ -42,7 +52,7 @@
 {% endblock %}
 
 {% block doc_body %}
-<div class="row" style="margin: 7% 0px;">
+<div class="row" style="margin: 12% 0px;">
     <div class="row">
         <div class="col-md-12" style="background-color: #387AA2;">&#160;</div>
     </div>
