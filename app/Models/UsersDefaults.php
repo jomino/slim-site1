@@ -51,7 +51,7 @@ class UsersDefaults extends \Framework\Model
     */
     protected $_email;
         
-    public function setEmail($param=array())
+    public function _setEmail($param=array())
     {
         $v_ref = trim($this->_email);
         //$this->logger->debug("setEmail()",array($v_ref));
@@ -74,7 +74,7 @@ class UsersDefaults extends \Framework\Model
     */
     protected $_telbur;
         
-    public function setTelbur($param=array())
+    public function _setTelbur($param=array())
     {
         $v_ref = trim($this->_telbur);
         //$this->logger->debug("setTelbur()",array($v_ref));
@@ -97,7 +97,7 @@ class UsersDefaults extends \Framework\Model
     */
     protected $_fax;
         
-    public function setFax($param=array())
+    public function _setFax($param=array())
     {
         $v_ref = trim($this->_fax);
         //$this->logger->debug("setFax()",array($v_ref));
@@ -120,7 +120,7 @@ class UsersDefaults extends \Framework\Model
     */
     protected $_gsm;
         
-    public function setGsm($param=array())
+    public function _setGsm($param=array())
     {
         $v_ref = trim($this->_gsm);
         //$this->logger->debug("setGsm()",array($v_ref));
@@ -143,7 +143,7 @@ class UsersDefaults extends \Framework\Model
     */
     protected $_compte;
         
-    public function setCompte($param=array())
+    public function _setCompte($param=array())
     {
         $v_ref = trim(preg_replace("#[^a-zA-Z0-9-]*#","",$this->_compte));
         //$this->logger->debug("setCompte()",array($v_ref));
