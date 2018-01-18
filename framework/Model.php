@@ -1209,7 +1209,7 @@ namespace Framework
                 {
                     $_row = new $_class(array("data"=>(array)$result[$i]));
                     $model_raw = array();
-                    $this->logger->debug("_row[{$i}]",array(print_r($_row,true)));
+                    //$this->logger->debug("_row[{$i}]",array(print_r($_row,true)));
                     foreach($this->columns as $field=>$props)
                     {
                         $model_raw["{$field}"] = $_row->{$field};
