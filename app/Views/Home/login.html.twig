@@ -14,8 +14,8 @@
 {% block doc_stylesheets %}
     {{ assets("default_lib","css","vendor")|raw }}
     {{ assets("fa_lib","css","vendor")|raw }}
-    {{ assets("ionicons_lib","css","vendor")|raw }}
     {{ assets("alte_lib","css","vendor")|raw }}
+    {{ assets("util_lib","css","vendor")|raw }}
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 {% endblock %}
 
@@ -33,6 +33,7 @@ body {
 {% block doc_scripts %}
     {{ assets("default_lib","js","vendor")|raw }}
     {{ assets("alte_lib","js","vendor")|raw }}
+    {{ assets("util_lib","js","vendor")|raw }}
 {% endblock %}
 
 {# BODY #}

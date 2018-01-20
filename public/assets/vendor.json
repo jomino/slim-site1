@@ -113,7 +113,7 @@
         },
         "amaranjs": {
             "js": ["dist/js/jquery.amaran.min.js"],
-            "css": ["dist/css/*"]
+            "css": ["dist/css/amaran.min.css","dist/css/animate.min.css"]
         }
     }
 }

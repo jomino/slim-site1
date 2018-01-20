@@ -11,7 +11,7 @@ class LoginController extends \Core\Controller
             $with_error = array();
             if($request->getAttribute("error_login")==true){
                 $with_error = array(
-                    "flash" => $this->translator->trans("messages.flash_error_login")
+                    "flash" => $this->_getFlash()
                 );
             }
             return $this->view->render( $response, "Home/login.html.twig", $with_error);
@@ -20,5 +20,28 @@ class LoginController extends \Core\Controller
             $group = $model->getBelongTo("id_grp.ref_grp");
             return $response->withRedirect("/{$group}/main");
         }
+    }
+
+    private function _getFlash()
+    {
+        $script = array(
+            "script" => implode(" ",array(
+                "if($.amaran){",
+                    "$.amaran({",
+                        "theme: 'awesome error',",
+                        "content: {",
+                            "title: '{$this->translator->trans("messages.title_error_login")}',",
+                            "message: '{$this->translator->trans("messages.msg_error_login")}',",
+                            "info: '',",
+                            "icon: 'fa fa-ban'",
+                        "},",
+                        "position: 'bottom right',",
+                        "inEffect: 'slideBottom',",
+                        "outEffect: 'slideBottom'",
+                    "});",
+                "}"
+            ))
+        );
+        return $script;
     }
 }
