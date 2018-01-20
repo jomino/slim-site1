@@ -19,6 +19,7 @@ class AuthMiddelware
 
         $auth = new Auth();
         $logged = false;
+        $error = false;
 
         $path = $request->getUri()->getPath();
 
@@ -34,8 +35,12 @@ class AuthMiddelware
                     if(!empty($user)){
                         $logged = true;
                         //var_dump($user);
+                    }else{
+                        $error = true;
                     }
 
+                }else{
+                    $error = true;
                 }
             }
         }else{
@@ -47,6 +52,7 @@ class AuthMiddelware
         }
 
         $request = $request->withAttribute("logged",$logged);
+        $request = $request->withAttribute("error_login",$error);
 
         return $next($request, $response);
     }

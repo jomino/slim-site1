@@ -110,6 +110,10 @@
         },
         "i18next": {
             "js": ["i18next.min.js"]
+        },
+        "amaranjs": {
+            "js": ["dist/js/jquery.amaran.min.js"],
+            "css": ["dist/css/*"]
         }
     }
 }

@@ -32,7 +32,8 @@
         "bower-asset/jquery-maskmoney": "^3.1",
         "bower-asset/jquery-validation": "^1.17",
         "bower-asset/eonasdan-bootstrap-datetimepicker": "^4.17",
-        "bower-asset/i18next": "^10.2"
+        "bower-asset/i18next": "^10.2",
+        "npm-asset/amaranjs": "^0.5.5"
     },
     "autoload": {
         "psr-4": {

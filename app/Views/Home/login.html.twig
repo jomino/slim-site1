@@ -1,5 +1,7 @@
 {% extends "Layouts/document.html.twig" %}
 
+{% import "Macros/jqloader.twig" as jqLoader %}
+
 {# HEADER #}
 {% block doc_title %}
     {% if title %}
@@ -36,7 +38,9 @@ body {
 {# BODY #}
 {% block doc_flash %}
     {% if flash %}
-        {# --TODO-- #}
+        {% if flash.script %}
+            {{ jqLoader.jqScript(flash.script) }}
+        {% endif %}
     {% endif %}
 {% endblock %}
 
