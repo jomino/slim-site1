@@ -74,6 +74,7 @@
                 if(repsonse.success){
                     formManager.remove(_form);
                     $.jo.refreshPage('default');
+                    $.jo.flash('ok','{{ trans("messages.title_success_alert")|capitalize }}','{{ trans("messages.msg_success_alert")|capitalize }}');
                 }else{
                     if(typeof repsonse.message == 'object'){
                         $.each( repsonse.message, function(i){

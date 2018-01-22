@@ -1075,6 +1075,30 @@ String.prototype.capitalize = function(s){
         }
     };
 
+    $.jo.flash = function(type,title,message,info){
+        var _info = info || '',
+            _message = title|| '',
+            _title = title || '',
+            _type = type || 'ok', //  ok|error
+            _icon = _type=='ok' ? 'check':'ban';
+        if(_type){
+            if($.amaran){
+                $.amaran({
+                    theme: 'awesome ' + _type,
+                    content: {
+                        title: _title,
+                        message: _message,
+                        info: _info,
+                        icon: 'fa fa-' + _icon
+                    },
+                    position: 'bottom right',
+                    inEffect: 'slideBottom',
+                    outEffect: 'slideBottom'
+                });
+            }
+        }
+    }
+
     $.jo.onDownloadedFile = function(form,name,callback){
         var _callback = callback;
         var _name = name;
