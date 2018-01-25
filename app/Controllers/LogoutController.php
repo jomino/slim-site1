@@ -8,10 +8,7 @@ class LogoutController extends \Core\Controller
     {
         //var_dump($request->getAttribute("logged"));
         if($request->getAttribute("logged")!=true){
-            $with_message = array(
-                "flash" => $this->translator->trans("messages.flash_logged_out")
-            );
-            return $this->view->render( $response, "Home/login.html.twig");
+            return $response->withRedirect("/login");
         }
     }
 }

@@ -26,6 +26,7 @@ class MainDefaultController extends \Core\Controller
             ));
 
             return $this->view->render( $response, "Default/app.html.twig", array(
+                "favicon" => "/./assets/images/favicon32.png",
                 "scripts" => $scripts,
                 "body" => array(
                     "elements" => $elements

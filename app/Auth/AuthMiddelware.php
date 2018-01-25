@@ -39,8 +39,6 @@ class AuthMiddelware
                         $error = true;
                     }
 
-                }else{
-                    $error = true;
                 }
             }
         }else{

@@ -11,6 +11,12 @@
     {% endif %}
 {% endblock %}
 
+{% block doc_favicon %}
+    {% if favicon %}
+        <link rel="shortcut icon" type="image/png" href="{{ favicon|raw }}">
+    {% endif %}
+{% endblock %}
+
 {% block doc_stylesheets %}
     {{ assets("default_lib","css","vendor")|raw }}
     {{ assets("fa_lib","css","vendor")|raw }}
@@ -34,6 +40,7 @@ body {
     {{ assets("default_lib","js","vendor")|raw }}
     {{ assets("alte_lib","js","vendor")|raw }}
     {{ assets("util_lib","js","vendor")|raw }}
+    {{ assets("default","js","custom")|raw }}
 {% endblock %}
 
 {# BODY #}

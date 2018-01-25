@@ -7,14 +7,14 @@ class LoginController extends \Core\Controller
     public function __invoke($request, $response, $args)
     {
         //var_dump($request->getAttribute("logged"));
+        $datas = array("favicon" => "/./assets/images/favicon32.png");
         if($request->getAttribute("logged")!=true){
-            $with_error = array();
             if($request->getAttribute("error_login")==true){
-                $with_error = array(
-                    "flash" => $this->_getFlash()
-                );
+                $datas = array_merge( $datas, array(
+                    "flash" => $this->_getFlash("error",$this->translator->trans("messages.title_error_login"),$this->translator->trans("messages.msg_error_login"))
+                ));
             }
-            return $this->view->render( $response, "Home/login.html.twig", $with_error);
+            return $this->view->render( $response, "Home/login.html.twig", $datas);
         }else{
             $model = $this->client->model;
             $group = $model->getBelongTo("id_grp.ref_grp");
@@ -22,23 +22,12 @@ class LoginController extends \Core\Controller
         }
     }
 
-    private function _getFlash()
+    private function _getFlash($type="ok",$title="",$msg="",$info="")
     {
         $script = array(
             "script" => implode(" ",array(
-                "if($.amaran){",
-                    "$.amaran({",
-                        "theme: 'awesome error',",
-                        "content: {",
-                            "title: '{$this->translator->trans("messages.title_error_login")}',",
-                            "message: '{$this->translator->trans("messages.msg_error_login")}',",
-                            "info: '',",
-                            "icon: 'fa fa-ban'",
-                        "},",
-                        "position: 'bottom right',",
-                        "inEffect: 'slideBottom',",
-                        "outEffect: 'slideBottom'",
-                    "});",
+                "if($.jo.flash){",
+                    "$.jo.flash( '{$type}', '{$title}', '{$msg}', '{$info}');",
                 "}"
             ))
         );
