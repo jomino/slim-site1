@@ -21,8 +21,10 @@ class Routes
             $this->post('/aside/home', Controllers\AsideDefaultController::class)->setName('aside_home');
             $this->post('/body/contacts', Controllers\BodyDefaultUsersController::class.":home")->setName('body_contacts');
             $this->post('/contacts/pipe', Controllers\BodyDefaultUsersController::class.":pipe")->setName('contact_pipe');
+            $this->post('/contacts/edit[/{id}]', Controllers\BodyDefaultUsersController::class.":edit")->setName('contact_edit');
             $this->post('/body/properties', Controllers\BodyDefaultPropertiesController::class.":home")->setName('body_properties');
             $this->post('/properties/pipe', Controllers\BodyDefaultPropertiesController::class.":pipe")->setName('properties_pipe');
+            $this->post('/properties/edit[/{id}]', Controllers\BodyDefaultPropertiesController::class.":edit")->setName('contact_edit');
             $this->post('/body/gesloc', Controllers\BodyDefaultGeslocController::class.":home")->setName('body_gesloc');
             $this->post('/gesloc/pipe', Controllers\BodyDefaultGeslocController::class.":pipe")->setName('gesloc_pipe');
             $this->post('/geslocpay/view[/{id}]', Controllers\BodyDefaultGeslocpayController::class.":home")->setName('geslocpay_view');

@@ -1205,7 +1205,7 @@ String.prototype.capitalize = function(s){
                         ].join(' ');
                         return $('<span>').text(_data);
                     break;
-                    case _name=='contact-full-adress' || _name=='property-full-adress' || _name=='gesloc-full-adress':
+                    case _name=='contact-full-adress' || _name=='property-full-adress':
                         _data = [
                             _row.num>0 ? _row.num:'',
                             _capitalize(_row.street),
@@ -1294,6 +1294,20 @@ String.prototype.capitalize = function(s){
                                     _check();
                                 })
                                 .append($('<span>').addClass([_getGlyph('remove'),'text-danger'].join(' ')));
+                    break;
+                    case _name=='gesloc-edit-user':
+                        _data = '/./contacts/edit/' + _row[_value];
+                        return $('<a href="javascript:void(0);" data-link="get" data-href="'+_data+'">').text(_val);
+                    break;
+                    case _name=='gesloc-full-adress':
+                        _data = [
+                            _row.num>0 ? _row.num:'',
+                            _capitalize(_row.street),
+                            _row.street!='' ? ',':'',
+                            _row.cp,
+                            _capitalize(_row.ville)
+                        ].join(' ');
+                        return $('<a href="javascript:void(0);" data-link="get" data-href="/./properties/edit/'+_row.id_prop+'">').text(_data);
                     break;
                     case _name=='gesloc-pay-gptype':
                         var _ref = '';

@@ -38,6 +38,35 @@ class GeslocListFootable extends \Framework\ViewModel
             ),
             array(
                 "type" => "field",
+                "field" => "gesloc.idpro",
+                "delegate" => "id_user",
+                "column" => array(
+                    "type" => "'number'",
+                    "name" => "'idpro'", // mandatory
+                    "visible" => "false"
+                )
+            ),
+            array(
+                "type" => "field",
+                "field" => "gesloc.idloc",
+                "delegate" => "id_user",
+                "column" => array(
+                    "type" => "'number'",
+                    "name" => "'idloc'", // mandatory
+                    "visible" => "false"
+                )
+            ),
+            array(
+                "type" => "field",
+                "field" => "id_prop",
+                "column" => array(
+                    "type" => "'number'",
+                    "name" => "'id_prop'", // mandatory
+                    "visible" => "false"
+                )
+            ),
+            array(
+                "type" => "field",
                 "field" => "endebit",
                 "column" => array(
                     "type" => "'number'",
@@ -94,6 +123,32 @@ class GeslocListFootable extends \Framework\ViewModel
             ),
             array(
                 "index" => 1,
+                "type" => "field",
+                "field" => "gesloc.idloc",
+                "delegate" => array("pnom","nom"),
+                "action" => array('gesloc-edit-user','idloc'),
+                "column" => array(
+                    "type" => "'text'",
+                    "name" => "'tenant'",
+                    "title" => "default.tenant",
+                    "style" => array("min-width" => "10%","white-space" => "nowrap")
+                )
+            ),
+            array(
+                "index" => 2,
+                "type" => "field",
+                "field" => "gesloc.idpro",
+                "delegate" => array("pnom","nom"),
+                "action" => array('gesloc-edit-user','idpro'),
+                "column" => array(
+                    "type" => "'text'",
+                    "name" => "'owner'",
+                    "title" => "default.owner",
+                    "style" => array("min-width" => "10%","white-space" => "nowrap")
+                )
+            ),
+            array(
+                "index" => 3,
                 "type" => "fn",
                 "delegate" => "street",
                 "action" => array('gesloc-full-adress'),
@@ -106,7 +161,7 @@ class GeslocListFootable extends \Framework\ViewModel
                 )
             ),
             array(
-                "index" => 2,
+                "index" => 4,
                 "name" => "action_pay",
                 "type" => "fn",
                 //[+] "action" => array(),
@@ -144,7 +199,7 @@ class GeslocListFootable extends \Framework\ViewModel
                     $item = array_merge($item,$this->_data[$item["name"]]);
                 }
             }
-            if($item["type"]=="fn" && isset($item["action"])){
+            if(isset($item["action"])){
                 $item["column"]["formatter"] = sprintf(
                     $this->footableFormatter,
                     $item["action"][0],

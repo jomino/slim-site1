@@ -235,4 +235,9 @@ class BodyDefaultUsersController extends \Core\Controller
 
     }
 
+    public function edit($request, $response, $args)
+    {
+
+    }
+
 }

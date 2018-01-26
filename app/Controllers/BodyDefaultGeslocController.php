@@ -2,8 +2,6 @@
 
 namespace App\Controllers;
 
-use App\Auth\Auth as Auth;
-
 use Framework\ArrayMethods as ArrayMethods;
 
 class BodyDefaultGeslocController extends \Core\Controller
@@ -116,14 +114,16 @@ class BodyDefaultGeslocController extends \Core\Controller
                         $column = $col_models[$i];
                         $f_data = trim($column["column"]["name"],"'");
                         if($column["type"]=="field"){
-                            if(isset($u_rec->{$column["field"]})){
-                                $t_resp[$f_data] = $u_rec->{$column["field"]};
+                            if(strpos($column["field"],".")!==false){
+                                $t_resp[$f_data] = $this->_getBelongTo($column["field"],$column["delegate"],$u_rec);
+                            }else if(isset($u_rec[$column["field"]])){
+                                $t_resp[$f_data] = $u_rec[$column["field"]];
                             }else{
                                 $t_resp[$f_data] = "";
                             }
                         }else{
-                            if(isset($column["delegate"]) && isset($u_rec->{$column["delegate"]})){
-                                $t_resp[$f_data] = $u_rec->{$column["delegate"]};
+                            if(isset($column["delegate"]) && isset($u_rec[$column["delegate"]])){
+                                $t_resp[$f_data] = $u_rec[$column["delegate"]];
                             }else{
                                 $t_resp[$f_data] = "{$f_data}";
                             }
@@ -138,6 +138,27 @@ class BodyDefaultGeslocController extends \Core\Controller
 
         return $response->withJson($response_datas);
 
+    }
+
+    private function _getBelongTo($orig,$dest,$rec)
+    {
+        $a_ret = array();
+        $t_orig = explode(".",$orig);
+        $t_dest = is_array($dest) ? $dest:array($dest);
+        $o_model = "\\App\\Models\\".ucfirst($t_orig[0]);
+        $o_field = $t_orig[1];
+        $p_col = $o_model::getPrimaryKeys()[0];
+        $p_name = $p_col["name"];
+        $t_rec = $o_model::first(array(
+            "{$p_name} = ?" => $rec[$p_name]
+        ));
+        if(!empty($t_rec)){
+            $base_path = $o_field.".";
+            for($i=0;$i<sizeof($t_dest);$i++){
+                $a_ret[] = $t_rec->getBelongTo($base_path.$t_dest[$i]);
+            }
+        }
+        return trim(implode(" ",$a_ret));
     }
 
 }

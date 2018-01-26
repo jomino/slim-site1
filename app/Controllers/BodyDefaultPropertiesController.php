@@ -179,4 +179,9 @@ class BodyDefaultPropertiesController extends \Core\Controller
 
     }
 
+    public function edit($request, $response, $args)
+    {
+
+    }
+
 }
