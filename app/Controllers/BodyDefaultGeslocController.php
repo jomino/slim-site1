@@ -89,15 +89,16 @@ class BodyDefaultGeslocController extends \Core\Controller
 
             $total_records = sizeof($ingoings);
 
-            for($i=0;$i<$total_records;$i++){
+            /*for($i=0;$i<$total_records;$i++){
                 $u_raw = $ingoings[$i];
                 if(!empty($u_raw)){
-                    unset($u_raw["id_cli"]);
                     $valid_recs[] = array(
                         "recs" => $u_raw
                     );
                 }
-            }
+            }*/
+
+            $valid_recs = $ingoings;
 
             $filtered_records = sizeof($valid_recs);
 
@@ -110,19 +111,19 @@ class BodyDefaultGeslocController extends \Core\Controller
 
                 for($j=0;$j<sizeof($valid_recs);$j++){
                     $t_resp = array();
-                    $u_rec = $valid_recs[$j]["recs"];
+                    $u_rec = $valid_recs[$j];
                     for($i=0;$i<sizeof($col_models);$i++){
                         $column = $col_models[$i];
                         $f_data = trim($column["column"]["name"],"'");
                         if($column["type"]=="field"){
-                            if(isset($u_rec[$column["field"]])){
-                                $t_resp[$f_data] = $u_rec[$column["field"]];
+                            if(isset($u_rec->{$column["field"]})){
+                                $t_resp[$f_data] = $u_rec->{$column["field"]};
                             }else{
                                 $t_resp[$f_data] = "";
                             }
                         }else{
-                            if(isset($column["delegate"]) && isset($u_rec[$column["delegate"]])){
-                                $t_resp[$f_data] = $u_rec[$column["delegate"]];
+                            if(isset($column["delegate"]) && isset($u_rec->{$column["delegate"]})){
+                                $t_resp[$f_data] = $u_rec->{$column["delegate"]};
                             }else{
                                 $t_resp[$f_data] = "{$f_data}";
                             }
