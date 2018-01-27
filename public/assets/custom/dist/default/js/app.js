@@ -1214,6 +1214,12 @@ String.prototype.capitalize = function(s){
                             _capitalize(_row.ville)
                         ].join(' '));
                     break;
+                    case _name=='contact-edit':
+                        _data = _value + '/' + _row.id_user;
+                        return $('<a href="javascript:void(0);" data-link="get" data-href="'+_data+'">')
+                            .append($('<span>').addClass([_getGlyph('edit'),'text-primary'].join(' ')));
+
+                    break;
                     case _name=='properties-edit':
                         _data = _value + '/' + _row.id_prop;
                         return $('<a href="javascript:void(0);" data-link="get" data-href="'+_data+'">')

@@ -22,11 +22,18 @@ class BodyDefaultUsersController extends \Core\Controller
         $script_datas["table_id"] = $table_id;
         $script_datas["table_hdl"] = $router->pathFor('contact_pipe');
 
-        $model = new \App\Models\Views\UsersListFootable();
+        $model = new \App\Models\Views\UsersListFootable(array(
+            "data" => array(
+                "action_contact_edit" => array(
+                    "action" => array(
+                        "contact-edit",
+                        $this->router->pathFor('contact_edit')
+                    )
+                )
+            )
+        ));
 
-        $col_models = $model->getMap("contacts");
-
-        $script_datas["table_defs"] = ArrayMethods::column($col_models,"column");
+        $script_datas["table_defs"] = $model->getColumns();
 
         $script_datas["table_scripts"] = array_merge(
             $assets->getPaths("footable_lib","css","vendor"),
@@ -64,7 +71,7 @@ class BodyDefaultUsersController extends \Core\Controller
             "title" => $translator->trans("messages.user_util_title"),
             "radios" => $table_util_radios,
             "script" => "$('input[name={$grp_name}]').on('ifChecked', function(){
-                    if(FooTable.get('#{$table_id}')){ 
+                    if(FooTable && FooTable.get('#{$table_id}')){ 
                         var filtering = FooTable.get('#{$table_id}').use(FooTable.Filtering),
                             filter = $(this).val();
                         if(this.checked){
@@ -77,25 +84,7 @@ class BodyDefaultUsersController extends \Core\Controller
             );"
         );
 
-        /*$f_form = $this->formfactory->createBuilder()
-            ->add("utype", ChoiceType::class, array(
-                "expanded" => true,
-                "multiple" => false,
-                "choices" => array(
-                    "default.all" => 0,
-                    "default.tenant" => \App\Statics\Models::USER_TYPE_TENANT,
-                    "default.owner" => \App\Statics\Models::USER_TYPE_OWNER,
-                    "default.manager" => \App\Statics\Models::USER_TYPE_SYNDIC
-                ),
-                'choice_attr' => function($val, $key, $index) {
-                    return ["class" => "radio-inline"];
-                }
-        ))->getForm();
-
-        //var_dump($f_form);
-        $script_datas["contacts_filter"] = $f_form->createView();
-
-        print("<pre>");
+        /*print("<pre>");
         print_r($script_datas);
         print("</pre>");*/
 
@@ -148,11 +137,11 @@ class BodyDefaultUsersController extends \Core\Controller
                     $v_rec = array();
                     if(!empty($params->search)){
                         $s_search = $params->search;
-                        if( strpos($u_raw->nom,$s_search)!==false || 
-                            strpos($u_raw->pnom,$s_search)!==false || 
-                            strpos($u_raw->street,$s_search)!==false || 
-                            strpos($u_raw->cp,$s_search)!==false || 
-                            strpos($u_raw->ville,$s_search)!==false)
+                        if( strpos($u_raw["nom"],$s_search)!==false || 
+                            strpos($u_raw["pnom"],$s_search)!==false || 
+                            strpos($u_raw["street"],$s_search)!==false || 
+                            strpos($u_raw["cp"],$s_search)!==false || 
+                            strpos($u_raw["ville"],$s_search)!==false)
                         {
                             $v_rec["user"] = $u_raw;
                         }
@@ -168,7 +157,7 @@ class BodyDefaultUsersController extends \Core\Controller
                         ));
                         if(!empty($contact)){
                             $contact_type = $contact->getBelongTo("id_ctype.ref_ctype");
-                            $t_contact[$contact_type] = $contact->getRaw()->contact;
+                            $t_contact[$contact_type] = $contact->contact;
                         }
                         $contact = \App\Models\Contacts::first( array(
                             "id_user = ?" => $u_raw["id_user"],
@@ -176,7 +165,7 @@ class BodyDefaultUsersController extends \Core\Controller
                         ));
                         if(!empty($contact)){
                             $contact_type = $contact->getBelongTo("id_ctype.ref_ctype");
-                            $t_contact[$contact_type] = $contact->getRaw()->contact;
+                            $t_contact[$contact_type] = $contact->contact;
                         }
                         if(!empty($t_contact)){ $v_rec["contacts"] = $t_contact; }
                         $v_rec["user"] = $u_raw;
@@ -210,9 +199,9 @@ class BodyDefaultUsersController extends \Core\Controller
                                 $t_resp[$f_data] = "";
                             }
                         }else{
-                            if(isset($u_rec[$column["delegate"]])){
+                            if(isset($column["delegate"]) && isset($u_rec[$column["delegate"]])){
                                 $t_resp[$f_data] = $u_rec[$column["delegate"]];
-                            }else if(!is_null($c_rec) && isset($c_rec[$column["delegate"]])){
+                            }else if(!is_null($c_rec) && isset($column["delegate"]) && isset($c_rec[$column["delegate"]])){
                                 $t_resp[$f_data] = $c_rec[$column["delegate"]];
                             }else{
                                 $t_resp[$f_data] = "{$f_data}";

@@ -2,10 +2,19 @@
 
 namespace App\Models\Views;
 
-use Framework\Registry as Registry;
+use Framework\ArrayMethods as ArrayMethods;
 
 class UsersListFootable extends \Framework\ViewModel
 {
+    /**
+    *@readwrite
+    */
+    protected $_data;
+
+    /**
+    *@read
+    */
+    protected $_footableFormatter = "$.jo.footableFormatter('%s','%s')";
 
     /**
     * @read
@@ -139,8 +148,44 @@ class UsersListFootable extends \Framework\ViewModel
                     "title" => "default.email",
                     "style" => array("width" => "15%")
                 )
+            ),
+            array(
+                "index" => 5,
+                "name" => "action_contact_edit",
+                "type" => "fn",
+                //[+] "action" => array(),
+                "column" => array(
+                    "type" => "'text'",
+                    "name" => "'contact_edit'",
+                    "title" => " ",
+                    "style" => array("width" => "32px"),
+                    "sortable" => "false"
+                    //[+] "formatter" => string::javascript
+                )
             )
         )
     );
+
+    public function getColumns()
+    {
+        $map = $this->getMap("contacts");
+        for($i=0;$i<sizeof($map);$i++){
+            $item = $map[$i];
+            if(isset($item["name"]) && !empty($this->_data)){
+                if(isset($this->_data[$item["name"]])){
+                    $item = array_merge($item,$this->_data[$item["name"]]);
+                }
+            }
+            if(isset($item["action"])){
+                $item["column"]["formatter"] = sprintf(
+                    $this->footableFormatter,
+                    $item["action"][0],
+                    isset($item["action"][1]) ? $item["action"][1]:""
+                );
+            }
+            $map[$i] = $item;
+        }
+        return ArrayMethods::column($map,"column");
+    }
     
 }
