@@ -15,5 +15,6 @@ return [
     'sync' => 'synchronize',
     'syndic' => 'manager',
     'tenant' => 'huurder',
+    'type' => 'type',
     'user' => 'gebruiker'
 ];

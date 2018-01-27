@@ -123,10 +123,11 @@ class GeslocListFootable extends \Framework\ViewModel
             ),
             array(
                 "index" => 1,
+                "name" => "gesloc_edit_tenant",
                 "type" => "field",
                 "field" => "gesloc.idloc",
                 "delegate" => array("pnom","nom"),
-                "action" => array('gesloc-edit-user','idloc'),
+                //"action" => array('gesloc-edit-user','idloc'),
                 "column" => array(
                     "type" => "'text'",
                     "name" => "'tenant'",
@@ -136,10 +137,11 @@ class GeslocListFootable extends \Framework\ViewModel
             ),
             array(
                 "index" => 2,
+                "name" => "gesloc_edit_owner",
                 "type" => "field",
                 "field" => "gesloc.idpro",
                 "delegate" => array("pnom","nom"),
-                "action" => array('gesloc-edit-user','idpro'),
+                //"action" => array('gesloc-edit-user','idpro'),
                 "column" => array(
                     "type" => "'text'",
                     "name" => "'owner'",
@@ -149,9 +151,10 @@ class GeslocListFootable extends \Framework\ViewModel
             ),
             array(
                 "index" => 3,
+                "name" => "gesloc_full_adress",
                 "type" => "fn",
                 "delegate" => "street",
-                "action" => array('gesloc-full-adress'),
+                //"action" => array('gesloc-full-adress'),
                 "column" => array(
                     "title" => "default.adress",
                     "name" => "'full_adress'",

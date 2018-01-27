@@ -16,17 +16,22 @@ class Routes
         $app->map(['POST','GET'],'/logout', Controllers\LogoutController::class)->setName('logout');
         
         $app->group('/default', function () {
+            /* MAIN */
             $this->get('/main', Controllers\MainDefaultController::class);
             $this->post('/body/home', Controllers\BodyDefaultHomeController::class.":home")->setName('body_home');
             $this->post('/aside/home', Controllers\AsideDefaultController::class)->setName('aside_home');
+            /* USERS */
             $this->post('/body/contacts', Controllers\BodyDefaultUsersController::class.":home")->setName('body_contacts');
             $this->post('/contacts/pipe', Controllers\BodyDefaultUsersController::class.":pipe")->setName('contact_pipe');
             $this->post('/contacts/edit[/{id}]', Controllers\BodyDefaultUsersController::class.":edit")->setName('contact_edit');
+            /* PROPERTIES */
             $this->post('/body/properties', Controllers\BodyDefaultPropertiesController::class.":home")->setName('body_properties');
             $this->post('/properties/pipe', Controllers\BodyDefaultPropertiesController::class.":pipe")->setName('properties_pipe');
-            $this->post('/properties/edit[/{id}]', Controllers\BodyDefaultPropertiesController::class.":edit")->setName('contact_edit');
+            $this->post('/properties/edit[/{id}]', Controllers\BodyDefaultPropertiesController::class.":edit")->setName('properties_edit');
+            /* GESLOC */
             $this->post('/body/gesloc', Controllers\BodyDefaultGeslocController::class.":home")->setName('body_gesloc');
             $this->post('/gesloc/pipe', Controllers\BodyDefaultGeslocController::class.":pipe")->setName('gesloc_pipe');
+            /* GESLOPAY */
             $this->post('/geslocpay/view[/{id}]', Controllers\BodyDefaultGeslocpayController::class.":home")->setName('geslocpay_view');
             $this->post('/geslocpay/pipe[/{id}]', Controllers\BodyDefaultGeslocpayController::class.":pipe")->setName('geslocpay_pipe');
             $this->post('/geslocpay/edit[/{id}]', Controllers\BodyDefaultGeslocpayController::class.":edit")->setName('geslocpay_edit');

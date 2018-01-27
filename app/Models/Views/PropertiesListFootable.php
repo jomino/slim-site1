@@ -2,10 +2,19 @@
 
 namespace App\Models\Views;
 
-use Framework\Registry as Registry;
+use Framework\ArrayMethods as ArrayMethods;
 
 class PropertiesListFootable extends \Framework\ViewModel
 {
+    /**
+    *@readwrite
+    */
+    protected $_data;
+
+    /**
+    *@read
+    */
+    protected $_footableFormatter = "$.jo.footableFormatter('%s','%s')";
 
     /**
     * @read
@@ -18,15 +27,6 @@ class PropertiesListFootable extends \Framework\ViewModel
                 "column" => array(
                     "type" => "'number'",
                     "name" => "'id_prop'", // mandatory
-                    "visible" => "false"
-                )
-            ),
-            array(
-                "type" => "field",
-                "field" => "id_ptype",
-                "column" => array(
-                    "type" => "'number'",
-                    "name" => "'id_ptype'",
                     "visible" => "false"
                 )
             ),
@@ -76,6 +76,16 @@ class PropertiesListFootable extends \Framework\ViewModel
                 )
             ),
             array(
+                "type" => "list",
+                "list" => "\App\Models\Ptypes",
+                "field" => "ref_ptype", // mandatory
+                "column" => array(
+                    "type" => "'array'",
+                    "name" => "'ptypes'", // mandatory
+                    "visible" => "false"
+                )
+            ),
+            array(
                 "index" => 0,
                 "type" => "field",
                 "field" => "id_ref",
@@ -83,54 +93,80 @@ class PropertiesListFootable extends \Framework\ViewModel
                     "type" => "'text'",
                     "name" => "'id_ref'",
                     "title" => "default.reference",
-                    "style" => array("width" => "10%")
+                    "style" => array("min-width" => "10%")
                 )
             ),
             array(
                 "index" => 1,
                 "type" => "field",
-                "field" => "name",
+                "field" => "id_ptype",
+                "action" => array("property-ptype"),
                 "column" => array(
-                    "title" => "default.name",
-                    "name" => "'name'",
-                    "style" => array("width" => "15%")
+                    "type" => "'text'",
+                    "name" => "'id_ptype'",
+                    "title" => "default.type",
+                    "style" => array("min-width" => "10%")
                 )
             ),
             array(
                 "index" => 2,
+                "type" => "field",
+                "field" => "name",
+                "column" => array(
+                    "title" => "default.name",
+                    "name" => "'name'",
+                    "style" => array("min-width" => "10%")
+                )
+            ),
+            array(
+                "index" => 3,
                 "type" => "fn",
                 "delegate" => "street",
                 "column" => array(
                     "title" => "default.adress",
                     "name" => "'full_adress'",
                     "formatter" => "$.jo.footableFormatter('property-full-adress')",
-                    "style" => array("width" => "75%"),
+                    "style" => array("width" => "100%"),
                     "sortable" => "false"
-                )
-            )/*,
-            array(
-                "index" => 3,
-                "type" => "field",
-                "field" => "phone",
-                "column" => array(
-                    "type" => "'text'",
-                    "name" => "'phone'",
-                    "title" => "default.phone",
-                    "style" => array("width" => "15%")
                 )
             ),
             array(
                 "index" => 4,
-                "type" => "field",
-                "field" => "email",
+                "name" => "action_properties_edit",
+                "type" => "fn",
+                //[+] "action" => array(),
                 "column" => array(
                     "type" => "'text'",
-                    "name" => "'email'",
-                    "title" => "default.email",
-                    "style" => array("width" => "15%")
+                    "name" => "'properties_edit'",
+                    "title" => " ",
+                    "style" => array("width" => "32px"),
+                    "sortable" => "false"
+                    //[+] "formatter" => string::javascript
                 )
-            )*/
+            )
         )
     );
+
+    public function getColumns()
+    {
+        $map = $this->getMap("properties");
+        for($i=0;$i<sizeof($map);$i++){
+            $item = $map[$i];
+            if(isset($item["name"]) && !empty($this->_data)){
+                if(isset($this->_data[$item["name"]])){
+                    $item = array_merge($item,$this->_data[$item["name"]]);
+                }
+            }
+            if(isset($item["action"])){
+                $item["column"]["formatter"] = sprintf(
+                    $this->footableFormatter,
+                    $item["action"][0],
+                    isset($item["action"][1]) ? $item["action"][1]:""
+                );
+            }
+            $map[$i] = $item;
+        }
+        return ArrayMethods::column($map,"column");
+    }
     
 }

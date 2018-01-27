@@ -22,11 +22,18 @@ class BodyDefaultPropertiesController extends \Core\Controller
         $script_datas["table_id"] = $table_id;
         $script_datas["table_hdl"] = $router->pathFor('properties_pipe');
 
-        $model = new \App\Models\Views\PropertiesListFootable();
+        $model = new \App\Models\Views\PropertiesListFootable(array(
+            "data" => array(
+                "action_properties_edit" => array(
+                    "action" => array(
+                        "properties-edit",
+                        $this->router->pathFor('properties_edit')
+                    )
+                )
+            )
+        ));
 
-        $col_models = $model->getMap("properties");
-
-        $script_datas["table_defs"] = ArrayMethods::column($col_models,"column");
+        $script_datas["table_defs"] = $model->getColumns();
 
         $script_datas["table_scripts"] = array_merge(
             $assets->getPaths("footable_lib","css","vendor"),
@@ -154,15 +161,22 @@ class BodyDefaultPropertiesController extends \Core\Controller
                     for($i=0;$i<sizeof($col_models);$i++){
                         $column = $col_models[$i];
                         $f_data = trim($column["column"]["name"],"'");
+                        $c_field = isset($column["field"]) ? $column["field"]:"";
                         if($column["type"]=="field"){
-                            if(isset($u_rec[$column["field"]])){
-                                $t_resp[$f_data] = $u_rec[$column["field"]];
+                            if(isset($u_rec[$c_field])){
+                                $t_resp[$f_data] = $u_rec[$c_field];
                             }else{
                                 $t_resp[$f_data] = "";
                             }
+                        }else if($column["type"]=="list"){
+                            if(!empty($c_field)){ $t_resp[$f_data] = $this->_getList($column["list"],$c_field); }
                         }else{
-                            if(isset($u_rec[$column["delegate"]])){
-                                $t_resp[$f_data] = $u_rec[$column["delegate"]];
+                            if(isset($column["delegate"])){
+                                if(isset($u_rec[$column["delegate"]])){
+                                    $t_resp[$f_data] = $u_rec[$column["delegate"]];
+                                }else{
+                                    $t_resp[$f_data] = "";
+                                }
                             }else{
                                 $t_resp[$f_data] = "{$f_data}";
                             }
@@ -177,6 +191,21 @@ class BodyDefaultPropertiesController extends \Core\Controller
 
         return $response->withJson($response_datas);
 
+    }
+
+    protected function _getList($className,$classProperty)
+    { // !important: sortir l'opération du flux
+        $t_resp = array();
+        $_res = $className::all();
+        if(!empty($_res)){
+            for($j=0;$j<sizeof($_res);$j++){
+                $t_resp[] = array(
+                    "name" => ucfirst($_res[$j]->getDisplay()->{$classProperty}),
+                    "value" => $_res[$j]->getId()
+                );
+            }
+        }
+        return($t_resp);
     }
 
     public function edit($request, $response, $args)

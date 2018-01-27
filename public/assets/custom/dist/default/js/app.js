@@ -1193,7 +1193,7 @@ String.prototype.capitalize = function(s){
     };
 
     $.jo.footableFormatter = function(name,value) {
-        var _name = name || '', _value = value || '',
+        var _name = name || undefined, _value = value || '',
             _getColumnContent = function(val,opt,row){
                 if(!row){ return; }
                 var _data, _val = val || '', _opt = opt || {}, _row = row;
@@ -1206,14 +1206,28 @@ String.prototype.capitalize = function(s){
                         return $('<span>').text(_data);
                     break;
                     case _name=='contact-full-adress' || _name=='property-full-adress':
-                        _data = [
+                        return $('<span>').text([
                             _row.num>0 ? _row.num:'',
                             _capitalize(_row.street),
                             _row.street!='' ? ',':'',
                             _row.cp,
                             _capitalize(_row.ville)
-                        ].join(' ');
-                        return $('<span>').text(_data);
+                        ].join(' '));
+                    break;
+                    case _name=='properties-edit':
+                        _data = _value + '/' + _row.id_prop;
+                        return $('<a href="javascript:void(0);" data-link="get" data-href="'+_data+'">')
+                            .append($('<span>').addClass([_getGlyph('edit'),'text-primary'].join(' ')));
+
+                    break;
+                    case _name=='property-ptype':
+                        var _ref = '';
+                        $.each( _row.ptypes, function(){
+                            if(this.value==_val){
+                                _ref = this.name;
+                            }
+                        });
+                        return _ref;
                     break;
                     case _name=='gesloc-action-pay':
                         _data = _value + '/' + _row.idgesloc;
@@ -1221,13 +1235,13 @@ String.prototype.capitalize = function(s){
                             _getGlyph( parseInt(_row.endebit)<2 ? 'ok':'euro'),
                             parseInt(_row.endebit)<2 ? 'text-primary':'text-danger'
                         ].join(' ');
-                        return $('<a href="#" data-link="get" data-href="'+_data+'">')
+                        return $('<a href="javascript:void(0);" data-link="get" data-href="'+_data+'">')
                                 .append($('<span>').addClass(cls)); // click managed by init proc.
                     break;
                     case _name=='gesloc-edit-pay':
                         _data = _value;
                         var debitsum = parseFloat(_row.debitsum) || 0, creditsum =parseFloat( _row.creditsum) || 0;
-                        var _textcolor = debitsum-creditsum<=0 ? 'text-primary':'text-danger';
+                        var _textcolor = (debitsum-creditsum)<=0 ? 'text-primary':'text-danger';
                         return $('<a href="javascript:void(0);">').data('row',$.extend({},_row))
                                 .on('click', function(){
                                     if($.jo.formManager){
@@ -1243,7 +1257,7 @@ String.prototype.capitalize = function(s){
                                 .append($('<span>').addClass([_getGlyph('edit'),_textcolor].join(' ')));
                     break;
                     case _name=='gesloc-delete-pay':
-                        _data = _value, _row = _row;
+                        _data = _value;
                         return $('<a href="javascript:void(0);">')
                                 .on('click', function(){
                                     var _success = function(){
@@ -1295,19 +1309,23 @@ String.prototype.capitalize = function(s){
                                 })
                                 .append($('<span>').addClass([_getGlyph('remove'),'text-danger'].join(' ')));
                     break;
-                    case _name=='gesloc-edit-user':
-                        _data = '/./contacts/edit/' + _row[_value];
+                    case _name=='gesloc-edit-tenant':
+                        _data = _value + '/' + _row.idloc ;
+                        return $('<a href="javascript:void(0);" data-link="get" data-href="'+_data+'">').text(_val);
+                    break;
+                    case _name=='gesloc-edit-owner':
+                        _data = _value + '/' + _row.idpro ;
                         return $('<a href="javascript:void(0);" data-link="get" data-href="'+_data+'">').text(_val);
                     break;
                     case _name=='gesloc-full-adress':
-                        _data = [
+                        _data = _value + '/' + _row.id_prop ;
+                        return $('<a href="javascript:void(0);" data-link="get" data-href="'+_data+'">').text([
                             _row.num>0 ? _row.num:'',
                             _capitalize(_row.street),
                             _row.street!='' ? ',':'',
                             _row.cp,
                             _capitalize(_row.ville)
-                        ].join(' ');
-                        return $('<a href="javascript:void(0);" data-link="get" data-href="/./properties/edit/'+_row.id_prop+'">').text(_data);
+                        ].join(' '));
                     break;
                     case _name=='gesloc-pay-gptype':
                         var _ref = '';

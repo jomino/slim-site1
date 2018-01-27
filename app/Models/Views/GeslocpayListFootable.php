@@ -11,11 +11,6 @@ class GeslocpayListFootable extends \Framework\ViewModel
     *@readwrite
     */
     protected $_data;
-    
-    /**
-    *@readwrite
-    */
-    protected $_assets;
 
     /**
     *@read
@@ -181,7 +176,6 @@ class GeslocpayListFootable extends \Framework\ViewModel
 
     public function getColumns()
     {
-        $assets = $this->assets;
         $map = $this->getMap("geslocpay");
         for($i=0;$i<sizeof($map);$i++){
             $item = $map[$i];

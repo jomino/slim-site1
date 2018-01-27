@@ -22,6 +22,24 @@ class BodyDefaultGeslocController extends \Core\Controller
                     "gesloc-action-pay",
                     $router->pathFor('geslocpay_view')
                 )
+            ),
+            "gesloc_full_adress" => array(
+                "action" => array(
+                    "gesloc-full-adress",
+                    $router->pathFor('properties_edit')
+                )
+            ),
+            "gesloc_edit_tenant" => array(
+                "action" => array(
+                    "gesloc-edit-tenant",
+                    $router->pathFor('contact_edit')
+                )
+            ),
+            "gesloc_edit_owner" => array(
+                "action" => array(
+                    "gesloc-edit-owner",
+                    $router->pathFor('contact_edit')
+                )
             )
         );
 
