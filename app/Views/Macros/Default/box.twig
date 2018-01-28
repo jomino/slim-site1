@@ -1,6 +1,11 @@
 {% macro render(item) %}
 <div{% if item.id %} id="{{ item.id }}"{% endif %} class="box box-primary{% if item.collapsed %} collapsed-box{% endif %}">
   <div class="box-header with-border">
+    {% if item.back %}
+      <button type="button" class="btn btn-primary btn-xs btn-history-back" style="margin-top: -3px; cursor: pointer;">
+        <i class="fa fa-arrow-left"></i>
+      </button>
+    {% endif %}
     {% if item.title %}<h3 class="box-title">{{ trans(item.title)|capitalize }}</h3>{% endif %}
     {% if item.expandable %}
     <div class="box-tools pull-right">

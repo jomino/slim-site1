@@ -120,6 +120,10 @@ div.dataTables_info {
   min-height: 82px;
 }
 
+.form-rowspan-2{
+  min-height: 165px;
+}
+
 .form-horizontal .form-group {
   margin-bottom: 0px !important;
 }

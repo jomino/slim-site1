@@ -1,7 +1,7 @@
 {% macro recursiveMenu(menuitem) %}
     {% if menuitem.menu %}
         <li{% if menuitem.id %} id="{{ menuitem.id }}"{% endif %}>
-            <a href="#">
+            <a href="javascript:">
                 {% if menuitem.iconCls %}<i class="{{ menuitem.iconCls }}"></i>{% endif %}
                 {{ menuitem.label }}{% if menuitem.widget %}
                     <span class="badge {{ menuitem.widget.cls }}">{{ menuitem.widget.label }}</span>{% endif %}

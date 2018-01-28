@@ -48,7 +48,7 @@ class UsersDefaultEditViewModel extends \Framework\ViewModel
                             "classes" => array( "min-height-80" ),
                             "validate" => array(
                                 "rules" => array(
-                                    "pattern" => "[A-Za-z0-9-]*",
+                                    "pattern" => "[A-Za-z0-9\u00C0-\u00D6\u00D8-\u00f6\u00f8-\u00ff\s-]*",
                                     "maxlength" => 128
                                 ),
                                 "messages" => array(
@@ -69,7 +69,7 @@ class UsersDefaultEditViewModel extends \Framework\ViewModel
                             "classes" => array( "min-height-80" ),
                             "validate" => array(
                                 "rules" => array(
-                                    "pattern" => "[A-Za-z0-9-]*",
+                                    "pattern" => "[A-Za-z0-9\u00C0-\u00D6\u00D8-\u00f6\u00f8-\u00ff\s-]*",
                                     "maxlength" => 128
                                 ),
                                 "messages" => array(
@@ -90,7 +90,7 @@ class UsersDefaultEditViewModel extends \Framework\ViewModel
                             "classes" => array( "min-height-80" ),
                             "validate" => array(
                                 "rules" => array(
-                                    "pattern" => "[A-Za-z0-9-]*",
+                                    "pattern" => "[A-Za-z0-9\u00C0-\u00D6\u00D8-\u00f6\u00f8-\u00ff\s-]*",
                                     "maxlength" => 128
                                 ),
                                 "messages" => array(
@@ -208,7 +208,7 @@ class UsersDefaultEditViewModel extends \Framework\ViewModel
                             "classes" => array( "min-height-80" ),
                             "validate" => array(
                                 "rules" => array(
-                                    "pattern" => "[A-Za-z0-9-]*",
+                                    "pattern" => "[A-Za-z0-9\u00C0-\u00D6\u00D8-\u00f6\u00f8-\u00ff\s-]*",
                                     "maxlength" => 128
                                 ),
                                 "messages" => array(
@@ -229,7 +229,7 @@ class UsersDefaultEditViewModel extends \Framework\ViewModel
                             "classes" => array( "min-height-80" ),
                             "validate" => array(
                                 "rules" => array(
-                                    "pattern" => "[A-Za-z0-9-]*",
+                                    "pattern" => "[A-Za-z0-9\u00C0-\u00D6\u00D8-\u00f6\u00f8-\u00ff\s-]*",
                                     "maxlength" => 128
                                 ),
                                 "messages" => array(
@@ -271,7 +271,7 @@ class UsersDefaultEditViewModel extends \Framework\ViewModel
                             "classes" => array( "min-height-80" ),
                             "validate" => array(
                                 "rules" => array(
-                                    "pattern" => "[A-Za-z0-9-]*",
+                                    "pattern" => "[A-Za-z0-9\u00C0-\u00D6\u00D8-\u00f6\u00f8-\u00ff\s-]*",
                                     "maxlength" => 128
                                 ),
                                 "messages" => array(
@@ -311,7 +311,7 @@ class UsersDefaultEditViewModel extends \Framework\ViewModel
                             "classes" => array( "min-height-80" ),
                             "validate" => array(
                                 "rules" => array(
-                                    "pattern" => "[A-Za-z0-9-]*",
+                                    "pattern" => "[A-Za-z0-9\u00C0-\u00D6\u00D8-\u00f6\u00f8-\u00ff\s-]*",
                                     "maxlength" => 64
                                 ),
                                 "messages" => array(
@@ -332,7 +332,7 @@ class UsersDefaultEditViewModel extends \Framework\ViewModel
                             "classes" => array( "min-height-80" ),
                             "validate" => array(
                                 "rules" => array(
-                                    "pattern" => "[A-Za-z0-9-]*",
+                                    "pattern" => "[A-Za-z0-9\u00C0-\u00D6\u00D8-\u00f6\u00f8-\u00ff\s-]*",
                                     "maxlength" => 64
                                 ),
                                 "messages" => array(
@@ -353,13 +353,25 @@ class UsersDefaultEditViewModel extends \Framework\ViewModel
                             "classes" => array( "min-height-80" ),
                             "validate" => array(
                                 "rules" => array(
-                                    "pattern" => "[A-Za-z0-9-]*",
+                                    "pattern" => "[A-Za-z0-9-/\s]*",
                                     "maxlength" => 64
                                 ),
                                 "messages" => array(
                                     "pattern" => "defaults.error_invalid_chars"
                                 )
                             )
+                        ),
+                        array(
+                            // [+]id (html id)
+                            // [+]label (displayed label) returned by model
+                            // [+]value (displayed value) returned by model
+                            // [+]raw (original value) returned by model
+                            "layout" => STATICS::BS_LAYOUT_1COL,
+                            "type" => "text", // mandatory for form-input
+                            "tpl" => "form-input",
+                            "field" => "comment", // mandatory
+                            "default" => ":empty_string",
+                            "classes" => array( "min-height-80" )
                         )
                     )
                 ),

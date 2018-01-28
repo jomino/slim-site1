@@ -1379,6 +1379,10 @@ String.prototype.capitalize = function(s){
             }
         );
 
+        $(document).on( 'click', '.btn-history-back', function(){
+            $.jo.reloadBody();
+        });
+
         $(document).off('ready.ft.table').on('ready.ft.table', 'table.footable', function() {
             $('a[data-link="get"]',$(this)).on('click', _onLoadHtmlHandler);
             $('a[data-link="post"]',$(this)).on('click', _onPostDataHandler);

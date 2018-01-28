@@ -284,8 +284,7 @@ class BodyDefaultUsersController extends \Core\Controller
                 array(
                     "id" => "box-contact-edit",
                     "title" => "messages.title_contact_edit",
-                    "expandable" => 1,
-                    "collapsed" => 0,
+                    "back" => 1,
                     "body" => $form
                 )
             )
