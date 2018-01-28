@@ -239,10 +239,8 @@ namespace Framework
                 $column = $this->getColumn($k);
                 if(!empty($column)){
                     $old = $this->{$column["raw"]};
-                    if($old!=$v){
-                        $this->_raw->{$column["name"]} = $v;
-                        $this->_dirty = true;
-                    }
+                    $this->_raw->{$column["name"]} = $v;
+                    $this->_dirty = ($old!=$v);
                 }
             }
             return $this;
@@ -268,6 +266,8 @@ namespace Framework
                 foreach ($columns as $column){
                     if(isset($_raw->{$column["name"]})){
                         $raw->{$column["name"]} = $_raw->{$column["name"]};
+                    }else if(is_null($_raw->{$column["name"]})){
+                        $raw->{$column["name"]} = "";
                     }
                 }
             }
@@ -384,9 +384,6 @@ namespace Framework
                 $record = $class::first(array(
                     "{$w_field} = ?" => $raw->{$raw_prop}
                 ));
-            }else{
-                $msg = "FOR: #{$raw_prop}# : <pre>".print_r($raw,true)."</pre>";
-                //file_put_contents(__DIR__ . "/../App/_cache/debug.html",$msg);
             }
 
             if(!empty($record)){
@@ -394,7 +391,7 @@ namespace Framework
                 $record_raw = $record->raw;
 
                 foreach ($record_raw as $field=>$value){
-                    if($f_field!="-"){
+                    if(strpos($f_field,"-")===false){
                         if($f_field==$field){
                             $raw_map[$field] = $value;
                             if($record->withLocal){

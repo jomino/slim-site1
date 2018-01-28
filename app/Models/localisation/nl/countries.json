@@ -44,7 +44,7 @@
 		"label" : {
 			"type" : "choice",
 			"choice" : [
-				{ "text" : "{spName}" }
+				{ "text" : "{spPays}" }
 			]
 		},
 		"format" : {

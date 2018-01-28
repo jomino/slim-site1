@@ -212,7 +212,7 @@
 		"label" : {
 			"type" : "choice",
 			"choice" : [
-				{ "text" : "{spDate}" },
+				{ "text" : "geboorte{spDate}" },
 				{ "text" : "geboren op" }
 			]
 		},

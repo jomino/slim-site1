@@ -1,4 +1,5 @@
 # System
+/app/_cache/
 /app/Configuration/database.ini
 /app/Controllers/Test/*
 /app/Views/Test/*

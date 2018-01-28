@@ -24,6 +24,7 @@ class Routes
             $this->post('/body/contacts', Controllers\BodyDefaultUsersController::class.":home")->setName('body_contacts');
             $this->post('/contacts/pipe', Controllers\BodyDefaultUsersController::class.":pipe")->setName('contact_pipe');
             $this->post('/contacts/edit[/{id}]', Controllers\BodyDefaultUsersController::class.":edit")->setName('contact_edit');
+            $this->post('/contacts/save[/{id}]', Controllers\BodyDefaultUsersController::class.":save")->setName('contact_save');
             /* PROPERTIES */
             $this->post('/body/properties', Controllers\BodyDefaultPropertiesController::class.":home")->setName('body_properties');
             $this->post('/properties/pipe', Controllers\BodyDefaultPropertiesController::class.":pipe")->setName('properties_pipe');

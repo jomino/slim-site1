@@ -29,7 +29,7 @@
 				"kr": "croatie",
 				"it": "italie",
 				"lu": "luxemburg",
-				"gr": "gréce",
+				"gr": "grèce",
 				"tn": "tunesie",
 				"pt": "portugal",
 				"ma": "maroc",
@@ -44,7 +44,7 @@
 		"label" : {
 			"type" : "choice",
 			"choice" : [
-				{ "text" : "{spName}" }
+				{ "text" : "{spPays}" }
 			]
 		},
 		"format" : {

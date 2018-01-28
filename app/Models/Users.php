@@ -14,7 +14,7 @@ class Users extends \Framework\Model
     /**
     * @read
     */
-    protected $_withLocal = false;
+    protected $_withLocal = true;
 
     /**
     * @readwrite
@@ -206,7 +206,7 @@ class Users extends \Framework\Model
     * @readwrite
     * @type integer
     * @label ref countries
-    * @belongto countries.id_cty::countries.ref_cty
+    * @belongto countries.id_cty::countries.-
     */
     protected $_id_cty;
     

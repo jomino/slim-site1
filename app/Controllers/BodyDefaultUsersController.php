@@ -226,6 +226,77 @@ class BodyDefaultUsersController extends \Core\Controller
 
     public function edit($request, $response, $args)
     {
+        $client = $this->client->model;
+
+        $_id = null;
+
+        if(!empty($args["id"])){
+            $_id = $args["id"];
+            $ingoing = \App\Models\Users::first(array(
+                "id_user = ?" => $_id
+            ));
+        }
+
+        $_items = array();
+
+        // form
+        $viewmodel = new \App\Models\Views\UsersDefaultEditViewModel(array(
+            "logger" => $this->logger,
+            "model" => !empty($ingoing) ? $ingoing : \App\Models\Users::class
+        ));
+
+        $_items = $viewmodel->getItems("form-edit");
+
+        $form_id = $_items["id"];
+        $form_title = $this->translator->trans($_items["title"]);
+
+        $form_validate = array();
+        
+        if(isset($_items["validate"])){
+            $form_validate = $_items["validate"];
+        }
+        
+        $form_items = array($_items);
+
+        $form_hidden_agence = array(
+            "value" => $client->uri,
+            "name" => "agence"
+        );
+
+        $path_id = !is_null($_id) ? array("id" => $_id):[];
+
+        $form_action = $this->router->pathFor('contact_save',$path_id);
+
+        $form_datas = array(
+            "form_id" => $form_id,
+            "form_action" => $form_action,
+            "form_items" => $form_items,
+            "form_validate" => $form_validate,
+            "form_hiddens" => array(
+                $form_hidden_agence
+            )
+        );
+        
+        $form = $this->view->fetch("Default/App/Renderer/form.html.twig",$form_datas);
+
+        $box_datas = array(
+            "items" => array(
+                array(
+                    "id" => "box-contact-edit",
+                    "title" => "messages.title_contact_edit",
+                    "expandable" => 1,
+                    "collapsed" => 0,
+                    "body" => $form
+                )
+            )
+        );
+
+        return $this->view->render( $response, "{$this->views_path}/Contacts/edit-bs.html.twig", $box_datas);
+        
+    }
+
+    public function save($request, $response, $args)
+    {
 
     }
 
