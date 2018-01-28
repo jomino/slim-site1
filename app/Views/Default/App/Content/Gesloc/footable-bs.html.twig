@@ -1,22 +1,30 @@
 {% extends 'Globals/footable-bs.html.twig' %}
 
 {% import 'Macros/jqloader.twig' as jqLoader %}
+{% import 'Macros/Default/box.twig' as bsBox %}
 
 {% block block_table_util_top %}
 {% if table_util_top %}
-<div class="well well-sm">
+{% if table_util_top.radios %}
+{% set table_util_form %}
 	<div class="form-inline">
 	{% for radio in table_util_top.radios %}
 		<label class="radio-inline">
-			<input type="radio" name="{{ radio.name }}" value="{{ radio.value }}"{% if radio.checked %} checked{% endif %}>
+			<input disabled type="radio" name="{{ radio.name }}" value="{{ radio.value }}"{% if radio.checked %} checked{% endif %}>
 			&#160;{{ trans(radio.text)|capitalize }}
 		</label>
 	{% endfor %}
 	</div>
-</div>
+{% endset %}
+{% endif %}
+{% if table_util_form %}
+{% set table_util = { expandable : 1, title : table_util_top.title, body : table_util_form } %}
+{{ bsBox.render(table_util) }}
+{% endif %}
 {% if table_util_top.script %}
 {{ jqLoader.jqScript(table_util_top.script) }}
-{% endif %}{% endif %}
+{% endif %}
+{% endif %}
 {% endblock %}
 
 {% block block_table_id %}{% if table_id %}{{ table_id }}{% endif %}{% endblock %}

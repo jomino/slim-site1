@@ -58,6 +58,45 @@ class BodyDefaultGeslocController extends \Core\Controller
             $this->assets->getPaths("footable_lib","js","vendor")
         );
 
+        $grp_name = "udebit";
+        $fld_name = "endebit";
+
+        $table_util_radios = array(
+            array(
+                "name" => $grp_name,
+                "value" => "-1",
+                "text" => "default.all",
+                "checked" => 1
+            ),
+            array(
+                "name" => $grp_name,
+                "value" => "0",
+                "text" => "default.rentok"
+            ),
+            array(
+                "name" => $grp_name,
+                "value" => "1",
+                "text" => "default.rentdue"
+            )
+        );
+
+        $script_datas["table_util_top"] = array(
+            "title" => $this->translator->trans("messages.gesloc_util_title"),
+            "radios" => $table_util_radios,
+            "script" => "$('input[name={$grp_name}]').on('ifChecked', function(){
+                    if(FooTable && FooTable.get('#{$table_id}')){ 
+                        var filtering = FooTable.get('#{$table_id}').use(FooTable.Filtering),
+                            filter = $(this).val();
+                        if(this.checked){
+                            if(filter === '-1'){ filtering.removeFilter('{$grp_name}');}
+                            else{ filtering.addFilter('{$grp_name}', filter, ['{$fld_name}']); }
+                            filtering.filter();
+                        }
+                    }
+                }
+            );"
+        );
+
         /*print("<pre>");
         print_r($script_datas);
         print("</pre>");*/
