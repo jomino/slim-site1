@@ -34,13 +34,13 @@ class PropertiesDefaultEditViewModel extends \Framework\ViewModel
             "items" => array(
                 array(
                     "tpl" => "row",
+                    "layout" => STATICS::BS_LAYOUT_4COL,
                     "items" => array(
                         array(
                             // [+]id (html id)
                             // [+]label (displayed label) returned by model
                             // [+]value (displayed value) returned by model
                             // [+]raw (original value) returned by model
-                            "layout" => STATICS::BS_LAYOUT_4COL,
                             "type" => "text", // mandatory for form-input
                             "tpl" => "form-input",
                             "field" => "id_ref", // mandatory
@@ -61,7 +61,6 @@ class PropertiesDefaultEditViewModel extends \Framework\ViewModel
                             // [+]label (displayed label) returned by model
                             // [+]value (displayed value) returned by model
                             // [+]raw (original value) returned by model
-                            "layout" => STATICS::BS_LAYOUT_4COL,
                             "type" => "text", // mandatory for form-input
                             "tpl" => "form-input",
                             "field" => "name", // mandatory
@@ -99,6 +98,18 @@ class PropertiesDefaultEditViewModel extends \Framework\ViewModel
                                     "pattern" => "defaults.error_invalid_chars"
                                 )
                             )
+                        ),
+                        array(
+                            "tpl" => "form-select",
+                            "reset" => 1,
+                            "placeholder" => "messages.plhd_select",
+                            "field" => "id_ptype",
+                            "classes" => array( "min-height-80" ),
+                            "validate" => array(
+                                "rules" => array(
+                                    "select2" => true
+                                )
+                            )
                         )
                     )
                 ),
@@ -110,28 +121,7 @@ class PropertiesDefaultEditViewModel extends \Framework\ViewModel
                             // [+]label (displayed label) returned by model
                             // [+]value (displayed value) returned by model
                             // [+]raw (original value) returned by model
-                            "layout" => STATICS::BS_LAYOUT_4COL,
-                            "type" => "text", // mandatory for form-input
-                            "tpl" => "form-input",
-                            "field" => "street", // mandatory
-                            "default" => ":empty_string",
-                            "classes" => array( "min-height-80" ),
-                            "validate" => array(
-                                "rules" => array(
-                                    "pattern" => "[A-Za-z0-9\u00C0-\u00D6\u00D8-\u00f6\u00f8-\u00ff\s-]*",
-                                    "maxlength" => 128
-                                ),
-                                "messages" => array(
-                                    "pattern" => "defaults.error_invalid_chars"
-                                )
-                            )
-                        ),
-                        array(
-                            // [+]id (html id)
-                            // [+]label (displayed label) returned by model
-                            // [+]value (displayed value) returned by model
-                            // [+]raw (original value) returned by model
-                            "layout" => STATICS::BS_LAYOUT_6COL,
+                            "layout" => STATICS::BS_LAYOUT_CELL,
                             "type" => "text", // mandatory for form-input
                             "tpl" => "form-input",
                             "field" => "num", // mandatory
@@ -152,15 +142,15 @@ class PropertiesDefaultEditViewModel extends \Framework\ViewModel
                             // [+]label (displayed label) returned by model
                             // [+]value (displayed value) returned by model
                             // [+]raw (original value) returned by model
-                            "layout" => STATICS::BS_LAYOUT_6COL,
+                            "layout" => STATICS::BS_LAYOUT_4COL,
                             "type" => "text", // mandatory for form-input
                             "tpl" => "form-input",
-                            "field" => "cp", // mandatory
+                            "field" => "street", // mandatory
                             "default" => ":empty_string",
                             "classes" => array( "min-height-80" ),
                             "validate" => array(
                                 "rules" => array(
-                                    "pattern" => "[A-Za-z0-9-]*",
+                                    "pattern" => "[A-Za-z0-9\u00C0-\u00D6\u00D8-\u00f6\u00f8-\u00ff\s-]*",
                                     "maxlength" => 128
                                 ),
                                 "messages" => array(
@@ -190,6 +180,27 @@ class PropertiesDefaultEditViewModel extends \Framework\ViewModel
                             )
                         ),
                         array(
+                            // [+]id (html id)
+                            // [+]label (displayed label) returned by model
+                            // [+]value (displayed value) returned by model
+                            // [+]raw (original value) returned by model
+                            "layout" => STATICS::BS_LAYOUT_CELL,
+                            "type" => "text", // mandatory for form-input
+                            "tpl" => "form-input",
+                            "field" => "cp", // mandatory
+                            "default" => ":empty_string",
+                            "classes" => array( "min-height-80" ),
+                            "validate" => array(
+                                "rules" => array(
+                                    "pattern" => "[A-Za-z0-9-]*",
+                                    "maxlength" => 128
+                                ),
+                                "messages" => array(
+                                    "pattern" => "defaults.error_invalid_chars"
+                                )
+                            )
+                        ),
+                        array(
                             "layout" => STATICS::BS_LAYOUT_4COL,
                             "tpl" => "form-select",
                             "required" => 1,
@@ -211,83 +222,6 @@ class PropertiesDefaultEditViewModel extends \Framework\ViewModel
                 array(
                     "tpl" => "row",
                     "items" => array(
-                        array(
-                            // [+]id (html id)
-                            // [+]label (displayed label) returned by model
-                            // [+]value (displayed value) returned by model
-                            // [+]raw (original value) returned by model
-                            // [+]name (html name) returned by proc
-                            "layout" => STATICS::BS_LAYOUT_4COL,
-                            "type" => "text", // mandatory for form-input
-                            "tpl" => "form-date",
-                            "field" => "born", // mandatory
-                            "default" => ":date_now",
-                            "icon_after" => '<i class="fa fa-calendar"></i>',
-                            "classes" => array( "min-height-80" )
-                        ),
-                        array(
-                            // [+]id (html id)
-                            // [+]label (displayed label) returned by model
-                            // [+]value (displayed value) returned by model
-                            // [+]raw (original value) returned by model
-                            "layout" => STATICS::BS_LAYOUT_4COL,
-                            "type" => "text", // mandatory for form-input
-                            "tpl" => "form-input",
-                            "field" => "wborn", // mandatory
-                            "default" => ":empty_string",
-                            "classes" => array( "min-height-80" ),
-                            "validate" => array(
-                                "rules" => array(
-                                    "pattern" => "[A-Za-z0-9\u00C0-\u00D6\u00D8-\u00f6\u00f8-\u00ff\s-]*",
-                                    "maxlength" => 64
-                                ),
-                                "messages" => array(
-                                    "pattern" => "defaults.error_invalid_chars"
-                                )
-                            )
-                        ),
-                        array(
-                            // [+]id (html id)
-                            // [+]label (displayed label) returned by model
-                            // [+]value (displayed value) returned by model
-                            // [+]raw (original value) returned by model
-                            "layout" => STATICS::BS_LAYOUT_4COL,
-                            "type" => "text", // mandatory for form-input
-                            "tpl" => "form-input",
-                            "field" => "natio", // mandatory
-                            "default" => ":empty_string",
-                            "classes" => array( "min-height-80" ),
-                            "validate" => array(
-                                "rules" => array(
-                                    "pattern" => "[A-Za-z0-9\u00C0-\u00D6\u00D8-\u00f6\u00f8-\u00ff\s-]*",
-                                    "maxlength" => 64
-                                ),
-                                "messages" => array(
-                                    "pattern" => "defaults.error_invalid_chars"
-                                )
-                            )
-                        ),
-                        array(
-                            // [+]id (html id)
-                            // [+]label (displayed label) returned by model
-                            // [+]value (displayed value) returned by model
-                            // [+]raw (original value) returned by model
-                            "layout" => STATICS::BS_LAYOUT_4COL,
-                            "type" => "text", // mandatory for form-input
-                            "tpl" => "form-input",
-                            "field" => "numnat", // mandatory
-                            "default" => ":empty_string",
-                            "classes" => array( "min-height-80" ),
-                            "validate" => array(
-                                "rules" => array(
-                                    "pattern" => "[A-Za-z0-9-/\s]*",
-                                    "maxlength" => 64
-                                ),
-                                "messages" => array(
-                                    "pattern" => "defaults.error_invalid_chars"
-                                )
-                            )
-                        ),
                         array(
                             // [+]id (html id)
                             // [+]label (displayed label) returned by model

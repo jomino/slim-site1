@@ -92,7 +92,8 @@
 			"type" : "choice",
 			"choice" : [
 				{ "text" : "adres" },
-				{ "text" : "adressen" }
+				{ "text" : "adressen" },
+				{ "text" : "straat" }
 			]
 		},
 		"spAgency" : {

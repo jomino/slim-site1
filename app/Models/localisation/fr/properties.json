@@ -75,7 +75,7 @@
 		"label" : {
 			"type" : "choice",
 			"choice" : [
-				{ "text" : "{spAddress}" }
+				{ "text" : "{spAddress,2}" }
 			]
 		},
 		"format" : {

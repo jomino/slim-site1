@@ -55,4 +55,6 @@ class Models
     const BS_LAYOUT_2COL = "col-md-6 col-sm-12";
     const BS_LAYOUT_1COL = "col-md-12 col-xs-12";
 
+    const BS_LAYOUT_CELL = "col-md-1 col-sm-2 col-xs-3";
+
 }

@@ -268,8 +268,7 @@ class BodyDefaultPropertiesController extends \Core\Controller
                 array(
                     "id" => "box-property-edit",
                     "title" => "messages.title_property_edit",
-                    "expandable" => 1,
-                    "collapsed" => 0,
+                    "back" => 1,
                     "body" => $form
                 )
             )
