@@ -172,7 +172,7 @@
 		"label" : {
 			"type" : "choice",
 			"choice" : [
-				{ "text" : "numéro" }
+				{ "text" : "{spNum}" }
 			]
 		},
 		"format" : {

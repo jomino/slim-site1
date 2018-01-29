@@ -12,7 +12,7 @@ class Properties extends \Framework\Model
     /**
     * @read
     */
-    protected $_withLocal = false;
+    protected $_withLocal = true;
 
     /**
     * @read
@@ -88,7 +88,7 @@ class Properties extends \Framework\Model
     * @column
     * @readwrite
     * @type integer
-    * @label id lang
+    * @label id property type
     * @validate pattern([2-3])
     * @belongto ptypes.id_ptype::ptypes.ref_ptype
     */
@@ -172,6 +172,12 @@ class Properties extends \Framework\Model
     */
     protected $_datein;
 
+    public function getDatein()
+    {
+        $value = $this->_datein;
+        return !empty($value) ? $value:"";
+    }
+
     /**
     * @column
     * @readwrite
@@ -179,6 +185,13 @@ class Properties extends \Framework\Model
     * @label comment
     */
     protected $_datemod;
+
+    public function getDatemod()
+    {
+        $value = $this->_datemod;
+        $dt = new \DateTime("now", new \DateTimeZone("Europe/Brussels"));
+        return !empty($value) ? $value:$dt->format("Y-m-d H:i:s");
+    }
 
     /**
     * @column

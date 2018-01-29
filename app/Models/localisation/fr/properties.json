@@ -1,0 +1,160 @@
+{
+	"id_prop" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spId,2}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "numeric"
+		}
+    },
+	"id_ptype" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spType}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "numeric"
+		}
+    },
+	"id_ref" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spRef}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "text"
+		}
+    },
+	"price" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spPrice} de {spStart}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "numeric"
+		}
+    },
+	"name" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spLabel,1}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "text"
+		}
+    },
+	"num" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spNum}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "text"
+		}
+    },
+	"street" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spAddress}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "text"
+		}
+	},
+	"cp" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spCp,1}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "text"
+		}
+	},
+	"ville" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spCommune}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "text"
+		}
+	},
+	"id_cty" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spId,2} {spPays}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "numeric"
+		}
+    },
+	"datein" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spDate} d\\inscription" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "date",
+			"pattern" : "d/m/Y"
+		}
+    },
+	"datemod" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spDate} de modification" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "date",
+			"pattern" : "d/m/Y"
+		}
+	},
+	"comment" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spCommu}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "text"
+		}
+	}
+}

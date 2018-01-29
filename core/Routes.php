@@ -29,6 +29,7 @@ class Routes
             $this->post('/body/properties', Controllers\BodyDefaultPropertiesController::class.":home")->setName('body_properties');
             $this->post('/properties/pipe', Controllers\BodyDefaultPropertiesController::class.":pipe")->setName('properties_pipe');
             $this->post('/properties/edit[/{id}]', Controllers\BodyDefaultPropertiesController::class.":edit")->setName('properties_edit');
+            $this->post('/properties/save[/{id}]', Controllers\BodyDefaultPropertiesController::class.":save")->setName('properties_save');
             /* GESLOC */
             $this->post('/body/gesloc', Controllers\BodyDefaultGeslocController::class.":home")->setName('body_gesloc');
             $this->post('/gesloc/pipe', Controllers\BodyDefaultGeslocController::class.":pipe")->setName('gesloc_pipe');

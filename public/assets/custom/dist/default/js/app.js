@@ -1383,7 +1383,7 @@ String.prototype.capitalize = function(s){
             $.jo.reloadBody();
         });
 
-        $(document).off('ready.ft.table').on('ready.ft.table', 'table.footable', function() {
+        $(document).off('ready.ft.table , after.ft.paging').on('ready.ft.table , after.ft.paging', 'table.footable', function() {
             $('a[data-link="get"]',$(this)).on('click', _onLoadHtmlHandler);
             $('a[data-link="post"]',$(this)).on('click', _onPostDataHandler);
             $('a[data-link="push"]',$(this)).off('click').on('click', _onPushHtmlHandler);

@@ -224,8 +224,9 @@ class BodyDefaultPropertiesController extends \Core\Controller
         $_items = array();
 
         // form
-        /*$viewmodel = new \App\Models\Views\PropertiesDefaultEditViewModel(array(
-            "model" => !empty($ingoing) ? $ingoing : \App\Models\Users::class
+        $viewmodel = new \App\Models\Views\PropertiesDefaultEditViewModel(array(
+            "logger" => $this->logger,
+            "model" => !empty($ingoing) ? $ingoing : \App\Models\Properties::class
         ));
 
         $_items = $viewmodel->getItems("form-edit");
@@ -248,7 +249,7 @@ class BodyDefaultPropertiesController extends \Core\Controller
 
         $path_id = !is_null($_id) ? array("id" => $_id):[];
 
-        $form_action = $this->router->pathFor('contact_save',$path_id);
+        $form_action = $this->router->pathFor('properties_save',$path_id);
 
         $form_datas = array(
             "form_id" => $form_id,
@@ -272,10 +273,15 @@ class BodyDefaultPropertiesController extends \Core\Controller
                     "body" => $form
                 )
             )
-        );*/
+        );
 
-        return $this->view->render( $response, "{$this->views_path}/Contacts/edit-bs.html.twig", $box_datas);
+        return $this->view->render( $response, "{$this->views_path}/Properties/edit-bs.html.twig", $box_datas);
         
+    }
+
+    public function save($request, $response, $args)
+    {
+
     }
 
 }
