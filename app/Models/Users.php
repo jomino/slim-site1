@@ -250,6 +250,12 @@ class Users extends \Framework\Model
     */
     protected $_born;
 
+    public function getBorn()
+    {
+        $value = $this->_born;
+        return !empty($value) ? $value:"";
+    }
+
     /**
     * @column
     * @readwrite
@@ -258,6 +264,12 @@ class Users extends \Framework\Model
     */
     protected $_datein;
 
+    public function getDatein()
+    {
+        $value = $this->_datein;
+        return !empty($value) ? $value:"";
+    }
+
     /**
     * @column
     * @readwrite
@@ -265,6 +277,13 @@ class Users extends \Framework\Model
     * @label comment
     */
     protected $_datemod;
+
+    public function getDatemod()
+    {
+        $value = $this->_datemod;
+        $dt = new \DateTime("now", new \DateTimeZone("Europe/Brussels"));
+        return !empty($value) ? $value:$dt->format("Y-m-d H:i:s");
+    }
 
 
 }

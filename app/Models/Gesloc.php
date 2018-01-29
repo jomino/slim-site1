@@ -267,6 +267,12 @@ class Gesloc extends \Framework\Model
     */
     protected $_dt_sign;
 
+    public function getDt_sign()
+    {
+        $value = $this->_dt_sign;
+        return !empty($value) ? $value:"";
+    }
+
     /**
     * @column
     * @readwrite
@@ -274,6 +280,12 @@ class Gesloc extends \Framework\Model
     * @label start date
     */
     protected $_dt_debu;
+
+    public function getDt_debu()
+    {
+        $value = $this->_dt_debu;
+        return !empty($value) ? $value:"";
+    }
 
     /**
     * @column
@@ -283,6 +295,12 @@ class Gesloc extends \Framework\Model
     */
     protected $_dt_fin;
 
+    public function getDt_fin()
+    {
+        $value = $this->_dt_fin;
+        return !empty($value) ? $value:"";
+    }
+
     /**
     * @column
     * @readwrite
@@ -290,6 +308,12 @@ class Gesloc extends \Framework\Model
     * @label index date
     */
     protected $_dt_index;
+
+    public function getDt_index()
+    {
+        $value = $this->_dt_index;
+        return !empty($value) ? $value:"";
+    }
 
     /**
     * @column
@@ -299,6 +323,12 @@ class Gesloc extends \Framework\Model
     */
     protected $_dt_send;
 
+    public function getDt_send()
+    {
+        $value = $this->_dt_send;
+        return !empty($value) ? $value:"";
+    }
+
     /**
     * @column
     * @readwrite
@@ -306,6 +336,12 @@ class Gesloc extends \Framework\Model
     * @label stop date
     */
     protected $_dt_stop;
+
+    public function getDt_stop()
+    {
+        $value = $this->_dt_stop;
+        return !empty($value) ? $value:"";
+    }
 
     /**
     * @column
@@ -315,6 +351,12 @@ class Gesloc extends \Framework\Model
     */
     protected $_dt_entr;
 
+    public function getDt_entr()
+    {
+        $value = $this->_dt_entr;
+        return !empty($value) ? $value:"";
+    }
+
     /**
     * @column
     * @readwrite
@@ -322,5 +364,11 @@ class Gesloc extends \Framework\Model
     * @label pay date
     */
     protected $_dt_pay;
+
+    public function getDt_pay()
+    {
+        $value = $this->_dt_pay;
+        return !empty($value) ? $value:"";
+    }
     
 }

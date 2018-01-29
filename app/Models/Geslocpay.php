@@ -71,6 +71,12 @@ class Geslocpay extends \Framework\Model
     */
     protected $_dt_debit;
 
+    public function getDt_debit()
+    {
+        $value = $this->_dt_debit;
+        return !empty($value) ? $value:"";
+    }
+
     /**
     * @column
     * @readwrite
@@ -79,6 +85,12 @@ class Geslocpay extends \Framework\Model
     */
     protected $_dt_credit;
 
+    public function getDt_credit()
+    {
+        $value = $this->_dt_credit;
+        return !empty($value) ? $value:"";
+    }
+
     /**
     * @column
     * @readwrite
@@ -86,6 +98,12 @@ class Geslocpay extends \Framework\Model
     * @label owner pay date
     */
     protected $_dt_revers;
+
+    public function getDt_revers()
+    {
+        $value = $this->_dt_revers;
+        return !empty($value) ? $value:"";
+    }
     
     /**
     * @column

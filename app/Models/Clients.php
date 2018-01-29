@@ -100,5 +100,11 @@ class Clients extends \Framework\Model
         * @length 128
         */
         protected $_least;
+
+        public function getLeast()
+        {
+            $value = $this->_least;
+            return !empty($value) ? $value:"";
+        }
                 
 }
