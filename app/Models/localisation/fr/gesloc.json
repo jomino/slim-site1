@@ -1,0 +1,322 @@
+{
+	"idgesloc" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spId,2}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "numeric"
+		}
+    },
+	"idpro" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spId,2} {spOwner,0}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "numeric"
+		}
+    },
+	"idloc" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spId,2} {spTenant,0}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "numeric"
+		}
+    },
+	"idges" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spId,2} régisseur" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "numeric"
+		}
+    },
+	"idbien" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spId,2} {spBien}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "numeric"
+		}
+    },
+	"agence" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spAgency}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "text"
+		}
+	},
+	"ref" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spRef}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "text"
+		}
+	},
+	"prix" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spPrice} actuel" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "float"
+		}
+    },
+	"charges" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "charges actuelles" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "float"
+		}
+    },
+	"indice" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "indice actuel" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "float"
+		}
+    },
+	"assur" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spId,2} \\'assurance\\'" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "numeric"
+		}
+    },
+	"versepro" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spId,2} \\'versemment\\'" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "numeric"
+		}
+    },
+	"dt_sign" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spDate} de signature" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "date",
+			"pattern" : "d/m/Y"
+		}
+	},
+	"dt_debu" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spDate} de début" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "date",
+			"pattern" : "d/m/Y"
+		}
+	},
+	"dt_fin" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spDate} de fin" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "date",
+			"pattern" : "d/m/Y"
+		}
+	},
+	"dt_index" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spDate} d\\indexation" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "date",
+			"pattern" : "d/m/Y"
+		}
+	},
+	"dt_send" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spDate} de facturation" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "date",
+			"pattern" : "d/m/Y"
+		}
+	},
+	"dt_stop" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spDate} du renon" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "date",
+			"pattern" : "d/m/Y"
+		}
+	},
+	"dt_entr" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spDate} d\\'entrée" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "date",
+			"pattern" : "d/m/Y"
+		}
+	},
+	"dt_pay" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spDate} de payement" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "date",
+			"pattern" : "d/m/Y"
+		}
+	},
+	"rem" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spRem}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "text"
+		}
+	},
+	"ref_bail" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spRef}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "text"
+		}
+	},
+	"ref_etat" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spRef}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "text"
+		}
+	},
+	"indexer" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "indexer" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "ouinon"
+		}
+    },
+	"skip_charges" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "charge exclue" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "ouinon"
+		}
+    },
+	"send_charges" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "envoyé les charges" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "ouinon"
+		}
+    }
+}

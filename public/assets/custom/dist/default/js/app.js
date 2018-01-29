@@ -1315,16 +1315,21 @@ String.prototype.capitalize = function(s){
                                 })
                                 .append($('<span>').addClass([_getGlyph('remove'),'text-danger'].join(' ')));
                     break;
+                    case _name=='gesloc-action-edit':
+                        _data = _value + '/' + _row.idgesloc;
+                        return $('<a href="javascript:void(0);" data-link="get" data-href="'+_data+'">')
+                            .append($('<span>').addClass([_getGlyph('edit'),'text-primary'].join(' ')));
+                    break;
                     case _name=='gesloc-edit-tenant':
-                        _data = _value + '/' + _row.idloc ;
+                        _data = _value + '/' + _row.idloc;
                         return $('<a href="javascript:void(0);" data-link="get" data-href="'+_data+'">').text(_val);
                     break;
                     case _name=='gesloc-edit-owner':
-                        _data = _value + '/' + _row.idpro ;
+                        _data = _value + '/' + _row.idpro;
                         return $('<a href="javascript:void(0);" data-link="get" data-href="'+_data+'">').text(_val);
                     break;
                     case _name=='gesloc-full-adress':
-                        _data = _value + '/' + _row.id_prop ;
+                        _data = _value + '/' + _row.id_prop;
                         return $('<a href="javascript:void(0);" data-link="get" data-href="'+_data+'">').text([
                             _row.num>0 ? _row.num:'',
                             _capitalize(_row.street),

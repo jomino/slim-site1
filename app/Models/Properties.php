@@ -160,7 +160,7 @@ class Properties extends \Framework\Model
     * @readwrite
     * @type integer
     * @label id countries
-    * @belongto countries.id_cty::countries.ref_cty
+    * @belongto countries.id_cty::countries.-
     */
     protected $_id_cty;
         

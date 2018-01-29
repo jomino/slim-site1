@@ -40,6 +40,12 @@ class BodyDefaultGeslocController extends \Core\Controller
                     "gesloc-edit-owner",
                     $router->pathFor('contact_edit')
                 )
+            ),
+            "action_gesloc_edit" => array(
+                "action" => array(
+                    "gesloc-action-edit",
+                    $router->pathFor('gesloc_edit')
+                )
             )
         );
 
@@ -70,12 +76,12 @@ class BodyDefaultGeslocController extends \Core\Controller
             ),
             array(
                 "name" => $grp_name,
-                "value" => "0",
+                "value" => "1",
                 "text" => "default.rentok"
             ),
             array(
                 "name" => $grp_name,
-                "value" => "1",
+                "value" => "2",
                 "text" => "default.rentdue"
             )
         );
@@ -194,6 +200,19 @@ class BodyDefaultGeslocController extends \Core\Controller
         }
 
         return $response->withJson($response_datas);
+
+    }
+
+    public function edit($request, $response, $args)
+    {
+        $client = $this->client->model;
+
+        $_id = null;
+
+    }
+
+    public function save($request, $response, $args)
+    {
 
     }
 

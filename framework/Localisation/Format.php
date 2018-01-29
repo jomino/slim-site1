@@ -214,6 +214,8 @@ namespace Framework\Localisation
 
         private function NUMERIC_FORMAT($value){ return(intval($value)); }
 
+        private function FLOAT_FORMAT($value){ return(floatval($value)); }
+
         private function TEXT_FORMAT($value){
             if(is_string($value) && $value!=''){
                 return( html_entity_decode( 

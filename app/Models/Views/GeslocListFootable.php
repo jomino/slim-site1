@@ -176,18 +176,21 @@ class GeslocListFootable extends \Framework\ViewModel
                     "sortable" => "false"
                     //[+] "formatter" => string::javascript
                 )
-            )/*,
+            ),
             array(
-                "index" => 4,
-                "type" => "field",
-                "field" => "email",
+                "index" => 5,
+                "name" => "action_gesloc_edit",
+                "type" => "fn",
+                //[+] "action" => array(),
                 "column" => array(
                     "type" => "'text'",
-                    "name" => "'email'",
-                    "title" => "default.email",
-                    "style" => array("width" => "15%")
+                    "name" => "'gesloc_edit'",
+                    "title" => " ",
+                    "style" => array("width" => "32px"),
+                    "sortable" => "false"
+                    //[+] "formatter" => string::javascript
                 )
-            )*/
+            )
         )
     );
 
