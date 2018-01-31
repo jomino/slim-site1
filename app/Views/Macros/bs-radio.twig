@@ -1,0 +1,43 @@
+{% macro render(item) %}
+<div id="{{- item.id -}}" class="form-group {% if item.classes %}{{ item.classes|join(' ') }}{% endif %}">
+    <input type="hidden"{% if item.form %} form="{{ item.form }}"{% endif %} id="hidden-{{ item.name }}" value="{% if item.raw %}{{ item.raw }}{% endif %}">
+    {% if item.label %}
+    <label class="col-sm-2 control-label">{{ data.label }}</label>
+    <div class="col-sm-10">
+    {% endif %}
+        <div class="radio">
+        {% for radio in item.items %}
+            <label class="radio-inline">
+                <input disabled type="radio" name="{{ radio.name }}" value="{{ radio.value }}"{% if radio.checked %} checked{% endif %}>
+                &#160;{{ trans(radio.text)|capitalize }}
+            </label>
+        {% endfor %}
+        </div>
+    {% if item.label %}
+    </div>
+    {% endif %}
+</div>
+<script type="text/javascript">
+;(function($){
+    var JQContentLoaded = function(){
+        var $ = $ || window.$;
+        if($){
+            var $elements = $('input',$('#{{- item.id -}}'));
+            var $hidden = $('input#hidden-{{ item.name }}');
+            $elements.on('change', function(){
+                var _val = $hidden.val(), $val = $(this).val();
+                if(_val!=$val){ $hidden.val($val).change(); }
+            });
+            $hidden.on('change', function(){
+                var $val = $(this).val();
+                $.each($elements,function(){
+                    this.checked = $(this).val()==$val;
+                });
+            });
+        }
+    };
+    if($){ JQContentLoaded(); }
+    else{ document.addEventListener('DOMContentLoaded',JQContentLoaded); }
+})(window.jQuery);
+</script>
+{% endmacro %}

@@ -2,6 +2,13 @@ body{
   background-color: #444444;
 }
 
+hr.form-hr {
+  border-top: 1px solid #444444;
+	height: 8px;
+	border: 0;
+	box-shadow: 0 8px 8px -8px #8c8b8b inset;
+}
+
 .dataTable thead .sorting {
 	overflow-wrap: none;
 	vertical-align: top;

@@ -12,7 +12,7 @@ class Gesloc extends \Framework\Model
     /**
     * @read
     */
-    protected $_withLocal = false;
+    protected $_withLocal = true;
 
     /**
     * @read

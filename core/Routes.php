@@ -33,8 +33,8 @@ class Routes
             /* GESLOC */
             $this->post('/body/gesloc', Controllers\BodyDefaultGeslocController::class.":home")->setName('body_gesloc');
             $this->post('/gesloc/pipe', Controllers\BodyDefaultGeslocController::class.":pipe")->setName('gesloc_pipe');
-            $this->post('/gesloc/edit[/{id}]', Controllers\BodyDefaultPropertiesController::class.":edit")->setName('gesloc_edit');
-            $this->post('/gesloc/save[/{id}]', Controllers\BodyDefaultPropertiesController::class.":save")->setName('gesloc_save');
+            $this->post('/gesloc/edit[/{id}]', Controllers\BodyDefaultGeslocController::class.":edit")->setName('gesloc_edit');
+            $this->post('/gesloc/save[/{id}]', Controllers\BodyDefaultGeslocController::class.":save")->setName('gesloc_save');
             /* GESLOPAY */
             $this->post('/geslocpay/view[/{id}]', Controllers\BodyDefaultGeslocpayController::class.":home")->setName('geslocpay_view');
             $this->post('/geslocpay/pipe[/{id}]', Controllers\BodyDefaultGeslocpayController::class.":pipe")->setName('geslocpay_pipe');

@@ -209,6 +209,73 @@ class BodyDefaultGeslocController extends \Core\Controller
 
         $_id = null;
 
+        if(!empty($args["id"])){
+            $_id = $args["id"];
+            $ingoing = \App\Models\Gesloc::first(array(
+                "idgesloc = ?" => $_id
+            ));
+        }
+
+        $_items = array();
+
+        // form
+        $viewmodel = new \App\Models\Views\GeslocDefaultEditViewModel(array(
+            "logger" => $this->logger,
+            "model" => !empty($ingoing) ? $ingoing : \App\Models\Gesloc::class
+        ));
+
+        $_items = $viewmodel->getItems("form-edit");
+        
+        $form_items = array($_items);
+
+        $form_id = $_items["id"];
+        $form_title = $this->translator->trans($_items["title"]);
+
+        $form_validate = array();
+        
+        if(isset($_items["validate"])){
+            $form_validate = $_items["validate"];
+        }
+
+        $form_hiddens = array( array(
+            "value" => $client->uri,
+            "name" => "agence"
+        ));
+
+        if(!is_null($_id)){
+            $form_hiddens[] = array(
+                "value" => $client->uri,
+                "name" => "idgesloc"
+            );
+        }
+
+        $path_id = !is_null($_id) ? array("id" => $_id):[];
+
+        $form_action = $this->router->pathFor('properties_save',$path_id);
+
+        $form_datas = array(
+            "form_id" => $form_id,
+            "form_action" => $form_action,
+            "form_items" => $form_items,
+            "form_validate" => $form_validate,
+            "form_hiddens" => $form_hiddens
+        );
+        
+        $form = $this->view->fetch("Default/App/Renderer/form.html.twig",$form_datas);
+
+        $box_datas = array(
+            "items" => array(
+                array(
+                    "id" => "box-gesloc-edit",
+                    "title" => "messages.title_gesloc_edit",
+                    "back" => 1,
+                    "body" => $form
+                )
+            )
+        );
+
+        return $this->view->render( $response, "{$this->views_path}/Gesloc/edit-bs.html.twig", $box_datas);
+        
     }
 
     public function save($request, $response, $args)

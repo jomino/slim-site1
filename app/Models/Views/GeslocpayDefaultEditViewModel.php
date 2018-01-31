@@ -40,7 +40,7 @@ class GeslocpayDefaultEditViewModel extends \Framework\ViewModel
                             "tpl" => "form-select",
                             "required" => 1,
                             "reset" => 1,
-                            "error" => "defaults.error_required_field",
+                            "error" => "default.error_required_field",
                             "placeholder" => "messages.plhd_select",
                             "field" => "paytype",
                             "classes" => array( "min-height-80" ),
@@ -68,7 +68,7 @@ class GeslocpayDefaultEditViewModel extends \Framework\ViewModel
                                     "maxlength" => 128
                                 ),
                                 "messages" => array(
-                                    "pattern" => "defaults.error_invalid_chars"
+                                    "pattern" => "default.error_invalid_chars"
                                 )
                             )
                         ),
@@ -118,7 +118,7 @@ class GeslocpayDefaultEditViewModel extends \Framework\ViewModel
                                     "form_currency" => true
                                 ),
                                 "messages" => array(
-                                    "pattern" => "defaults.error_invalid_chars"
+                                    "pattern" => "default.error_invalid_chars"
                                 )
                             )
                         ),
@@ -152,7 +152,7 @@ class GeslocpayDefaultEditViewModel extends \Framework\ViewModel
                                     "pattern" => "[0-9- ]*,?[0-9]*"
                                 ),
                                 "messages" => array(
-                                    "pattern" => "defaults.error_invalid_chars"
+                                    "pattern" => "default.error_invalid_chars"
                                 )
                             )
                         )
@@ -166,7 +166,7 @@ class GeslocpayDefaultEditViewModel extends \Framework\ViewModel
                             // [+]id (returned by proc) // mandatory for form-button 
                             "type" => "button", // mandatory for form-button[button|submit|reset]
                             "tpl" => "form-button",
-                            "label" => "defaults.form_reset",
+                            "label" => "default.form_reset",
                             "classes" => array(
                                 "btn-primary",
                                 "btn-flat",
@@ -178,7 +178,7 @@ class GeslocpayDefaultEditViewModel extends \Framework\ViewModel
                             // [+]id (returned by proc) // mandatory for form-button 
                             "type" => "button", // mandatory for form-button[button|submit|reset]
                             "tpl" => "form-button",
-                            "label" => "defaults.form_save",
+                            "label" => "default.form_save",
                             "classes" => array(
                                 "btn-primary",
                                 "btn-flat",

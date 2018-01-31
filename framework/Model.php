@@ -278,7 +278,6 @@ namespace Framework
         {
             
             $raw = (array) $this->raw;
-            $phantom = $this->_phantom;
 
             $t_model = $this->getModel();
             $r_class = new \ReflectionClass($t_model);
@@ -338,21 +337,16 @@ namespace Framework
         {
 
             $columns = $this->columns;
-            
-            //Events::fire("framework.model.belongto.before", array(get_class($this)) );
 
-            foreach ($columns as $field => $properties){
-                if(is_string($properties["belongto"])){
-            
-                    //Events::fire("framework.model.belongto.before", array(print_r($properties,true)) );
-
-                    $this->_setBelongTo($field,$properties);
+            foreach ($columns as $name => $column){
+                if(is_string($column["belongto"])){
+                    $this->_setBelongTo($name,$column);
                 }
             }
 
         }
 
-        protected function _setBelongTo($name,$properties)
+        protected function _setBelongTo($name,$column)
         {
 
             $raw = $this->raw;
@@ -362,9 +356,9 @@ namespace Framework
 
             if(!empty($this->_map)){ $map = $this->map; }
 
-            $raw_prop = $properties["name"];
+            $raw_prop = $column["name"];
 
-            $t_values = explode("::",$properties["belongto"]);
+            $t_values = explode("::",$column["belongto"]);
 
             $w_value = explode(".",$t_values[0]);
 
@@ -465,6 +459,8 @@ namespace Framework
                     }else{
                         $mixed = (array) $model->getRaw();
                     }
+                }else{
+                    
                 }
 
             }

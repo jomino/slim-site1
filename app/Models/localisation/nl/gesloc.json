@@ -99,7 +99,7 @@
 		"label" : {
 			"type" : "choice",
 			"choice" : [
-				{ "text" : "{spPrice} de départ" }
+				{ "text" : "Loyer de départ" }
 			]
 		},
 		"format" : {

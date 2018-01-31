@@ -1,0 +1,7 @@
+{% macro render(item) %}
+	<div class="row">
+        <div class="col-12">
+            <hr class="form-hr{% if item.classes %}{{- item.classes|join(' ') -}}{% endif %}">
+        </div>
+	</div>
+{% endmacro %}

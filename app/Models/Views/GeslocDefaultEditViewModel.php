@@ -43,7 +43,7 @@ class GeslocDefaultEditViewModel extends \Framework\ViewModel
                             // [+]raw (original value) returned by model
                             "type" => "text", // mandatory for form-input
                             "tpl" => "form-input",
-                            "field" => "id_ref", // mandatory
+                            "field" => "ref", // mandatory
                             "default" => ":empty_string",
                             "classes" => array( "min-height-80" ),
                             "validate" => array(
@@ -52,7 +52,7 @@ class GeslocDefaultEditViewModel extends \Framework\ViewModel
                                     "maxlength" => 128
                                 ),
                                 "messages" => array(
-                                    "pattern" => "defaults.error_invalid_chars"
+                                    "pattern" => "default.error_invalid_chars"
                                 )
                             )
                         ),
@@ -63,16 +63,16 @@ class GeslocDefaultEditViewModel extends \Framework\ViewModel
                             // [+]raw (original value) returned by model
                             "type" => "text", // mandatory for form-input
                             "tpl" => "form-input",
-                            "field" => "name", // mandatory
+                            "field" => "ref_bail", // mandatory
                             "default" => ":empty_string",
                             "classes" => array( "min-height-80" ),
                             "validate" => array(
                                 "rules" => array(
-                                    "pattern" => "[A-Za-z0-9\u00C0-\u00D6\u00D8-\u00f6\u00f8-\u00ff\s-]*",
+                                    "pattern" => "[A-Za-z0-9/-]*",
                                     "maxlength" => 128
                                 ),
                                 "messages" => array(
-                                    "pattern" => "defaults.error_invalid_chars"
+                                    "pattern" => "default.error_invalid_chars"
                                 )
                             )
                         ),
@@ -81,33 +81,18 @@ class GeslocDefaultEditViewModel extends \Framework\ViewModel
                             // [+]label (displayed label) returned by model
                             // [+]value (displayed value) returned by model
                             // [+]raw (original value) returned by model
-                            // [+]name (html name) returned by proc
                             "type" => "text", // mandatory for form-input
-                            "tpl" => "form-currency",
-                            "field" => "price", // mandatory
-                            "default" => ":zero_float",
-                            "icon_after" => '<i class="fa fa-euro"></i>',
+                            "tpl" => "form-input",
+                            "field" => "ref_etat", // mandatory
+                            "default" => ":empty_string",
                             "classes" => array( "min-height-80" ),
-                            "required" => 1,
                             "validate" => array(
                                 "rules" => array(
-                                    "pattern" => "[0-9- ]*,?[0-9]*",
-                                    "form_currency" => true
+                                    "pattern" => "[A-Za-z0-9/-]*",
+                                    "maxlength" => 128
                                 ),
                                 "messages" => array(
-                                    "pattern" => "defaults.error_invalid_chars"
-                                )
-                            )
-                        ),
-                        array(
-                            "tpl" => "form-select",
-                            "reset" => 1,
-                            "placeholder" => "messages.plhd_select",
-                            "field" => "id_ptype",
-                            "classes" => array( "min-height-80" ),
-                            "validate" => array(
-                                "rules" => array(
-                                    "select2" => true
+                                    "pattern" => "default.error_invalid_chars"
                                 )
                             )
                         )
@@ -117,86 +102,26 @@ class GeslocDefaultEditViewModel extends \Framework\ViewModel
                     "tpl" => "row",
                     "items" => array(
                         array(
-                            // [+]id (html id)
-                            // [+]label (displayed label) returned by model
-                            // [+]value (displayed value) returned by model
-                            // [+]raw (original value) returned by model
-                            "layout" => STATICS::BS_LAYOUT_CELL,
-                            "type" => "text", // mandatory for form-input
-                            "tpl" => "form-input",
-                            "field" => "num", // mandatory
-                            "default" => ":empty_string",
-                            "classes" => array( "min-height-80" ),
-                            "validate" => array(
-                                "rules" => array(
-                                    "pattern" => "[A-Za-z0-9\u00C0-\u00D6\u00D8-\u00f6\u00f8-\u00ff\s-]*",
-                                    "maxlength" => 128
-                                ),
-                                "messages" => array(
-                                    "pattern" => "defaults.error_invalid_chars"
-                                )
-                            )
-                        ),
-                        array(
-                            // [+]id (html id)
-                            // [+]label (displayed label) returned by model
-                            // [+]value (displayed value) returned by model
-                            // [+]raw (original value) returned by model
                             "layout" => STATICS::BS_LAYOUT_4COL,
-                            "type" => "text", // mandatory for form-input
-                            "tpl" => "form-input",
-                            "field" => "street", // mandatory
-                            "default" => ":empty_string",
-                            "classes" => array( "min-height-80" ),
-                            "validate" => array(
-                                "rules" => array(
-                                    "pattern" => "[A-Za-z0-9\u00C0-\u00D6\u00D8-\u00f6\u00f8-\u00ff\s-]*",
-                                    "maxlength" => 128
-                                ),
-                                "messages" => array(
-                                    "pattern" => "defaults.error_invalid_chars"
+                            "tpl" => "form-select",
+                            "required" => 1,
+                            "reset" => 1,
+                            "field" => "idpro",
+                            "label" => "default.owner",
+                            "error" => "default.error_required_field",
+                            "placeholder" => "messages.plhd_select",
+                            "delegate" => array("pnom","nom"),
+                            "filter" => array(
+                                array(
+                                    "name" => "id_utype",
+                                    "value" => STATICS::USER_TYPE_OWNER
                                 )
-                            )
-                        ),
-                        array(
-                            // [+]id (html id)
-                            // [+]label (displayed label) returned by model
-                            // [+]value (displayed value) returned by model
-                            // [+]raw (original value) returned by model
-                            "layout" => STATICS::BS_LAYOUT_4COL,
-                            "type" => "text", // mandatory for form-input
-                            "tpl" => "form-input",
-                            "field" => "ville", // mandatory
-                            "default" => ":empty_string",
+                            ),
                             "classes" => array( "min-height-80" ),
                             "validate" => array(
                                 "rules" => array(
-                                    "pattern" => "[A-Za-z0-9\u00C0-\u00D6\u00D8-\u00f6\u00f8-\u00ff\s-]*",
-                                    "maxlength" => 128
-                                ),
-                                "messages" => array(
-                                    "pattern" => "defaults.error_invalid_chars"
-                                )
-                            )
-                        ),
-                        array(
-                            // [+]id (html id)
-                            // [+]label (displayed label) returned by model
-                            // [+]value (displayed value) returned by model
-                            // [+]raw (original value) returned by model
-                            "layout" => STATICS::BS_LAYOUT_CELL,
-                            "type" => "text", // mandatory for form-input
-                            "tpl" => "form-input",
-                            "field" => "cp", // mandatory
-                            "default" => ":empty_string",
-                            "classes" => array( "min-height-80" ),
-                            "validate" => array(
-                                "rules" => array(
-                                    "pattern" => "[A-Za-z0-9-]*",
-                                    "maxlength" => 128
-                                ),
-                                "messages" => array(
-                                    "pattern" => "defaults.error_invalid_chars"
+                                    "select2" => true,
+                                    "required" => true
                                 )
                             )
                         ),
@@ -205,10 +130,37 @@ class GeslocDefaultEditViewModel extends \Framework\ViewModel
                             "tpl" => "form-select",
                             "required" => 1,
                             "reset" => 1,
-                            "error" => "defaults.error_required_field",
+                            "field" => "idloc",
+                            "label" => "default.tenant",
+                            "error" => "default.error_required_field",
                             "placeholder" => "messages.plhd_select",
-                            "field" => "id_cty",
-                            "delegate" => "name",
+                            "delegate" => array("pnom","nom"),
+                            "filter" => array( array(
+                                "name" => "id_utype",
+                                "value" => STATICS::USER_TYPE_TENANT
+                            )),
+                            "classes" => array( "min-height-80" ),
+                            "validate" => array(
+                                "rules" => array(
+                                    "select2" => true,
+                                    "required" => true
+                                )
+                            )
+                        ),
+                        array(
+                            "layout" => STATICS::BS_LAYOUT_4COL,
+                            "tpl" => "form-select",
+                            "required" => 1,
+                            "reset" => 1,
+                            "field" => "idges",
+                            "label" => "default.syndic", // label must be defined here
+                            "error" => "default.error_required_field",
+                            "placeholder" => "messages.plhd_select",
+                            "delegate" => array("pnom","nom"),
+                            "filter" => array( array(
+                                "name" => "id_utype",
+                                "value" => STATICS::USER_TYPE_SYNDIC
+                            )),
                             "classes" => array( "min-height-80" ),
                             "validate" => array(
                                 "rules" => array(
@@ -218,7 +170,7 @@ class GeslocDefaultEditViewModel extends \Framework\ViewModel
                             )
                         )
                     )
-                ),
+                ),/*
                 array(
                     "tpl" => "row",
                     "items" => array(
@@ -235,7 +187,7 @@ class GeslocDefaultEditViewModel extends \Framework\ViewModel
                             "classes" => array( "min-height-80" )
                         )
                     )
-                ),
+                ),*/
                 array(
                     "tpl" => "row",
                     "layout" => STATICS::BS_LAYOUT_2COL,
@@ -244,7 +196,7 @@ class GeslocDefaultEditViewModel extends \Framework\ViewModel
                             // [+]id (returned by proc) // mandatory for form-button 
                             "type" => "button", // mandatory for form-button[button|submit|reset]
                             "tpl" => "form-button",
-                            "label" => "defaults.form_reset",
+                            "label" => "default.form_reset",
                             "classes" => array(
                                 "btn-primary",
                                 "btn-flat",
@@ -256,7 +208,7 @@ class GeslocDefaultEditViewModel extends \Framework\ViewModel
                             // [+]id (returned by proc) // mandatory for form-button 
                             "type" => "button", // mandatory for form-button[button|submit|reset]
                             "tpl" => "form-button",
-                            "label" => "defaults.form_save",
+                            "label" => "default.form_save",
                             "classes" => array(
                                 "btn-primary",
                                 "btn-flat",
@@ -341,16 +293,36 @@ class GeslocDefaultEditViewModel extends \Framework\ViewModel
                     }
 
                     if(!empty($column["belongto"])){
+                        $where = array();
                         $belongto = explode(".",$column["belongto"]);
                         $className = "\\App\\Models\\".ucfirst($belongto[0]);
                         if(isset($item["delegate"])){ $classProperty = $item["delegate"]; }
                         else{ $classProperty = strtolower($belongto[sizeof($belongto)-1]); }
-                        $c_path = $c_name.".".$classProperty;
-                        $item["list"] = $this->_getList($className,$classProperty);
-                        $label = $model->getBelongTo($c_path."#label");
-                        if(!empty($label) && is_string($label)){ $item["label"] = $label; }
-                        else{ $this->_logger->debug("[UsersDefaultEditViewModel]LABEL_ERROR",$label); }
-                        if(!$is_new){ $item["value"] = $model->getBelongTo($c_path."#display"); }
+                        if(isset($item["filter"])){
+                            for($i=0;$i<sizeof($item["filter"]);$i++){
+                                $filter = $item["filter"][$i];
+                                $where[$filter["name"]." = ?"] = $filter["value"];
+                            }
+                        }
+                        $item["list"] = $this->_getList($className,$classProperty,$where);
+                        if(is_string($classProperty)){ 
+                            $c_path = $c_name.".".$classProperty;
+                            $label = $model->getBelongTo($c_path."#label");
+                            if(is_string($label)){ $item["label"] = $label; }
+                            else{ /*$this->_logger->debug("[UsersDefaultEditViewModel]LABEL.ERROR",$label);*/ }
+                            if(!$is_new){ $item["value"] = $model->getBelongTo($c_path."#display"); }
+                        }else{
+                            if(!$is_new){
+                                $_value = "";
+                                for($i=0;$i<sizeof($item["delegate"]);$i++){
+                                    $c_path = $c_name.".".$item["delegate"][$i];
+                                    $_belongto = $model->getBelongTo($c_path."#display");
+                                    if(is_string($_belongto)){ $_value .= " ".$_belongto; }
+                                    else{ /*$this->_logger->debug("[UsersDefaultEditViewModel]VALUE.ERROR ({$c_path}) : ",$_belongto);*/ }
+                                }
+                                $item["value"] = trim($_value);
+                            }
+                        }
                     }
 
                     if(!isset($item["value"]) || empty($item["value"])){
@@ -423,17 +395,23 @@ class GeslocDefaultEditViewModel extends \Framework\ViewModel
 
     }
 
-    protected function _getList($className,$classProperty)
+    protected function _getList($model,$properties,$where=array(),$from="id")
     { // !important: sortir l'opération du flux
         $t_resp = array();
-        $_res = $className::all();
+        $_res = $model::all($where);
+        $_props = is_array($properties) ? $properties:array($properties);
         if(!empty($_res)){
             for($j=0;$j<sizeof($_res);$j++){
+                $t_name = "";
+                $t_val = $_res[$j]->{$from};
+                for($i=0;$i<sizeof($_props);$i++){
+                    $t_name .= " ".($_res[$j]->withLocal ? 
+                        $_res[$j]->getDisplay()->{$_props[$i]}:
+                        $_res[$j]->{$_props[$i]});
+                }
                 $t_resp[] = array(
-                    "name" => $_res[$j]->withLocal ? 
-                        $_res[$j]->getDisplay()->{$classProperty}:
-                        $_res[$j]->{$classProperty},
-                    "value" => $_res[$j]->getId()
+                    "name" => trim($t_name),
+                    "value" => $t_val
                 );
             }
         }

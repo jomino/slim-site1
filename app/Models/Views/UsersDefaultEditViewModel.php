@@ -52,7 +52,7 @@ class UsersDefaultEditViewModel extends \Framework\ViewModel
                                     "maxlength" => 128
                                 ),
                                 "messages" => array(
-                                    "pattern" => "defaults.error_invalid_chars"
+                                    "pattern" => "default.error_invalid_chars"
                                 )
                             )
                         ),
@@ -73,7 +73,7 @@ class UsersDefaultEditViewModel extends \Framework\ViewModel
                                     "maxlength" => 128
                                 ),
                                 "messages" => array(
-                                    "pattern" => "defaults.error_invalid_chars"
+                                    "pattern" => "default.error_invalid_chars"
                                 )
                             )
                         ),
@@ -94,7 +94,7 @@ class UsersDefaultEditViewModel extends \Framework\ViewModel
                                     "maxlength" => 128
                                 ),
                                 "messages" => array(
-                                    "pattern" => "defaults.error_invalid_chars"
+                                    "pattern" => "default.error_invalid_chars"
                                 )
                             )
                         ),
@@ -103,7 +103,7 @@ class UsersDefaultEditViewModel extends \Framework\ViewModel
                             "tpl" => "form-select",
                             "required" => 1,
                             "reset" => 1,
-                            "error" => "defaults.error_required_field",
+                            "error" => "default.error_required_field",
                             "placeholder" => "messages.plhd_select",
                             "field" => "id_cty",
                             "delegate" => "name",
@@ -212,7 +212,7 @@ class UsersDefaultEditViewModel extends \Framework\ViewModel
                                     "maxlength" => 128
                                 ),
                                 "messages" => array(
-                                    "pattern" => "defaults.error_invalid_chars"
+                                    "pattern" => "default.error_invalid_chars"
                                 )
                             )
                         ),
@@ -233,7 +233,7 @@ class UsersDefaultEditViewModel extends \Framework\ViewModel
                                     "maxlength" => 128
                                 ),
                                 "messages" => array(
-                                    "pattern" => "defaults.error_invalid_chars"
+                                    "pattern" => "default.error_invalid_chars"
                                 )
                             )
                         ),
@@ -254,7 +254,7 @@ class UsersDefaultEditViewModel extends \Framework\ViewModel
                                     "maxlength" => 128
                                 ),
                                 "messages" => array(
-                                    "pattern" => "defaults.error_invalid_chars"
+                                    "pattern" => "default.error_invalid_chars"
                                 )
                             )
                         ),
@@ -275,7 +275,7 @@ class UsersDefaultEditViewModel extends \Framework\ViewModel
                                     "maxlength" => 128
                                 ),
                                 "messages" => array(
-                                    "pattern" => "defaults.error_invalid_chars"
+                                    "pattern" => "default.error_invalid_chars"
                                 )
                             )
                         )
@@ -315,7 +315,7 @@ class UsersDefaultEditViewModel extends \Framework\ViewModel
                                     "maxlength" => 64
                                 ),
                                 "messages" => array(
-                                    "pattern" => "defaults.error_invalid_chars"
+                                    "pattern" => "default.error_invalid_chars"
                                 )
                             )
                         ),
@@ -336,7 +336,7 @@ class UsersDefaultEditViewModel extends \Framework\ViewModel
                                     "maxlength" => 64
                                 ),
                                 "messages" => array(
-                                    "pattern" => "defaults.error_invalid_chars"
+                                    "pattern" => "default.error_invalid_chars"
                                 )
                             )
                         ),
@@ -357,7 +357,7 @@ class UsersDefaultEditViewModel extends \Framework\ViewModel
                                     "maxlength" => 64
                                 ),
                                 "messages" => array(
-                                    "pattern" => "defaults.error_invalid_chars"
+                                    "pattern" => "default.error_invalid_chars"
                                 )
                             )
                         ),
@@ -383,7 +383,7 @@ class UsersDefaultEditViewModel extends \Framework\ViewModel
                             // [+]id (returned by proc) // mandatory for form-button 
                             "type" => "button", // mandatory for form-button[button|submit|reset]
                             "tpl" => "form-button",
-                            "label" => "defaults.form_reset",
+                            "label" => "default.form_reset",
                             "classes" => array(
                                 "btn-primary",
                                 "btn-flat",
@@ -395,7 +395,7 @@ class UsersDefaultEditViewModel extends \Framework\ViewModel
                             // [+]id (returned by proc) // mandatory for form-button 
                             "type" => "button", // mandatory for form-button[button|submit|reset]
                             "tpl" => "form-button",
-                            "label" => "defaults.form_save",
+                            "label" => "default.form_save",
                             "classes" => array(
                                 "btn-primary",
                                 "btn-flat",
