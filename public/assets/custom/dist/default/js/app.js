@@ -1406,7 +1406,7 @@ String.prototype.capitalize = function(s){
 
         // generic init
         if($.fn.iCheck){
-            $('input').iCheck({ radioClass: 'iradio_flat-blue' });
+            $('input:checkbox , input:radio').iCheck({ checkboxClass: 'icheckbox_flat-blue', radioClass: 'iradio_flat-blue' });
         }
         
     };

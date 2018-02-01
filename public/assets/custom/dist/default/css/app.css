@@ -111,6 +111,10 @@ div.dataTables_info {
   font-size: 75%;
 }
 
+.form-horizontal .form-group .checkbox {
+  margin-top: 20px !important;
+}
+
 .form-horizontal.vtop label {
   padding-top: 0px;
 }

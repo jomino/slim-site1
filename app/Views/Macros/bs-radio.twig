@@ -2,13 +2,13 @@
 <div id="{{- item.id -}}" class="form-group {% if item.classes %}{{ item.classes|join(' ') }}{% endif %}">
     <input type="hidden"{% if item.form %} form="{{ item.form }}"{% endif %} id="hidden-{{ item.name }}" value="{% if item.raw %}{{ item.raw }}{% endif %}">
     {% if item.label %}
-    <label class="col-sm-2 control-label">{{ data.label }}</label>
+    <label class="col-sm-2 control-label">{{ item.label }}</label>
     <div class="col-sm-10">
     {% endif %}
         <div class="radio">
-        {% for radio in item.items %}
+        {% for radio in item.list %}
             <label class="radio-inline">
-                <input disabled type="radio" name="{{ radio.name }}" value="{{ radio.value }}"{% if radio.checked %} checked{% endif %}>
+                <input type="radio" name="{{ radio.name }}" value="{{ radio.value }}"{% if radio.checked %} checked{% endif %}>
                 &#160;{{ trans(radio.text)|capitalize }}
             </label>
         {% endfor %}
@@ -22,9 +22,9 @@
     var JQContentLoaded = function(){
         var $ = $ || window.$;
         if($){
-            var $elements = $('input',$('#{{- item.id -}}'));
+            var $elements = $('input:radio',$('#{{- item.id -}}'));
             var $hidden = $('input#hidden-{{ item.name }}');
-            $elements.on('change', function(){
+            $elements.on('ifChecked', function(){
                 var _val = $hidden.val(), $val = $(this).val();
                 if(_val!=$val){ $hidden.val($val).change(); }
             });

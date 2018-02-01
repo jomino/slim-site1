@@ -170,7 +170,7 @@ class GeslocDefaultEditViewModel extends \Framework\ViewModel
                             )
                         )
                     )
-                ),/*
+                ),
                 array(
                     "tpl" => "row",
                     "items" => array(
@@ -179,15 +179,32 @@ class GeslocDefaultEditViewModel extends \Framework\ViewModel
                             // [+]label (displayed label) returned by model
                             // [+]value (displayed value) returned by model
                             // [+]raw (original value) returned by model
-                            "layout" => STATICS::BS_LAYOUT_1COL,
-                            "type" => "text", // mandatory for form-input
-                            "tpl" => "form-input",
-                            "field" => "comment", // mandatory
-                            "default" => ":empty_string",
-                            "classes" => array( "min-height-80" )
+                            // [+]name (html name) returned by proc
+                            "tpl" => "form-currency",
+                            "layout" => STATICS::BS_LAYOUT_6COL,
+                            "field" => "prix", // mandatory
+                            "default" => ":zero_float",
+                            "icon_after" => '<i class="fa fa-euro"></i>',
+                            "classes" => array( "min-height-80" ),
+                            "validate" => array(
+                                "rules" => array(
+                                    "pattern" => "[0-9- ]*,?[0-9]*"
+                                ),
+                                "messages" => array(
+                                    "pattern" => "default.error_invalid_chars"
+                                )
+                            )
+                        ),
+                        array(
+                            "tpl" => "form-checkbox",
+                            "layout" => STATICS::BS_LAYOUT_CELL,
+                            "label" => "", 
+                            "classes" => array( "min-height-80" ),
+                            "tooltip" => "messages.gesloc_tlp_endebit", 
+                            "field" => "endebit"
                         )
                     )
-                ),*/
+                ),
                 array(
                     "tpl" => "row",
                     "layout" => STATICS::BS_LAYOUT_2COL,

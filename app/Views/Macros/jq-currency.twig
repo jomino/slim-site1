@@ -21,7 +21,7 @@
                 this.select();
             });
             $input.on('input', function(){
-                $.jo.debugStop();
+                //$.jo.debugStop();
                 var start = this.selectionStart, end = this.selectionEnd, _value = $(this).val();
                 if(_value!='-'){
                     var f_num = $.jo.formatNumber(_value);
