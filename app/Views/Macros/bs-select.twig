@@ -80,7 +80,7 @@
 {% if item.label %}
     <label class="control-label text-nowrap" for="{{ item.id }}">{{ trans(item.label)|capitalize }}</label>
 {% endif %}
-<select id="{{ item.id }}" name="{{ item.name }}" class="form-control select2"{% if item.placeholder %} placeholder="{{ trans(item.placeholder)|raw }}"{% endif %}{% if item.readonly %} readonly{% endif %}{% if item.required %} required{% endif %}>
+<select id="{{ item.id }}" name="{{ item.name }}" class="form-control select2"{% if item.placeholder %} placeholder="{{ trans(item.placeholder)|raw }}"{% endif %}{% if item.readonly %} disabled{% endif %}{% if item.required %} required{% endif %}>
 {% if item.list|length %}
     {% if item.reset %}
         <option{% if not item.value and item.value != '0' %} selected="selected"{% endif %} value="-1">    

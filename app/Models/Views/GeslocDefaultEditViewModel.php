@@ -45,6 +45,7 @@ class GeslocDefaultEditViewModel extends \Framework\ViewModel
                             "tpl" => "form-input",
                             "field" => "ref", // mandatory
                             "default" => ":empty_string",
+                            "locked" => 1,
                             "classes" => array( "min-height-80" ),
                             "validate" => array(
                                 "rules" => array(
@@ -100,17 +101,18 @@ class GeslocDefaultEditViewModel extends \Framework\ViewModel
                 ),
                 array(
                     "tpl" => "row",
+                    "layout" => STATICS::BS_LAYOUT_4COL,
                     "items" => array(
                         array(
-                            "layout" => STATICS::BS_LAYOUT_4COL,
                             "tpl" => "form-select",
                             "required" => 1,
-                            "reset" => 1,
+                            "locked" => 1,
                             "field" => "idpro",
-                            "label" => "default.owner",
+                            "label" => "default.owner", // label must be defined here (can't extract from model)
                             "error" => "default.error_required_field",
                             "placeholder" => "messages.plhd_select",
-                            "delegate" => array("pnom","nom"),
+                            "displayField" => array("pnom","nom"),
+                            "valueField" => "id_ref",
                             "filter" => array(
                                 array(
                                     "name" => "id_utype",
@@ -126,15 +128,15 @@ class GeslocDefaultEditViewModel extends \Framework\ViewModel
                             )
                         ),
                         array(
-                            "layout" => STATICS::BS_LAYOUT_4COL,
                             "tpl" => "form-select",
                             "required" => 1,
-                            "reset" => 1,
+                            "locked" => 1,
                             "field" => "idloc",
-                            "label" => "default.tenant",
+                            "label" => "default.tenant", // label must be defined here
                             "error" => "default.error_required_field",
                             "placeholder" => "messages.plhd_select",
-                            "delegate" => array("pnom","nom"),
+                            "displayField" => array("pnom","nom"),
+                            "valueField" => "id_ref",
                             "filter" => array( array(
                                 "name" => "id_utype",
                                 "value" => STATICS::USER_TYPE_TENANT
@@ -148,15 +150,15 @@ class GeslocDefaultEditViewModel extends \Framework\ViewModel
                             )
                         ),
                         array(
-                            "layout" => STATICS::BS_LAYOUT_4COL,
                             "tpl" => "form-select",
-                            "required" => 1,
                             "reset" => 1,
+                            "locked" => 1,
                             "field" => "idges",
                             "label" => "default.syndic", // label must be defined here
                             "error" => "default.error_required_field",
                             "placeholder" => "messages.plhd_select",
-                            "delegate" => array("pnom","nom"),
+                            "displayField" => array("pnom","nom"),
+                            "valueField" => "id_ref",
                             "filter" => array( array(
                                 "name" => "id_utype",
                                 "value" => STATICS::USER_TYPE_SYNDIC
@@ -164,8 +166,7 @@ class GeslocDefaultEditViewModel extends \Framework\ViewModel
                             "classes" => array( "min-height-80" ),
                             "validate" => array(
                                 "rules" => array(
-                                    "select2" => true,
-                                    "required" => true
+                                    "select2" => true
                                 )
                             )
                         )
@@ -181,6 +182,7 @@ class GeslocDefaultEditViewModel extends \Framework\ViewModel
                             // [+]raw (original value) returned by model
                             // [+]name (html name) returned by proc
                             "tpl" => "form-currency",
+                            "locked" => 1,
                             "layout" => STATICS::BS_LAYOUT_6COL,
                             "field" => "prix", // mandatory
                             "default" => ":zero_float",
@@ -197,6 +199,7 @@ class GeslocDefaultEditViewModel extends \Framework\ViewModel
                         ),
                         array(
                             "tpl" => "form-checkbox",
+                            "locked" => 1,
                             "layout" => STATICS::BS_LAYOUT_CELL,
                             "label" => "", 
                             "classes" => array( "min-height-80" ),
@@ -311,19 +314,21 @@ class GeslocDefaultEditViewModel extends \Framework\ViewModel
 
                     if(!empty($column["belongto"])){
                         $where = array();
+                        $valueField = null;
                         $belongto = explode(".",$column["belongto"]);
                         $className = "\\App\\Models\\".ucfirst($belongto[0]);
-                        if(isset($item["delegate"])){ $classProperty = $item["delegate"]; }
-                        else{ $classProperty = strtolower($belongto[sizeof($belongto)-1]); }
+                        if(isset($item["valueField"])){ $valueField = $item["valueField"]; }
+                        if(isset($item["displayField"])){ $displayField = $item["displayField"]; }
+                        else{ $displayField = strtolower($belongto[sizeof($belongto)-1]); }
                         if(isset($item["filter"])){
                             for($i=0;$i<sizeof($item["filter"]);$i++){
                                 $filter = $item["filter"][$i];
                                 $where[$filter["name"]." = ?"] = $filter["value"];
                             }
                         }
-                        $item["list"] = $this->_getList($className,$classProperty,$where);
-                        if(is_string($classProperty)){ 
-                            $c_path = $c_name.".".$classProperty;
+                        $item["list"] = $this->_getList($className,$displayField,$where,$valueField);
+                        if(is_string($displayField)){ 
+                            $c_path = $c_name.".".$displayField;
                             $label = $model->getBelongTo($c_path."#label");
                             if(is_string($label)){ $item["label"] = $label; }
                             else{ /*$this->_logger->debug("[UsersDefaultEditViewModel]LABEL.ERROR",$label);*/ }
@@ -331,8 +336,8 @@ class GeslocDefaultEditViewModel extends \Framework\ViewModel
                         }else{
                             if(!$is_new){
                                 $_value = "";
-                                for($i=0;$i<sizeof($item["delegate"]);$i++){
-                                    $c_path = $c_name.".".$item["delegate"][$i];
+                                for($i=0;$i<sizeof($item["displayField"]);$i++){
+                                    $c_path = $c_name.".".$item["displayField"][$i];
                                     $_belongto = $model->getBelongTo($c_path."#display");
                                     if(is_string($_belongto)){ $_value .= " ".$_belongto; }
                                     else{ /*$this->_logger->debug("[UsersDefaultEditViewModel]VALUE.ERROR ({$c_path}) : ",$_belongto);*/ }
@@ -399,6 +404,8 @@ class GeslocDefaultEditViewModel extends \Framework\ViewModel
                         }
 
                     }
+
+                    $item["readonly"] = !$is_new && isset($item["locked"]);
 
                 }
 
