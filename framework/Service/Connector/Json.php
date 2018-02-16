@@ -56,7 +56,7 @@ namespace Framework\Service\Connector
         /**
         * @readwrite
         */
-        protected $_lastError = "error";
+        protected $_lastError = "no_error";
         
         /**
         * @readwrite

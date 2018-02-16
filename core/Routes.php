@@ -47,6 +47,7 @@ class Routes
             $this->map(['POST','GET'],'', Controllers\AdminController::class)->setName('admin');
             $this->post('/gesloc/confirm[/{op}]', Controllers\GeslocConfirmDefaultController::class);
             $this->post('/gesloc/import', Controllers\GeslocImportDefaultController::class)->setName('gesloc_import');
+            $this->post('/gesloc/delete', Controllers\GeslocDeleteDefaultController::class)->setName('gesloc_delete');
             $this->post('/geslocpay/confirm[/{op}]', Controllers\GeslocpayConfirmDefaultController::class);
             $this->post('/geslocpay/import', Controllers\GeslocpayImportDefaultController::class)->setName('geslocpay_import');
             $this->post('/geslochisto/confirm[/{op}]', Controllers\GeslochistoConfirmDefaultController::class);

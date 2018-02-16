@@ -18,10 +18,10 @@ class GeslocConfirmDefaultController extends \Core\Controller
             break;
             /*case "update":
                 $confirm = $this->_update();
-            break;
+            break;*/
             case "delete":
                 $confirm = $this->_delete();
-            break;*/
+            break;
             default:
                 $confirm = array(
                     "title" => "Unknow method",
@@ -77,10 +77,10 @@ class GeslocConfirmDefaultController extends \Core\Controller
 
         $partial = array();
 
-        $partial["title"] = "delete";
+        $partial["title"] = "admin.gesloc_delete";
         $partial["message"] = "Attention blabla ...";
 
-        //$partial["links"] = $this->_getLinks($router->pathFor("properties_delete"));
+        $partial["links"] = $this->_getLinks($router->pathFor("gesloc_delete"));
 
         return $partial;
         
@@ -106,12 +106,12 @@ class GeslocConfirmDefaultController extends \Core\Controller
 
         $id_link_go = "btn-confirm";
         $text_link_go = "messages.confirm";
-        $script_link_go = implode( "", array(
-            "$('a#{$id_link_go}').on( 'click', function(){ ",
-                "$.jo.loadDatas( '{$href}','','', function(){ ",
+        $script_link_go = implode( " ", array(
+            "$('a#{$id_link_go}').on( 'click', function(){",
+                "$.jo.loadDatas( '{$href}','','', function(){",
                     "$.jo.reloadPage('{$domain}');",
-                " });",
-            " });"
+                "});",
+            "});"
         ));
 
         return array(

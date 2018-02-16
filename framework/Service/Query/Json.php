@@ -52,6 +52,8 @@ namespace Framework\Service\Query
             print_r($interface);
             print("</pre>");*/
 
+            //Registry::get('container')->get('logger')->debug($this->getClass(),["interface"=>$interface]);
+
             return $interface->getResponse();
 
         }
@@ -70,10 +72,13 @@ namespace Framework\Service\Query
             print($request);
             print("</pre>");*/
 
+            //Registry::get('container')->get('logger')->debug($this->getClass(),["request"=>$request]);
+
             if(!empty($request)){
                 $datas = $this->_buildResponse(
                     $this->getConnector()->execute($request)
                 );
+                //Registry::get('container')->get('logger')->debug($this->getClass(),["datas"=>$datas]);
             }
 
             /*if ($datas===false){

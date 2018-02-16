@@ -59,7 +59,7 @@ class PropertiesDefaults extends \Framework\Model
             "A" => STATICS::PROPERTY_TYPE_APPART,
             "M" => STATICS::PROPERTY_TYPE_HOUSE
         );
-        return isset($t_ref[$v_ref]) && $v_trans=="L" ? $t_ref[$v_ref]:STATICS::PROPERTY_TYPE_OTHER;
+        return isset($t_ref[$v_ref]) && $v_trans=="L" ? $t_ref[$v_ref] : STATICS::PROPERTY_TYPE_OTHER;
     }
 
     public function getId_ref()

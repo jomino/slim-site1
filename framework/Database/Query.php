@@ -110,14 +110,19 @@ namespace Framework\Database
             print($sql);
             print("</pre>");*/
 
+            //Registry::get('container')->get('logger')->debug("insert",["sql"=>$sql]);
+
             $result = $this->connector->execute($sql);
 
             //var_dump($this->connector);
 
             if ($result === false)
             {
-                $errors = $this->connector->error.PHP_EOL.$sql;
+                $errors = $this->connector->lastError.PHP_EOL.$sql;
+                Registry::get('container')->get('logger')->debug("Query.php::122",["request"=>$sql,"LastError"=>$this->connector->lastError]);
                 throw new Exception\Sql($errors);
+            }else{
+                //Registry::get('container')->get('logger')->debug($this->getClass(),["request"=>$sql,"result"=>$this->connector]);
             }
             
             if ($isInsert)

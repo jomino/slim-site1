@@ -156,6 +156,7 @@ namespace Framework\Database\Query
             if ($result === false)
             {
                 $error = $this->connector->lastError;
+                //Registry::get('container')->get('logger')->debug($this->getClass(),["request"=>$sql,"result"=>$this->connector]);
                 throw new Exception\Sql("There was an error with your SQL query: {$error},\n$sql");
             }
             

@@ -28,7 +28,7 @@ namespace Framework
             
             parent::__construct($options);
             
-            if (!$this->type)
+            /*if (!$this->type)
             {
                 throw new Exception\Argument("Invalid type");
             }
@@ -45,7 +45,7 @@ namespace Framework
                     throw new Exception\Argument("Invalid type");
                     break;
                 }
-            }
+            }*/
 
         }
         

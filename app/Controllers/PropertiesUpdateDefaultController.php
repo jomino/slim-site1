@@ -17,7 +17,7 @@ class PropertiesUpdateDefaultController extends \Core\Controller
 
         $client = $this->client->model;
 
-        $count = Properties::sync( new PropertiesDefaults( array(
+        $result = Properties::sync( new PropertiesDefaults( array(
             "interface" => new Interfaces( array(
                 "request" => PropertiesDefaultsRequest::class,
                 "response" => DefaultsResponse::class
@@ -30,7 +30,7 @@ class PropertiesUpdateDefaultController extends \Core\Controller
 
         $response_data = array(
             "success" => true,
-            "updated" => $count
+            "updated" => sizeof($result)
         );
         
         return $response->withJson(json_encode($response_data));

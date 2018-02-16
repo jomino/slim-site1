@@ -178,7 +178,9 @@ class BodyDefaultGeslocController extends \Core\Controller
                         $f_data = trim($column["column"]["name"],"'");
                         if($column["type"]=="field"){
                             if(strpos($column["field"],".")!==false){
-                                $t_resp[$f_data] = $this->_getBelongTo($column["field"],$column["delegate"],$u_rec);
+                                $t_blt = $this->_getBelongTo($column["field"],$column["delegate"],$u_rec);
+                                $t_resp[$f_data] = $t_blt;
+                                //$this->logger->debug("Record BelongTo [".$column["field"]."]:",["result"=>$t_blt]);
                             }else if(isset($u_rec[$column["field"]])){
                                 $t_resp[$f_data] = $u_rec[$column["field"]];
                             }else{
@@ -297,9 +299,15 @@ class BodyDefaultGeslocController extends \Core\Controller
         ));
         if(!empty($t_rec)){
             $base_path = $o_field.".";
+            $this->logger->debug("Record BelongTo :",["record"=>(array)$t_rec->getRaw()]);
             for($i=0;$i<sizeof($t_dest);$i++){
-                $a_ret[] = $t_rec->getBelongTo($base_path.$t_dest[$i]);
+                $t_base = $base_path.$t_dest[$i];
+                $t_blt = $t_rec->getBelongTo($t_base);
+                $a_ret[] = $t_blt;
+                $this->logger->debug("Result BelongTo [".$t_base."]:",["result"=>$t_blt]);
             }
+        }else{
+            $this->logger->debug("Phantom record :",[$orig]);
         }
         return trim(implode(" ",$a_ret));
     }

@@ -76,7 +76,7 @@ class Properties extends \Framework\Model
         $insertId = parent::insert();
         if($insertId>0){
             $ingoing = (new Ingoing( array( "data" => array( 
-                "id_cli" => $client->getRaw()->id_cli,
+                "id_cli" => $client->id_cli,
                 "id_cat" => \App\Statics\Models::CATEGORY_TYPE_PROPERTY,
                 "id_ref" => $insertId
             ))))->insert();
@@ -175,7 +175,7 @@ class Properties extends \Framework\Model
     public function getDatein()
     {
         $value = $this->_datein;
-        return !empty($value) ? $value:"";
+        return !empty($value) ? $value:null;
     }
 
     /**
@@ -190,7 +190,7 @@ class Properties extends \Framework\Model
     {
         $value = $this->_datemod;
         $dt = new \DateTime("now", new \DateTimeZone("Europe/Brussels"));
-        return !empty($value) ? $value:$dt->format("Y-m-d H:i:s");
+        return !empty($value) ? $value:$dt->format("Y-m-d");
     }
 
     /**

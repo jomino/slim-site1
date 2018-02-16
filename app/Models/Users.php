@@ -253,7 +253,7 @@ class Users extends \Framework\Model
     public function getBorn()
     {
         $value = $this->_born;
-        return !empty($value) ? $value:"";
+        return !empty($value) ? $value:null;
     }
 
     /**
@@ -267,7 +267,7 @@ class Users extends \Framework\Model
     public function getDatein()
     {
         $value = $this->_datein;
-        return !empty($value) ? $value:"";
+        return !empty($value) ? $value:null;
     }
 
     /**

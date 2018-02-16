@@ -206,7 +206,6 @@ namespace Framework
             //Events::fire("framework.model.construct.after", array(print_r((array) $this->_raw,true)) );
         }
         
-        // standard setter
         public function isDirty($field=null)
         {
             if($field && $this->_raw->count()>0){
@@ -264,10 +263,19 @@ namespace Framework
             if($_raw->count()>0){
                 $columns = $this->getColumns();
                 foreach ($columns as $column){
-                    if(isset($_raw->{$column["name"]})){
-                        $raw->{$column["name"]} = $_raw->{$column["name"]};
-                    }else if(is_null($_raw->{$column["name"]})){
-                        $raw->{$column["name"]} = "";
+                    $c_name = $column["name"];
+                    if(isset($_raw->{$c_name})){
+                        $raw->{$c_name} = $_raw->{$c_name};
+                    }else if(property_exists($_raw,$c_name) && is_null($_raw->{$c_name})){
+                        if(isset($column["type"]) && $column["type"]=="date"){
+                            $raw->{$c_name} = null;
+                        }else if(isset($column["type"]) && $column["type"]=="integer"){
+                            $raw->{$c_name} = 0;
+                        }else{
+                            $raw->{$c_name} = "";
+                        }
+                    }else{
+                        $raw->{$c_name} = null;
                     }
                 }
             }
@@ -611,6 +619,7 @@ namespace Framework
                 }else{
                     $this->_raw->insertId = $result;
                 }
+                $this->_phantom = false;
             }
             
             return $result;
@@ -1194,55 +1203,87 @@ namespace Framework
             $result = $model_query->all();
             $response = array();
 
-            if(sizeof($result)>0)
+            $r_count = sizeof($result);
+
+            $this->logger->debug("local_count:",array($r_count));
+
+            if($r_count>0)
             {
                 $_class = get_class($model_abs);
 
-                for($i=0;$i<sizeof($result);$i++)
+                $_columns = $this->columns;
+
+                for($i=0;$i<$r_count;$i++)
                 {
                     $_row = new $_class(array("data"=>(array)$result[$i]));
                     $model_raw = array();
-                    //$this->logger->debug("_row[{$i}]",array(print_r($_row,true)));
-                    foreach($this->columns as $field=>$props)
+                    //-- debug
+                    $this->logger->debug("imported_datas[{$i}]:",(array)$_row->raw);
+                    //--
+                    foreach($_columns as $field=>$props)
                     {
                         $model_raw["{$field}"] = $_row->{$field};
                     }
                     if(sizeof($model_raw)>0)
                     {
-                        //var_dump($model_raw);
-                        $record = $response[] = new static(array("data"=>$model_raw));
+                        $record = new static(array("data"=>$model_raw));
+                        //-- debug
+                        $this->logger->debug("model_record[{$i}]:",(array)$record->raw);
+                        //--
                         $ref_field = $record->getSecondaryColumn();
                         if(!empty($ref_field)){
                             //delete previus record by ref
-                            $n_field = $ref_field['name'];
+                            $n_field = $ref_field["name"];
                             $is_previus = self::first(array(
-                                "{$n_field} = ?" => $record->{$ref_field}
+                                "{$n_field} = ?" => $record->{$n_field}
                             ));
                             if(!empty($is_previus)){
                                 $is_previus->delete();
+                                $this->logger->debug("success_delete[{$i}]:",(array)$is_previus->raw);
                             }
                         }
                         if($record->validate()){
                             //insert the new record
-                            $insertId = array(
-                                $this->getPrimaryColumn()["name"] => $record->insert()
-                            );
-                            //set the dependent records's values
-                            $cols = $_class::getColumnsInfos();
-                            foreach($cols as $col=>$prop)
-                            {
-                                if($prop["setter"])
+                            $_id = $record->insert();
+                            if($_id>0){
+                                //-- debug
+                                $this->logger->debug("success_insert[{$i}]:",(array)$record->raw);
+                                //--
+                                $_pc = $this->primaryColumn;
+                                $insertId = array(
+                                    $_pc["name"] => $_id
+                                );
+                                //set the dependent records's values
+                                $cols = $_class::getColumnsInfos();
+                                foreach($cols as $col=>$prop)
                                 {
-                                    $method = "_set".ucfirst($prop["name"]);
-                                    //$this->logger->debug("{$method}()",$insertId);
-                                    if(method_exists($_row,$method))
+                                    if($prop["setter"])
                                     {
-                                        //$_row->$method($insertId);
-                                        call_user_func_array(array($_row,$method),array($insertId));
+                                        $method = "_set".ucfirst($prop["name"]);
+                                        if(method_exists($_row,$method))
+                                        {
+                                            call_user_func_array(array($_row,$method),array($insertId));
+                                            //-- debug
+                                            $this->logger->debug("success{$method}({$insertId})",[]);
+                                            //--
+                                        }
                                     }
                                 }
+                                $response[] = $record;
+                            }else{
+                                //-- debug
+                                $this->logger->error("error_insert[{$i}]: ",(array)$record->raw);
+                                //--
                             }
+                        }else{
+                            //-- debug
+                            $this->logger->error("invalid_insert[{$i}]: ",["error"=>$record->errors]);
+                            //--
                         }
+                    }else{
+                        //-- debug
+                        $this->logger->error("empty_datas[{$i}]: ",[]);
+                        //--
                     }
                 }
             }

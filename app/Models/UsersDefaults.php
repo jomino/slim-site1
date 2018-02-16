@@ -371,7 +371,7 @@ class UsersDefaults extends \Framework\Model
     public function getBorn()
     {
         $value = $this->_born;
-        return false===strpos($value,"0000") ? $value:null;
+        return false===strpos($value,"0000") && !empty($value) ? $value:null;
     }
     
     /**
@@ -418,13 +418,14 @@ class UsersDefaults extends \Framework\Model
     public function getDatein()
     {
         $value = $this->_dateen;
-        return false===strpos($value,"0000") ? $value:null;
+        $dt = new \DateTime("now", new \DateTimeZone("Europe/Brussels"));
+        return false===strpos($value,"0000") && !empty($value) ? $value:$dt->format("Y-m-d");
     }
 
     public function getDatemod()
     {
         $dt = new \DateTime("now", new \DateTimeZone("Europe/Brussels"));
-        return $dt->format("Y-m-d H:i:s");
+        return $dt->format("Y-m-d");
     }
 
 }

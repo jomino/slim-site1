@@ -24,7 +24,10 @@ class UsersImportDefaultController extends \Core\Controller
 
         while($_n=$this->_import()){
             $this->_count += $_n;
-            if($_n<$this->_pack){ break; }
+            if($_n<$this->_pack){
+                //$this->logger->debug("Imported records :",["count"=>$this->_count]);
+                break;
+            }
             $this->_offset += $this->_pack;
         }
 

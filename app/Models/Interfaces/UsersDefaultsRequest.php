@@ -30,8 +30,13 @@ class UsersDefaultsRequest extends Request\Json
         $fl_level->property = "level";
         $fl_level->value = "L,P,Y";
 
+        $fl_actif = new \stdClass();
+        $fl_actif->property = "actif";
+        $fl_actif->value = "O";
+
         $_data->filter = array(
-            $fl_level
+            $fl_level,
+            $fl_actif
         );
 
         if($this->query){

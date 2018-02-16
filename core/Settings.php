@@ -22,7 +22,7 @@ class Settings
                 'logger' => [
                     'name' => 'APPLICATION',
                     'path' => isset($_ENV['docker']) ? 'php://stdout' : __DIR__ . '/../app/_cache/application.log',
-                    'level' => \Monolog\Logger::DEBUG
+                    'level' => (bool)\App\Parameters::SYSTEM['debug'] ? \Monolog\Logger::DEBUG : \Monolog\Logger::ERROR
                 ],
                 'localisation' => [
                     'path' => __DIR__ . '/../app/Models/localisation'
