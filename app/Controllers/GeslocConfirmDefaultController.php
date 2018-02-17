@@ -16,9 +16,9 @@ class GeslocConfirmDefaultController extends \Core\Controller
             case "import":
                 $confirm = $this->_import();
             break;
-            /*case "update":
+            case "update":
                 $confirm = $this->_update();
-            break;*/
+            break;
             case "delete":
                 $confirm = $this->_delete();
             break;
@@ -62,10 +62,10 @@ class GeslocConfirmDefaultController extends \Core\Controller
         $partial = array();
         $links = array();
 
-        $partial["title"] = "update";
+        $partial["title"] = "admin.gesloc_update";
         $partial["message"] = "Attention blabla ...";
 
-        //$partial["links"] = $this->_getLinks($router->pathFor("properties_update"));
+        $partial["links"] = $this->_getLinks($router->pathFor("gesloc_update"));
 
         return $partial;
         

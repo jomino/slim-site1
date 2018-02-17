@@ -104,6 +104,7 @@ class AdminController extends \Core\Controller
         $base_path = "/admin/gesloc/confirm";
 
         if($ingo>0){
+            $links[] = array( "type"=>"get", "href"=>"{$base_path}/update", "text"=>"admin.gesloc_update");
             $links[] = array( "type"=>"get", "href"=>"{$base_path}/delete", "text"=>"admin.gesloc_delete");
         }else{
             $links[] = array( "type"=>"get", "href"=>"{$base_path}/import", "text"=>"admin.gesloc_import");
@@ -133,7 +134,7 @@ class AdminController extends \Core\Controller
         $base_path = "/admin/geslocpay/confirm";
 
         if($ingo>0){
-            $links[] = array( "type"=>"get", "href"=>"{$base_path}/delete", "text"=>"admin.geslocpay_delete");
+            $links[] = array( "type"=>"get", "href"=>"{$base_path}/update", "text"=>"admin.geslocpay_update");
         }else{
             $links[] = array( "type"=>"get", "href"=>"{$base_path}/import", "text"=>"admin.geslocpay_import");
         }

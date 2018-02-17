@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use \App\Models\Gesloc;
+use \App\Models\Geslocpay;
 use \App\Models\Ingoing;
 
 class GeslocDeleteDefaultController extends \Core\Controller
@@ -21,17 +22,35 @@ class GeslocDeleteDefaultController extends \Core\Controller
         $count_ingo = 0;
 
         if(!empty($result)){
-            $count_ingo = sizeof($result);
+
+            //$count_ingo = sizeof($result);
+
             for($i=0;$i<$count_ingo;$i++){
+
                 $id_prop = $result[$i]->id_ref;
+
                 $contract = Gesloc::first(array(
                     "idgesloc = ?" => $id_prop
                 ));
+
                 if(!empty($contract)){
-                    $contract->delete();
+
+                    if($contract->delete()){
+
+                        $count_ingo++;
+
+                        //-- debug
+                        $this->logger->debug("success_delete:",["model"=>"Gesloc","origine"=>"ingoing","origineID"=>"{$id_prop}"]);
+                        //--
+                    }else{
+                        //-- debug
+                        $this->logger->error("error_delete:",["model"=>"Gesloc","origine"=>"ingoing","origineID"=>"{$id_prop}"]);
+                        //--
+                    }
+                    
                 }else{
                     //-- debug
-                    $this->logger->error("error: phantom record",["model"=>"Gesloc","origine"=>"ingoing","origineID"=>"{$id_prop}"]);
+                    $this->logger->error("error_delete: phantom record",["model"=>"Gesloc","origine"=>"ingoing","origineID"=>"{$id_prop}"]);
                     //--
                 }
             }

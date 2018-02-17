@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Auth\Auth as Auth;
 
 use App\Models\Ingoing;
+use App\Models\Geslocpay;
 
 class Gesloc extends \Framework\Model
 {
@@ -17,7 +18,9 @@ class Gesloc extends \Framework\Model
     /**
     * @read
     */
-    protected $_dependencies = array();
+    protected $_dependencies = array(
+        Geslocpay::class
+    );
 
     /**
     * @readwrite

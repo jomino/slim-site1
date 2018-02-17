@@ -16,10 +16,10 @@ class GeslocpayConfirmDefaultController extends \Core\Controller
             case "import":
                 $confirm = $this->_import();
             break;
-            /*case "update":
+            case "update":
                 $confirm = $this->_update();
             break;
-            case "delete":
+            /*case "delete":
                 $confirm = $this->_delete();
             break;*/
             default:
@@ -65,7 +65,7 @@ class GeslocpayConfirmDefaultController extends \Core\Controller
         $partial["title"] = "update";
         $partial["message"] = "Attention blabla ...";
 
-        //$partial["links"] = $this->_getLinks($router->pathFor("properties_update"));
+        $partial["links"] = $this->_getLinks($router->pathFor("geslocpay_update"));
 
         return $partial;
         

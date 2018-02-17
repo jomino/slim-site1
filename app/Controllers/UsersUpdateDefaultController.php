@@ -19,11 +19,19 @@ class UsersUpdateDefaultController extends \Core\Controller
 
     public function __invoke($request, $response, $args)
     {
+
+        $client = $this->client->model;
+        
+        $this->_uri = $client->uri;
+
         if(!empty($args["id"])){
+
             $user = Users::first(array(
                 "id_ref = ?" => (int)$args["id"]
             ));
+
             if(!empty($user)){
+
                 $user->syncWith( new UsersDefaults( array(
                     "interface" => new Interfaces( array(
                         "request" => UsersDefaultsRequest::class,
@@ -31,7 +39,7 @@ class UsersUpdateDefaultController extends \Core\Controller
                     ))
                 )), array(
                     "where" => array(
-                        "agence" => "www.scriptimmo.com",
+                        "agence" => $this->_uri,
                         "filter" => array(
                             "property" => "iduser",
                             "value" => $args["id"]
@@ -42,13 +50,12 @@ class UsersUpdateDefaultController extends \Core\Controller
                         "offset" => 0
                     )
                 ));
-            }
-            $this->_count = 1;
-        }else{
 
-            $client = $this->client->model;
-            
-            $this->_uri = $client->uri;
+            }
+
+            $this->_count = 1;
+
+        }else{
 
             while($_n=$this->_update()){
                 $this->_count += $_n;

@@ -2,13 +2,14 @@
 
 namespace App\Controllers;
 
-use \App\Models\Geslochisto;
-use \App\Models\GeslochistoDefaults;
+use \App\Models\Gesloc;
+use \App\Models\Ingoing;
+use \App\Models\GeslocDefaults;
 use \Framework\Model\Interfaces;
-use \App\Models\Interfaces\GeslochistoDefaultsRequest;
+use \App\Models\Interfaces\GeslocDefaultsRequest;
 use \App\Models\Interfaces\DefaultsResponse;
 
-class GeslochistoImportDefaultController extends \Core\Controller
+class GeslocUpdateDefaultController extends \Core\Controller
 {
 
     public function __invoke($request, $response, $args)
@@ -16,9 +17,9 @@ class GeslochistoImportDefaultController extends \Core\Controller
 
         $client = $this->client->model;
 
-        $records = Geslochisto::sync( new GeslochistoDefaults( array(
+        $records = Gesloc::sync( new GeslocDefaults( array(
             "interface" => new Interfaces( array(
-                "request" => GeslochistoDefaultsRequest::class,
+                "request" => GeslocDefaultsRequest::class,
                 "response" => DefaultsResponse::class
             ))
         )), array(
@@ -29,7 +30,7 @@ class GeslochistoImportDefaultController extends \Core\Controller
 
         $response_data = array(
             "success" => true,
-            "imported" => sizeof($records)
+            "updated" => sizeof($records)
         );
         
         return $response->withJson(json_encode($response_data));

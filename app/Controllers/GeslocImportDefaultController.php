@@ -24,7 +24,7 @@ class GeslocImportDefaultController extends \Core\Controller
             ))
         )), array(
             "where" => array(
-                "agence" => $client->getRaw()->uri
+                "agence" => $client->uri
             )
         ));
 

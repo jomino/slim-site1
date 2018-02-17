@@ -11,7 +11,7 @@ use \App\Models\Interfaces\DefaultsResponse;
 
 use App\Auth\Auth as Auth;
 
-class GeslocpayImportDefaultController extends \Core\Controller
+class GeslocpayUpdateDefaultController extends \Core\Controller
 {
     
     public function __invoke($request, $response, $args)
@@ -29,19 +29,19 @@ class GeslocpayImportDefaultController extends \Core\Controller
         if(!empty($result)){
             for($i=0;$i<sizeof($result);$i++){
                 $_id = $result[$i]->id_ref;
-                $count += $this->_import($_id);
+                $count += $this->_update($_id);
             }
         }
 
         $response_data = array(
             "success" => $count>0,
-            "imported" => $count
+            "updated" => $count
         );
         
         return $response->withJson(json_encode($response_data));
     }
 
-    private function _import($id)
+    private function _update($id)
     {
         return sizeof( Geslocpay::sync( new GeslocpayDefaults( array(
             "interface" => new Interfaces( array(
