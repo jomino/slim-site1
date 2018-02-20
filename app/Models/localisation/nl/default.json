@@ -513,6 +513,14 @@
 				{ "text" : "eigenaars" }
 			]
 		},
+		"spPark" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "parking" },
+				{ "text" : "parkings" }
+			]
+		},
 		"spPays" : {
 			"comment" : "",
 			"type" : "choice",

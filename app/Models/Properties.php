@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Framework\DateMethods as DateMethods;
+
 use App\Auth\Auth as Auth;
 
 use App\Models\Ingoing;
@@ -89,7 +91,7 @@ class Properties extends \Framework\Model
     * @readwrite
     * @type integer
     * @label id property type
-    * @validate pattern([2-3])
+    * @validate pattern([2-4])
     * @belongto ptypes.id_ptype::ptypes.ref_ptype
     */
     protected $_id_ptype;
@@ -175,7 +177,7 @@ class Properties extends \Framework\Model
     public function getDatein()
     {
         $value = $this->_datein;
-        return !empty($value) ? $value:null;
+        return !empty($value) && false===strpos($value,"0000") ? $value : DateMethods::now();
     }
 
     /**
@@ -189,8 +191,7 @@ class Properties extends \Framework\Model
     public function getDatemod()
     {
         $value = $this->_datemod;
-        $dt = new \DateTime("now", new \DateTimeZone("Europe/Brussels"));
-        return !empty($value) ? $value:$dt->format("Y-m-d");
+        return !empty($value) && false===strpos($value,"0000") ? $value : DateMethods::now();
     }
 
     /**

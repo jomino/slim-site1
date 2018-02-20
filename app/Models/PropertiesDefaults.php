@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Framework\StringMethods as StringMethods;
+use Framework\DateMethods as DateMethods;
 use Framework\Model\Exception as Exception;
 
 use App\Statics\Models as STATICS;
@@ -57,7 +58,8 @@ class PropertiesDefaults extends \Framework\Model
         $v_trans = substr($this->_type,1,1);
         $t_ref = array(
             "A" => STATICS::PROPERTY_TYPE_APPART,
-            "M" => STATICS::PROPERTY_TYPE_HOUSE
+            "M" => STATICS::PROPERTY_TYPE_HOUSE,
+            "Z" => STATICS::PROPERTY_TYPE_PARKING
         );
         return isset($t_ref[$v_ref]) && $v_trans=="L" ? $t_ref[$v_ref] : STATICS::PROPERTY_TYPE_OTHER;
     }
@@ -210,12 +212,11 @@ class PropertiesDefaults extends \Framework\Model
     public function getDatein()
     {
         $value = $this->_datecrea;
-        return false===strpos($value,"0000") ? $value:null;
+        return false===strpos($value,"0000") ? $value : DateMethods::now();
     }
 
     public function getDatemod()
     {
-        $dt = new \DateTime("now", new \DateTimeZone("Europe/Brussels"));
-        return $dt->format("Y-m-d H:i:s");
+        return DateMethods::now();
     }
 }

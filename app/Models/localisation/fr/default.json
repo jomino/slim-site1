@@ -529,6 +529,14 @@
 				{ "text" : "pays" }
 			]
 		},
+		"spPark" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "garage" },
+				{ "text" : "garages" }
+			]
+		},
 		"spPhoto" : {
 			"comment" : "",
 			"type" : "choice",

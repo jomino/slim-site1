@@ -48,6 +48,7 @@ class Models
     const PROPERTY_TYPE_OTHER = 1;
     const PROPERTY_TYPE_APPART = 2;
     const PROPERTY_TYPE_HOUSE = 3;
+    const PROPERTY_TYPE_PARKING = 4;
 
     const BS_LAYOUT_6COL = "col-md-2 col-sm-4 col-xs-6";
     const BS_LAYOUT_4COL = "col-md-3 col-sm-6 col-xs-12";

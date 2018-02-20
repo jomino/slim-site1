@@ -299,12 +299,12 @@ class BodyDefaultGeslocController extends \Core\Controller
         ));
         if(!empty($t_rec)){
             $base_path = $o_field.".";
-            $this->logger->debug("Record BelongTo :",["record"=>(array)$t_rec->getRaw()]);
+            //$this->logger->debug("Record BelongTo :",["record"=>(array)$t_rec->getRaw()]);
             for($i=0;$i<sizeof($t_dest);$i++){
                 $t_base = $base_path.$t_dest[$i];
                 $t_blt = $t_rec->getBelongTo($t_base);
                 $a_ret[] = $t_blt;
-                $this->logger->debug("Result BelongTo [".$t_base."]:",["result"=>$t_blt]);
+                //$this->logger->debug("Result BelongTo [".$t_base."]:",["result"=>$t_blt]);
             }
         }else{
             $this->logger->debug("Phantom record :",[$orig]);

@@ -8,4 +8,5 @@ CREATE TABLE `ptypes` (
 INSERT INTO `ptypes` (`id_ptype`, `ref_ptype`)
     VALUES (1, 'other'),
         (2, 'appart'),
-        (3, 'house');
+        (3, 'house'),
+        (4, 'parking');

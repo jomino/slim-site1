@@ -23,9 +23,7 @@ class GeslocDeleteDefaultController extends \Core\Controller
 
         if(!empty($result)){
 
-            //$count_ingo = sizeof($result);
-
-            for($i=0;$i<$count_ingo;$i++){
+            for($i=0;$i<sizeof($result);$i++){
 
                 $id_prop = $result[$i]->id_ref;
 

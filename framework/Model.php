@@ -511,7 +511,16 @@ namespace Framework
 
                 $this->_phantom = true;
 
-                return $query->delete();
+                if($query->delete()){
+                    //-- debug
+                    $this->logger->debug("success_delete[{$this->model}]:",(array)$this->raw);
+                    //--
+                    return true;
+                }else{
+                    //-- debug
+                    $this->logger->debug("error_delete[{$this->model}]:",(array)$this->raw);
+                    //--
+                }
 
             }
 
@@ -1205,7 +1214,7 @@ namespace Framework
 
             $r_count = sizeof($result);
 
-            $this->logger->debug("local_count:",array($r_count));
+            $this->logger->debug("local_count[{$model_abs->model}]:",array($r_count));
 
             if($r_count>0)
             {

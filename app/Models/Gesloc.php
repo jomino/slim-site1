@@ -6,6 +6,7 @@ use App\Auth\Auth as Auth;
 
 use App\Models\Ingoing;
 use App\Models\Geslocpay;
+use App\Models\Properties;
 
 class Gesloc extends \Framework\Model
 {
@@ -30,6 +31,7 @@ class Gesloc extends \Framework\Model
     /**
     * @column
     * @primary
+    * @secondary
     * @readwrite
     * @type integer
     * @label id contract
@@ -75,16 +77,22 @@ class Gesloc extends \Framework\Model
     */
     public function insert()
     {
-        $client = $this->auth->model;
-        $insertId = parent::insert();
-        if($insertId>0){
-            $ingoing = (new Ingoing( array( "data" => array( 
-                "id_cli" => $client->id_cli,
-                "id_cat" => \App\Statics\Models::CATEGORY_TYPE_CONTRACT,
-                "id_ref" => $insertId
-            ))))->insert();
+        $property = Properties::first(array(
+            "id_ref = ?" => $this->idbien
+        ));
+        if(!empty($property)){
+            $client = $this->auth->model;
+            $insertId = parent::insert();
+            if($insertId>0){
+                $ingoing = (new Ingoing( array( "data" => array( 
+                    "id_cli" => $client->id_cli,
+                    "id_cat" => \App\Statics\Models::CATEGORY_TYPE_CONTRACT,
+                    "id_ref" => $insertId
+                ))))->insert();
+            }
+            return $insertId;
         }
-        return $insertId;
+        return 0;
     }
 
     /**
@@ -273,7 +281,7 @@ class Gesloc extends \Framework\Model
     public function getDt_sign()
     {
         $value = $this->_dt_sign;
-        return !empty($value) ? $value:"";
+        return !empty($value) && false===strpos($value,"0000") ? $value:null;
     }
 
     /**
@@ -287,7 +295,7 @@ class Gesloc extends \Framework\Model
     public function getDt_debu()
     {
         $value = $this->_dt_debu;
-        return !empty($value) ? $value:"";
+        return !empty($value) && false===strpos($value,"0000") ? $value:null;
     }
 
     /**
@@ -301,7 +309,7 @@ class Gesloc extends \Framework\Model
     public function getDt_fin()
     {
         $value = $this->_dt_fin;
-        return !empty($value) ? $value:"";
+        return !empty($value) && false===strpos($value,"0000") ? $value:null;
     }
 
     /**
@@ -315,7 +323,7 @@ class Gesloc extends \Framework\Model
     public function getDt_index()
     {
         $value = $this->_dt_index;
-        return !empty($value) ? $value:"";
+        return !empty($value) && false===strpos($value,"0000") ? $value:null;
     }
 
     /**
@@ -329,7 +337,7 @@ class Gesloc extends \Framework\Model
     public function getDt_send()
     {
         $value = $this->_dt_send;
-        return !empty($value) ? $value:"";
+        return !empty($value) && false===strpos($value,"0000") ? $value:null;
     }
 
     /**
@@ -343,7 +351,7 @@ class Gesloc extends \Framework\Model
     public function getDt_stop()
     {
         $value = $this->_dt_stop;
-        return !empty($value) ? $value:"";
+        return !empty($value) && false===strpos($value,"0000") ? $value:null;
     }
 
     /**
@@ -357,7 +365,7 @@ class Gesloc extends \Framework\Model
     public function getDt_entr()
     {
         $value = $this->_dt_entr;
-        return !empty($value) ? $value:"";
+        return !empty($value) && false===strpos($value,"0000") ? $value:null;
     }
 
     /**
@@ -371,7 +379,7 @@ class Gesloc extends \Framework\Model
     public function getDt_pay()
     {
         $value = $this->_dt_pay;
-        return !empty($value) ? $value:"";
+        return !empty($value) && false===strpos($value,"0000") ? $value:null;
     }
     
 }

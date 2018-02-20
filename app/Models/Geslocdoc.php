@@ -51,6 +51,12 @@ class Geslocdoc extends \Framework\Model
     * @label entry date
     */
     protected $_dt_in;
+
+    public function getDt_in()
+    {
+        $value = $this->_dt_in;
+        return !empty($value) && false===strpos($value,"0000") ? $value:null;
+    }
     
     /**
     * @column
