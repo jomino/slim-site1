@@ -1,0 +1,47 @@
+{
+	"id_actype" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spId,2}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "numeric"
+		}
+    },
+	"ref_actype" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spType} de compte" }
+			]
+		},
+		"format" : {
+			"comment" : "type de ",
+			"type" : "values",
+			"values" : {
+				"unlimited": "Sans {spLimit} d\\'utilisation",
+				"free": "{spLimit,1} 1 unité",
+				"limited10": "{spLimit,1} 10 unités",
+				"limited15": "{spLimit,1} 15 unités",
+				"limited20": "{spLimit,1} 20 unités",
+				"limited25": "{spLimit,1} 25 unités",
+				"limited50": "{spLimit,1} 50 unités"
+			}
+		}
+    },
+	"seats" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "limite max" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "numeric"
+		}
+    }
+}

@@ -416,6 +416,14 @@
 				{ "text" : "tekst" }
 			]
 		},
+		"spLimit" : {
+			"comment" : "Message limitant l\\'utilisation",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "limiet" },
+				{ "text" : "limiet tot" }
+			]
+		},
 		"spList" : {
 			"comment" : "Message durant l\\'attente",
 			"type" : "choice",

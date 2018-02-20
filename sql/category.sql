@@ -8,4 +8,5 @@ CREATE TABLE `category` (
 INSERT INTO `category` (`id_cat`, `ref_cat`)
     VALUES (1, 'default'),
         (2, 'users'),
-        (3, 'properties');
+        (3, 'properties'),
+        (4, 'contracts');

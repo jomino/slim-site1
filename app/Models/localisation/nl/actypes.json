@@ -1,0 +1,47 @@
+{
+	"id_actype" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spId,2}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "numeric"
+		}
+    },
+	"ref_actype" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "rekeningtype" }
+			]
+		},
+		"format" : {
+			"comment" : "type de ",
+			"type" : "values",
+			"values" : {
+				"unlimited": "Sans {spLimit} d\\'utilisation",
+				"free": "{spLimit,1} 1 eenhed",
+				"limited10": "{spLimit,1} 10 eenheden",
+				"limited15": "{spLimit,1} 15 eenheden",
+				"limited20": "{spLimit,1} 20 eenheden",
+				"limited25": "{spLimit,1} 25 eenheden",
+				"limited50": "{spLimit,1} 50 eenheden"
+			}
+		}
+    },
+	"seats" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "limite max" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "numeric"
+		}
+    }
+}

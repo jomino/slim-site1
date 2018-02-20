@@ -417,6 +417,14 @@
 				{ "text" : "libellé" }
 			]
 		},
+		"spLimit" : {
+			"comment" : "Message limitant l\\'utilisation",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "limite" },
+				{ "text" : "limiter à" }
+			]
+		},
 		"spList" : {
 			"comment" : "Message collection",
 			"type" : "choice",
