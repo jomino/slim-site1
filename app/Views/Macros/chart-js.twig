@@ -1,0 +1,9 @@
+{% macro render(datas) %}
+<div class="input-group form-group-sm">
+    <span class="input-group-addon">
+        <input class="{{ datas.cls }}" id="{{ datas.name }}" name="{{ datas.name }}" type="checkbox" {% if datas.checked %}checked{% endif %}>
+    </span>
+    <input type="text" class="form-control input-sm" value="{{ datas.text }}" readonly>
+    </div>
+</div>
+{% endmacro %}

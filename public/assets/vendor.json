@@ -103,6 +103,11 @@
             "js": ["moment.js"]
         }
     },
+    "chartjs_lib": {
+        "chartjs": {
+            "js": ["dist/Chart.min.js"]
+        }
+    },
     "util_lib": {
         "select2": {
             "js": ["dist/js/select2.full.min.js"],
@@ -114,6 +119,9 @@
         "amaranjs": {
             "js": ["dist/js/jquery.amaran.min.js"],
             "css": ["dist/css/amaran.min.css","dist/css/animate.min.css"]
+        },
+        "chartjs": {
+            "js": ["dist/Chart.min.js"]
         }
     }
 }
