@@ -123,6 +123,10 @@ div.dataTables_info {
   margin: 0px;
 }
 
+.margin-5 {
+  margin: 5px 5px;
+}
+
 .min-height-60{
   min-height: 60px;
 }

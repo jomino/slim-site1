@@ -36,6 +36,8 @@ namespace Framework
         public function getItems($name=null)
         {
 
+            $map = array();
+
             $maps = !empty($this->_map) ? $this->_map:array();
 
             /*print("<pre>maps<br>");
@@ -43,8 +45,6 @@ namespace Framework
             print("</pre>");*/
 
             if(!empty($maps)){
-
-                $map = array();
                 
                 if(is_string($name) && isset($maps[$name])){
                     $map = $maps[$name];
@@ -82,6 +82,12 @@ namespace Framework
         public function _getExceptionForImplementation($method)
         {
             return new Exception\Implementation("{$method} method not implemented");
+        }
+
+        public static function getRawMap()
+        {
+            $self = new static();
+            return $self->map;
         }
 
     }    

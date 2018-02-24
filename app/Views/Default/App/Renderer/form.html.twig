@@ -40,7 +40,7 @@
 
 {% block block_form_content %}{% if form_items %}
 {% set items = form_items %}
-{% include "Default/App/Renderer/bs-form.html.twig" %}{% else %}
+{% include "Default/App/Renderer/bs-renderer.html.twig" %}{% else %}
 {{ parent() }}{% endif %}
 {% endblock %}
 

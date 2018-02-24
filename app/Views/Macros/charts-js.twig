@@ -1,0 +1,40 @@
+{% macro render(datas) %}
+<div class="{{- datas.cls -}}">
+    <canvas id="{{- datas.id -}}" width="100%" height="{{- datas.height -}}"></canvas>
+</div>
+<script type="text/javascript">
+;(function($,document){
+    var JQContentLoaded = function(){
+        var $ = $ || window.$;
+        if($){
+            var _chart,
+                $el = $('#{{- datas.id -}}'),
+                _type = '{{- datas.type -}}',
+                _data = {{ datas.data|json_encode() }},
+                _options = {{ datas.options|json_encode() }},
+                _launch = function(){
+                    var chart = Chart || window.Chart;
+                    return new chart( $el, {
+                        type: _type,
+                        data: _data,
+                        options: _options
+                    });
+                };
+            if(typeof(window.Chart)!='undefined'){
+                _chart = _launch();
+            }else{
+                if($.jo.loadScripts){
+                    $.jo.loadScripts( ['{{ asset_path("chartjs_lib","js","vendor")|join("\',\'") }}'] , ()=>{
+                        _chart = _launch();
+                    });
+                }else{
+                    $el.remove();
+                }
+            }
+        }
+    };
+    if($){ JQContentLoaded(); }
+    else{ document.addEventListener('DOMContentLoaded',JQContentLoaded); }
+})(window.jQuery,window.document);
+</script>
+{% endmacro %}

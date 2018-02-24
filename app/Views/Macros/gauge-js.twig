@@ -1,0 +1,80 @@
+{% macro render(datas) %}
+<canvas id="{{- datas.id -}}" style="width: 100%; height: {{ datas.height }};"{% if datas.classes %} class="{{ datas.classes|join(' ') }}"{% endif %}></canvas>
+<script type="text/javascript">
+;(function($){
+    var JQContentLoaded = function(){
+        var $ = $ || window.$,
+            $el = $('#{{- datas.id -}}'),
+            _val = {{ datas.value }},
+            _max = {{ datas.max }},
+            _min = 0,
+            {% if datas.options -%}_options = {{ datas.options|json_encode|raw }},
+            {% else -%}
+            _options = {}, {%- endif %}
+            _default = {
+                angle: 0.15, // The span of the gauge arc
+                lineWidth: 0.18, // The line thickness
+                radiusScale: 1, // Relative radius
+                pointer: {
+                    length: 0.4, // // Relative to gauge radius
+                    strokeWidth: 0.035, // The thickness
+                    color: '#000000' // Fill color
+                },
+                renderTicks: {
+                    divisions: 5,
+                    divWidth: 1.1,
+                    divLength: 0.7,
+                    divColor: '#333333',
+                    subDivisions: 3,
+                    subLength: 0.5,
+                    subWidth: 0.6,
+                    subColor: '#666666'
+                },
+                limitMax: true,     // If false, max value increases automatically if value > maxValue
+                limitMin: true,     // If true, the min value of the gauge will be fixed
+                colorStart: '#6FADCF',   // Colors
+                colorStop: '#8FC0DA',    // just experiment with them
+                strokeColor: '#E0E0E0',  // to see which ones work best for you
+                generateGradient: true,
+                highDpiSupport: true
+            },
+            _gauge,
+            _launch = function(){
+                var gauge = Gauge || window.Gauge;
+                //$.jo.debugStop();
+                _gauge = new gauge($el[0]).setOptions( $.extend( _default, _options ));
+                _gauge.minValue = _min;
+                _gauge.maxValue = _max;
+                _gauge.set(_min);
+                window.setTimeout(()=>{
+                    _gauge.set(_val);
+                }, Math.floor(1499*Math.random()) );
+            };
+        //$.jo.debugStop();
+        if(_options.hasOwnProperty('pointer')){
+            $.extend( _default.pointer, _options.pointer );
+            delete(_options.pointer);
+        }else{
+            delete(_default.pointer);
+        }
+        if(_options.hasOwnProperty('renderTicks')){
+            $.extend( _default.renderTicks, _options.renderTicks );
+            delete(_options.renderTicks);
+        }else{
+            delete(_default.renderTicks);
+        }
+        if(typeof(window.Gauge)!='undefined'){
+            _launch();
+        }else{
+            if($.jo.loadScripts){
+                $.jo.loadScripts( ['{{ asset_path("gaugejs_lib","js","vendor")|join("\',\'") }}'] , _launch );
+            }else{
+                $el.remove();
+            }
+        }
+    };
+    if($){ JQContentLoaded(); }
+    else{ document.addEventListener('DOMContentLoaded',JQContentLoaded); }
+})(window.jQuery);
+</script>
+{% endmacro %}

@@ -18,7 +18,7 @@ class Routes
         $app->group('/default', function () {
             /* MAIN */
             $this->get('/main', Controllers\MainDefaultController::class);
-            $this->post('/body/home', Controllers\BodyDefaultHomeController::class.":home")->setName('body_home');
+            $this->post('/body/home', Controllers\BodyDefaultHomeController::class)->setName('body_home');
             $this->post('/aside/home', Controllers\AsideDefaultController::class)->setName('aside_home');
             /* USERS */
             $this->post('/body/contacts', Controllers\BodyDefaultUsersController::class.":home")->setName('body_contacts');

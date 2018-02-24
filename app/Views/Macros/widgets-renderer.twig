@@ -1,0 +1,38 @@
+{% macro setItems(item) %}
+{% import _self as self %}
+{% import 'Macros/Default/box.twig' as Box %}
+{% import 'Macros/Default/info-box.twig' as Info %}
+    {% if item.items %}
+    <!-- begin_with_items-{% if item.id %}{{ item.id|raw }}{% endif %} -->
+        {% if item.tpl %}<div class="{{ item.tpl }}"{% if item.id %} id="{{- item.id|raw -}}"{% endif %}>{% endif %}
+            {% for item_n in item.items %}
+                {% if item.layout %}<div class="{{ item.layout }}">{% endif %}
+                    {{ self.setItems(item_n) }}
+                {% if item.layout %}</div>{% endif %}
+            {% endfor %} 
+        {% if item.tpl %}</div>{% endif %}
+    <!-- end_with_items -->
+    {% else %}
+    {% if item.layout %}<div class="{{ item.layout }}">{% endif %}
+    <!-- begin_with_component -->
+        {% if item.tpl %}
+        <!-- component_with_tpl -->
+            {% if item.tpl == "box" %}
+            <!-- begin_box_component -->
+                {{ Box.render(item) }}
+            <!-- end_box_component -->
+            {% elseif item.tpl == "info-box" %}
+            <!-- begin_info-box_component -->
+                {{ Info.render(item) }}
+            <!-- end_info-box_component -->
+            {% else %}    
+                <p class="placeholder hidden-sm hidden-xs {% if item.classes %}{{- item.classes|join(' ') -}}{% endif %}">&#160;</p>
+            {% endif %}
+        {% else %}
+        <!-- component_without_tpl -->
+            <p class="placeholder hidden-sm hidden-xs {% if item.classes %}{{- item.classes|join(' ') -}}{% endif %}">&#160;</p>
+        {% endif %}
+    {% if item.layout %}</div>{% endif %}
+    <!-- end_with_component -->
+    {% endif %}
+{% endmacro %}

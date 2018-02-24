@@ -1,0 +1,38 @@
+{% macro setItems(item) %}
+{% import _self as self %}
+{% import 'Macros/charts-js.twig' as Chartjs %}
+{% import 'Macros/gauge-js.twig' as Gaugejs %}
+    {% if item.items %}
+    <!-- begin_with_items-{% if item.id %}{{ item.id|raw }}{% endif %} -->
+        {% if item.tpl %}<div class="{{ item.tpl }}"{% if item.id %} id="{{- item.id|raw -}}"{% endif %}>{% endif %}
+            {% for item_n in item.items %}
+                {% if item.layout %}<div class="{{ item.layout }}">{% endif %}
+                    {{ self.setItems(item_n) }}
+                {% if item.layout %}</div>{% endif %}
+            {% endfor %} 
+        {% if item.tpl %}</div>{% endif %}
+    <!-- end_with_items -->
+    {% else %}
+    {% if item.layout %}<div class="{{ item.layout }}">{% endif %}
+    <!-- begin_with_component -->
+        {% if item.tpl %}
+        <!-- component_with_tpl -->
+            {% if item.tpl == "chart-js" %}
+            <!-- begin_chart-js_component -->
+                {{ Chartjs.render(item) }}
+            <!-- end_chart-js_component -->
+            {% elseif item.tpl == "gauge-js" %}
+            <!-- begin_form-hr_component -->
+                {{ Gaugejs.render(item) }}
+            <!-- end_form-hr_component -->
+            {% else %}    
+                <p class="placeholder hidden-sm hidden-xs {% if item.classes %}{{- item.classes|join(' ') -}}{% endif %}">&#160;</p>
+            {% endif %}
+        {% else %}
+        <!-- component_without_tpl -->
+            <p class="placeholder hidden-sm hidden-xs {% if item.classes %}{{- item.classes|join(' ') -}}{% endif %}">&#160;</p>
+        {% endif %}
+    {% if item.layout %}</div>{% endif %}
+    <!-- end_with_component -->
+    {% endif %}
+{% endmacro %}

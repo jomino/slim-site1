@@ -1,0 +1,10 @@
+{% macro setItems(item) %}
+<!-- ./dlist-{% if item.id %}{{ item.id }}{% else %}default{% endif %} -->
+<dl{% if item.id %} id="{{ item.id }}"{% endif %}>
+    {% for item_n in item.items %}
+        {%- if item_n.title %}<dt>{{ trans(item_n.title) }}</dt>{% endif -%}
+        <dd>{{ item_n.content|raw }}</dd>
+    {% endfor %}
+</dl>
+<!-- ./dlist -->
+{% endmacro %}

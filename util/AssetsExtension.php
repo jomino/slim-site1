@@ -71,6 +71,7 @@ class AssetsExtension extends \Twig_Extension
     {
         return [
             new \Twig_SimpleFunction('assets', array($this, 'getAssets')),
+            new \Twig_SimpleFunction('asset_path', array($this, 'getPaths')),
             new \Twig_SimpleFunction('image', array($this, 'getImage'))
         ];
     }
