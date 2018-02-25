@@ -1,10 +1,20 @@
 {% macro setItems(item) %}
 <!-- ./dlist-{% if item.id %}{{ item.id }}{% else %}default{% endif %} -->
-<dl{% if item.id %} id="{{ item.id }}"{% endif %}>
+{% if item.tpl == "dl-list" -%}
+<dl class="{% if item.horizontal %}dl-horizontal{% endif %}{% if item.classes %} {{ item.classes|join(' ') }}{% endif %}"{% if item.id %} id="{{ item.id }}"{% endif %}>
     {% for item_n in item.items %}
-        {%- if item_n.title %}<dt>{{ trans(item_n.title) }}</dt>{% endif -%}
-        <dd>{{ item_n.content|raw }}</dd>
+        {%- if item_n.title %}<dt{% if item_n.id %} id="{{ item_n.id }}-dt"{% endif %}>{{ item_n.title }}</dt>{% endif -%}
+        <dd{% if item_n.id %} id="{{ item_n.id }}-dd"{% endif %}>{{ item_n.content|raw }}</dd>
     {% endfor %}
 </dl>
+{%- elseif item.tpl == "list-unstyled" -%}
+<ul class="list-unstyled{% if item.classes %} {{ item.classes|join(' ') }}{% endif %}"{% if item.id %} id="{{ item.id }}"{% endif %}>
+    {% for item_n in item.items %}
+        <li{% if item_n.id %} id="{{ item_n.id }}"{% else %} id="li{{ loop.index0 }}"{% endif %}>{{ item_n.content|raw }}</li>
+    {% endfor %}
+</ul>
+{%- else -%}
+    <p>{{ trans("default.empty_list")|capitalize }}</p>
+{%- endif %}
 <!-- ./dlist -->
 {% endmacro %}

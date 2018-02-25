@@ -15,9 +15,27 @@ hr.form-hr {
 	white-space: nowrap;
 }
 
-div.dataTables_info {
+.dataTables_info {
 	white-space: normal !important;
 	overflow-wrap: normal;
+}
+/* dl Links */
+dl a {
+  color: #3c8dbc;
+  font-size: 85%;
+  font-weight: 600;
+}
+dl a:hover,
+dl a:active,
+dl a:focus {
+  outline: none;
+  text-decoration: none;
+  color: #72afd2;
+}
+
+.box-body dl,
+.box-body ul {
+  margin-left: 12px;
 }
 
 #app-loader {
@@ -117,6 +135,10 @@ div.dataTables_info {
 
 .form-horizontal.vtop label {
   padding-top: 0px;
+}
+
+.bold {
+  font-weight: 600;
 }
 
 .margin-none {

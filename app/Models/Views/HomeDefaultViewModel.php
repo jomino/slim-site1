@@ -50,6 +50,13 @@ class HomeDefaultViewModel extends \Framework\ViewModel
                             "style" => "light-blue-gradient",
                             "text" => "messages.home_properties_title",
                             "name" => "info_box_properties"
+                        ),
+                        array(
+                            "tpl" => "box",
+                            "style" => "primary",
+                            "classes" => array("flat"),
+                            "title" => "messages.property_title",
+                            "name" => "describ_box_properties"
                         )
                     )
                 ),
@@ -61,6 +68,13 @@ class HomeDefaultViewModel extends \Framework\ViewModel
                             "style" => "light-blue-gradient",
                             "text" => "messages.home_contracts_title",
                             "name" => "info_box_contracts"
+                        ),
+                        array(
+                            "tpl" => "box",
+                            "style" => "primary",
+                            "classes" => array("flat"),
+                            "title" => "messages.contract_title",
+                            "name" => "describ_box_contracts"
                         )
                     )
                 )

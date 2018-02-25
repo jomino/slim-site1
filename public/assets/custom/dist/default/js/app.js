@@ -29,7 +29,7 @@ String.prototype.capitalize = function(s){
 
     var _capitalize = String.prototype.capitalize;
 
-    var _loadedScripts = [],
+    var _loadedScripts = new Map(),
         _isBusy = false;
 
     var History, Modal, NumberLocale;
@@ -913,7 +913,7 @@ String.prototype.capitalize = function(s){
         var isFile = $('script[src="'+file+'"]',$(document)).length;
         if(!isFile){
           $.getScript( file, function(){
-              _loadedScripts.push(file);
+              _loadedScripts.set(file,false);
               _load();
           });
         }
@@ -928,8 +928,8 @@ String.prototype.capitalize = function(s){
                 href: file
             })
             .on('load',function(){
-            _loadedScripts.push(file);
-            _load();
+                _loadedScripts.set(file,false);
+                _load();
             })
             .appendTo('head');
         }
@@ -938,13 +938,14 @@ String.prototype.capitalize = function(s){
       var _load = function(){
         var file = scripts[i] ? scripts[i]:null;
         i++;
-        if(file && $.inArray(file,_loadedScripts)<0){
-          var filePart = file.split('.');
-          var extPart = filePart[filePart.length-1];
-          if(extPart=='css'){ _loadCSS(file); }
-          if(extPart=='js'){ _loadJS(file); }
+        if(file && !_loadedScripts.get(file)){
+            _loadedScripts.set(file,true);
+            var filePart = file.split('.');
+            var extPart = filePart[filePart.length-1];
+            if(extPart=='css'){ _loadCSS(file); }
+            if(extPart=='js'){ _loadJS(file); }
         }else{
-          window.setTimeout(()=>{callback.call(this)},100);
+            window.setTimeout(()=>{callback.call(this)},100);
         }
       };
 
@@ -1044,7 +1045,9 @@ String.prototype.capitalize = function(s){
         $div.append($li).appendTo($('.overlay-wrapper'));
       }
 
-      _proxy(href,data,_success,_error,'html','post');
+      window.setTimeout( function(){
+        _proxy(href,data,_success,_error,'html','post');
+      }, 100);
 
     };
 

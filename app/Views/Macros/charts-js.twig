@@ -10,8 +10,8 @@
             var _chart,
                 $el = $('#{{- datas.id -}}'),
                 _type = '{{- datas.type -}}',
-                _data = {{ datas.data|json_encode() }},
-                _options = {{ datas.options|json_encode() }},
+                _data = {{ datas.data|json_encode|e('js') }},
+                _options = {{ datas.options|json_encode|e('js') }},
                 _launch = function(){
                     var chart = Chart || window.Chart;
                     return new chart( $el, {
@@ -28,7 +28,7 @@
                         _chart = _launch();
                     });
                 }else{
-                    $el.remove();
+                    $el.parent().html('<div class="alert alert-warning" role="alert">{{ trans("default.missing_library") }} "chartjs_lib"</div>');
                 }
             }
         }
