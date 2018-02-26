@@ -986,9 +986,14 @@ namespace Framework
                 ->query()
                 ->from($this->table, $fields);
 
-            foreach ($where as $clause => $value)
+            foreach ($where as $k => $v)
             {
-                $query->where($clause, $value);
+                if(is_array($v)){
+                    array_unshift($v,$k);
+                    $query->where(...$v);
+                }else{
+                    $query->where($k,$v);
+                }
             }
             
             if ($order != null)
@@ -1029,9 +1034,14 @@ namespace Framework
                 ->query()
                 ->from($this->table, $fields);
             
-            foreach ($where as $clause => $value)
+            foreach ($where as $k => $v)
             {
-                $query->where($clause, $value);
+                if(is_array($v)){
+                    array_unshift($v,$k);
+                    $query->where(...$v);
+                }else{
+                    $query->where($k,$v);
+                }
             }
             
             if ($order != null)
@@ -1076,9 +1086,14 @@ namespace Framework
                 $query->like($filters);
             }
             
-            foreach ($where as $clause => $value)
+            foreach ($where as $k => $v)
             {
-                $query->where($clause, $value);
+                if(is_array($v)){
+                    array_unshift($v,$k);
+                    $query->where(...$v);
+                }else{
+                    $query->where($k,$v);
+                }
             }
             
             if ($order != null)
@@ -1123,9 +1138,14 @@ namespace Framework
                 $query->like($filters);
             }
             
-            foreach ($where as $clause => $value)
+            foreach ($where as $k => $v)
             {
-                $query->where($clause, $value);
+                if(is_array($v)){
+                    array_unshift($v,$k);
+                    $query->where(...$v);
+                }else{
+                    $query->where($k,$v);
+                }
             }
             
             return $query->count();
@@ -1194,10 +1214,14 @@ namespace Framework
 
             if(!empty($options["where"]))
             {
-                $where = $options["where"];
-                foreach ($where as $clause => $value)
+                foreach ($options["where"] as $k => $v)
                 {
-                    $model_query->where($clause, $value);
+                    if(is_array($v)){
+                        array_unshift($v,$k);
+                        $query->where(...$v);
+                    }else{
+                        $query->where($k,$v);
+                    }
                 }
             }
 
