@@ -19,7 +19,7 @@ hr.form-hr {
 	white-space: normal !important;
 	overflow-wrap: normal;
 }
-/* dl Links */
+
 dl a {
   color: #3c8dbc;
   font-size: 85%;
@@ -34,8 +34,13 @@ dl a:focus {
 }
 
 .box-body dl,
-.box-body ul {
+.box-body ul,
+.box-body blockquote {
   margin-left: 12px;
+}
+
+.box-body blockquote .h6 {
+  margin-top: 0px;
 }
 
 #app-loader {

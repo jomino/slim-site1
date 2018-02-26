@@ -15,6 +15,7 @@ class BodyDefaultHomeController extends \Core\Controller
             "info_box_contacts" => array( $self, "getContactsWidget" ),
             "describ_box_contacts" => array( $self, "getContactsInfos" ),
             "info_box_properties" => array( $self, "getPropertiesWidget" ),
+            "describ_box_properties" => array( $self, "getPropertiesInfos" ),
             "info_box_contracts" => array( $self, "getContractsWidget" ),
             "describ_box_contracts" => array( $self, "getContractsInfos" )
         );
@@ -38,7 +39,7 @@ class BodyDefaultHomeController extends \Core\Controller
     public static function getPropertiesInfos($container)
     {
         $self = self::factory($container);
-        return $self->_propertiesDatas();
+        return $self->_propertiesChart();
     }
 
     public static function getContactsInfos($container)
@@ -71,7 +72,7 @@ class BodyDefaultHomeController extends \Core\Controller
         return $self->_infoBoxDatas(STATICS::CATEGORY_TYPE_CONTRACT);
     }
 
-    private function _propertiesDatas()
+    private function _propertiesChart()
     {
 
         $view = $this->container->get("view");
@@ -79,7 +80,184 @@ class BodyDefaultHomeController extends \Core\Controller
         $translator = $this->container->get("translator");
         $client = $this->container->get("client")->model;
 
-        $start_date = new \DateTime("now -1 year", new \DateTimeZone("Europe/Brussels"));
+        $chart_height = 260;
+
+        $chart_default_options = array(
+            "layout" => array(
+                "padding" => array("top"=>0,"left"=>0,"right"=>0,"bottom"=>10)
+            ),
+            "legend" => array(
+                "display" => false
+            ),
+            "tooltips" => array(
+                "enabled" => false
+            ),
+            "elements" => array(
+                "point" =>array(
+                    "radius" => 2,
+                    "hoverRadius" => 3
+                ),
+                "line" =>array(
+                    "borderWidth" => 1
+                )
+            ),
+            "scales" => array(
+                "xAxes" => array(
+                    array(
+                        "type" => "time",
+                        "distribution" => "series",
+                        "time" => array(
+                            "unit" => "month",
+                            "format" => "YYYY-MM-DD"
+                        )
+                    )
+                ),
+                "yAxes" => array(
+                    array(
+                        "ticks" => array(
+                            "beginAtZero" => true,
+                            "min" => 0,
+                            "max" => 100
+                        )
+                    )
+                )
+            )
+        );
+
+        $this->_datesPlotsInit("now -13 month midnight");
+
+        $set_1 = array();
+
+        for($m=0;$m<12;$m++){
+            $set_1[] = $this->_getNextPlot();
+        }
+
+        $dataset_1 = array(
+            "label" => $translator->trans("messages.chart_label_boni"),
+            "borderColor" => "#708090",
+            "backgroundColor" => "#3c8dbc",
+            "fill" => false,
+            "data" => $set_1
+        );
+
+        $last_plot = $this->_getNextPlot();
+
+        $pc_today = $last_plot["y"];
+
+        $chart_default_options["title"] = array(
+            "display" => true,
+            "fontSize" => 14,
+            "fontColor" => "#000",
+            "text" => $translator->trans("messages.properties_chart_endebit")." : {$pc_today} %"
+        );
+
+        $name_to_fetch = "datas_to_fetch";
+
+        $datas_to_fetch = array(
+            "id" => "home-properties-chart",
+            "type" => "line",
+            "styles" => array("width: 100%;","max-height: {$chart_height}px;"),
+            "options" => $chart_default_options,
+            "data" => array( "datasets" => [$dataset_1] )
+        );
+
+        $body = $view->fetchFromString(
+            implode( "", array(
+                "{% import 'Macros/charts-js.twig' as Chartjs %}",
+                "{{ Chartjs.render({$name_to_fetch}) }}"
+            )),
+            array( $name_to_fetch => $datas_to_fetch )
+        );
+
+        $body .= implode( "", array(
+            '<blockquote><p class="h6 text-justify">',
+            ucfirst($translator->trans("default.lorem_ipsum_md")),
+            '</p></blockquote>'
+        ));
+
+        return array(
+            "body" => $body
+        );
+
+    }
+
+    private function _getNextPlot()
+    {
+        $_dates = $this->_datesPlotsBound();
+        $ingoings = $this->_getPlotsByDates(...$_dates);
+        $c_total = sizeof($ingoings);
+        $c_plus = 0;
+        for($i=0;$i<$c_total;$i++){
+            $ingoing = $ingoings[$i];
+            $c_plus += $ingoing["creditsum"]>0;
+        }
+        $pc_plus = number_format(($c_plus/$c_total)*100,2);
+        return array( "x" => $_dates[0], "y" => $pc_plus );
+    }
+
+    private function _datesPlotsInit($start)
+    {
+        if(!property_exists($this,"sdtDate")){
+            $this->sdtDate = new \DateTime( $start, new \DateTimeZone("Europe/Brussels"));
+        }
+    }
+
+    private function _datesPlotsAdd($interval)
+    {
+        return $this->sdtDate->add(new \DateInterval($interval));
+    }
+
+    private function _datesPlotsFormat($format)
+    {
+        return $this->sdtDate->format($format);
+    }
+
+    private function _datesPlotsBound()
+    {
+        if(!property_exists($this,"sdtDate")){ $this->_datesPlotsInit("now"); }
+
+        $s_date = $this->_datesPlotsFormat("Y-m-d");
+
+        $this->_datesPlotsAdd('P1M');
+
+        $e_date = $this->_datesPlotsFormat("Y-m-d");
+
+        return [$s_date,$e_date];
+
+    }
+
+    private function _getPlotsByDates($start,$end)
+    {
+
+        $logger = $this->container->get("logger");
+        $client = $this->container->get("client")->model;
+
+        $where = array(
+            "ingoing.id_cli = ?" => (int) $client->id_cli,
+            "ingoing.id_cat = ?" => (int) STATICS::CATEGORY_TYPE_CONTRACT,
+            "geslocpay.paytype = ?" => 0,
+            "geslocpay.dt_debit BETWEEN ? AND ?" => array($start,$end)
+        );
+
+        $ingoing = new \App\Models\Ingoing();
+
+        $query = $ingoing->connector->query()
+            ->from($ingoing->table,["ingoing.id_ingo"]);
+
+        foreach($where as $k=>$v){
+            if(is_array($v)){
+                array_unshift($v,$k);
+                $query->where(...$v);
+            }else{
+                $query->where($k,$v);
+            }
+        }
+
+        $query->join("gesloc","gesloc.idgesloc=ingoing.id_ref",["gesloc.idgesloc"]);
+        $query->join("properties","properties.id_ref=gesloc.idbien",["properties.name"]);
+        $query->join("geslocpay","geslocpay.idgesloc=gesloc.idgesloc",["geslocpay.idpay","geslocpay.debitsum","geslocpay.creditsum"]);
+
+        return $query->all();
 
     }
 

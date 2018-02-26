@@ -1,7 +1,5 @@
 {% macro render(datas) %}
-<div class="{{- datas.cls -}}">
-    <canvas id="{{- datas.id -}}" width="100%" height="{{- datas.height -}}"></canvas>
-</div>
+<canvas id="{{- datas.id -}}" {%- if datas.styles -%} style="{{- datas.styles|join(' ') -}}"{%- endif -%}></canvas>
 <script type="text/javascript">
 ;(function($,document){
     var JQContentLoaded = function(){
@@ -10,8 +8,8 @@
             var _chart,
                 $el = $('#{{- datas.id -}}'),
                 _type = '{{- datas.type -}}',
-                _data = {{ datas.data|json_encode|e('js') }},
-                _options = {{ datas.options|json_encode|e('js') }},
+                _data = {{ datas.data|json_encode(constant('JSON_PRETTY_PRINT'))|raw }},
+                _options = {{ datas.options|json_encode(constant('JSON_PRETTY_PRINT'))|raw }},
                 _launch = function(){
                     var chart = Chart || window.Chart;
                     return new chart( $el, {
