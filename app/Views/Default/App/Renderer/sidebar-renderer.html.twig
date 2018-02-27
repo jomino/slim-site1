@@ -1,0 +1,7 @@
+{% import 'Macros/sidebar-renderer.twig' as Renderer %}
+
+{% for item in items %}
+<!-- begin_render-{{ item.id|raw }} -->
+    {{ Renderer.setItems(item) }}
+<!-- end_render-{{ item.id|raw }} -->
+{% endfor %}

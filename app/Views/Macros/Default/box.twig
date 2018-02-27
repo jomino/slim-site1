@@ -1,6 +1,6 @@
 {% macro render(item) %}
 {% import 'Macros/Default/dlist.twig' as Dlist %}
-<div{% if item.id %} id="{{ item.id }}"{% endif %} class="box{% if item.style %} box-{{ item.style }}{% else %} box-primary{% endif %}{% if item.classes %} {{ item.classes|join(' ') }}{% endif %}{% if item.collapsed %} collapsed-box{% endif %}">
+<div{% if item.id %} id="{{ item.id }}"{% endif %} class="box flat{% if item.style %} box-{{ item.style }}{% else %} box-primary{% endif %}{% if item.classes %} {{ item.classes|join(' ') }}{% endif %}{% if item.collapsed %} collapsed-box{% endif %}">
   <div class="box-header{% if item.title %} with-border{% endif %}">
     {% if item.back %}
       <button type="button" class="btn{% if item.style %} btn-{{ item.style }}{% else %} btn-primary{% endif %} btn-xs btn-history-back" style="margin-top: -3px; cursor: pointer;">

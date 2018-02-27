@@ -19,10 +19,8 @@ namespace Framework
 
                 $map = $this->_map;
 
-                if(!empty($section)){
-                    if(isset($map[$section])){
-                        return $map[$section];
-                    }
+                if(is_string($section) && isset($map[$section])){
+                    return $map[$section];
                 }
 
                 return $map;
@@ -38,20 +36,20 @@ namespace Framework
 
             $map = array();
 
-            $maps = !empty($this->_map) ? $this->_map:array();
+            $t_map = $this->map;
 
             /*print("<pre>maps<br>");
             print_r($maps);
             print("</pre>");*/
 
-            if(!empty($maps)){
+            if(!empty($t_map)){
                 
-                if(is_string($name) && isset($maps[$name])){
-                    $map = $maps[$name];
-                }
-
-                if(empty($map) || !isset($map["items"])){
-                    $map["items"] = $maps;
+                if(is_string($name) && isset($t_map[$name])){
+                    $map = $t_map[$name];
+                }else if(!isset($t_map["items"])){
+                    $map["items"] = $t_map;
+                }else{
+                    $map = $t_map;
                 }
 
                 /*print("<pre>map:before<br>");

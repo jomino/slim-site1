@@ -124,20 +124,16 @@ class BodyDefaultHomeController extends \Core\Controller
             )
         );
 
-        $this->_datesPlotsInit("now -13 month midnight");
+        $retro_months = 13;
 
-        $set_1 = array();
-
-        for($m=0;$m<12;$m++){
-            $set_1[] = $this->_getNextPlot();
-        }
+        $this->_datesPlotsInit("now -{$retro_months} month midnight");
 
         $dataset_1 = array(
             "label" => $translator->trans("messages.chart_label_boni"),
             "borderColor" => "#708090",
             "backgroundColor" => "#3c8dbc",
             "fill" => false,
-            "data" => $set_1
+            "data" => $this->_getPlotset($retro_months-1)
         );
 
         $last_plot = $this->_getNextPlot();
@@ -179,6 +175,15 @@ class BodyDefaultHomeController extends \Core\Controller
             "body" => $body
         );
 
+    }
+
+    private function _getPlotset($months)
+    {
+        $s = array();
+        for($m=0;$m<$months;$m++){
+            $s[] = $this->_getNextPlot();
+        }
+        return $s;
     }
 
     private function _getNextPlot()
@@ -466,6 +471,12 @@ class BodyDefaultHomeController extends \Core\Controller
         $translator = $this->container->get("translator");
         $view = $this->container->get("view");
 
+        $icons =array(
+            STATICS::CATEGORY_TYPE_USERS => "user",
+            STATICS::CATEGORY_TYPE_PROPERTY => "home",
+            STATICS::CATEGORY_TYPE_CONTRACT => "file-text"
+        );
+
         $datas = array();
 
         $_count = \App\Models\Ingoing::count(array(
@@ -483,7 +494,7 @@ class BodyDefaultHomeController extends \Core\Controller
                     $datas["progress"] = $progress;
                     $datas["text"] = $translator->trans("messages.unlimited_abo_title");
                     $datas["describ"] = $translator->trans("messages.unlimited_abo_describ");
-                    $datas["icon"] = array( "fa" => "users" );
+                    $datas["icon"] = array( "fa" => $icons[$category] );
                 break;
                 case 1:
                     $datas["number"] = "Pack free";

@@ -13,30 +13,40 @@ class AsideDefaultController extends \Core\Controller
     {
 
         $partial = array();
-        $datas = array();
 
-        $client = $this->client->model;
-
-        $datas["contacts_all"] = $this->_datas(STATICS::CATEGORY_TYPE_USERS,'body_contacts');
-
-        $datas["properties_all"] = $this->_datas(STATICS::CATEGORY_TYPE_PROPERTY,'body_properties');
-
-        $datas["gesloc_all"] = $this->_datas(STATICS::CATEGORY_TYPE_CONTRACT,'body_gesloc');
+        $datas = array(
+            "heading_title" => $this->_menuTitle(),
+            "contacts_all" => $this->_datas(STATICS::CATEGORY_TYPE_USERS,'body_contacts'),
+            "properties_all" => $this->_datas(STATICS::CATEGORY_TYPE_PROPERTY,'body_properties'),
+            "contracts_all" => $this->_datas(STATICS::CATEGORY_TYPE_CONTRACT,'body_gesloc')
+        );
 
         $viewmodel = new \App\Models\Views\AsideDefaultViewModel(array(
-            "localisation" => $this->container->get('translator'),
             "datas" => $datas
         ));
+
+        //$partial = array( "items" => $viewmodel->getItems() );
+
+        return $this->view->render( $response, "Default/App/Renderer/sidebar-renderer.html.twig", $viewmodel->getItems() );
+
+    }
+
+    private function _menuTitle()
+    {
+
+        $client = $this->client->model;
 
         $user_nom = $client->getBelongTo("id_user.nom");
         $user_pnom = $client->getBelongTo("id_user.pnom");
 
-        $partial["sidebarmenu"] = array_merge(
-            $viewmodel->getItems("sidebarmenu"),
-            array( "label_small" => ucfirst($user_nom)."&#160;".ucfirst($user_pnom))
+        return array(
+            "heading" => array(
+                "label_small" => implode( "&#160;", array(
+                    ucfirst($user_nom),
+                    ucfirst($user_pnom)
+                ))
+            )
         );
-
-        return $this->view->render($response,"Default/App/Aside/menu.html.twig",$partial);
 
     }
 
