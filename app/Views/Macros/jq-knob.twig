@@ -1,45 +1,54 @@
 {% macro render(item) %}
-<div class="form-group {%- if item.classes %}{{ item.classes|join(' ') }}{% endif -%}">
+<div class="form-group{%- if item.classes %} {{ item.classes|join(' ') }}{% endif -%}">
     <input type="hidden"{%- if item.form %} form="{{ item.form }}"{% endif -%} id="hidden-{{ item.name }}" value="{% if item.raw %}{{ item.raw }}{% endif %}">
     <input type="text" id="{{ item.id }}" name="{{ item.name }}" value="{% if item.value or item.value == '0' %}{{ item.value }}{% endif %}"{% if item.form %} form="{{ item.form }}"{% endif %}{% if item.readonly %} readonly{% endif %}>
+    {%- if item.label %}<div class="knob-label">{{ item.label }}</div>{% endif %}
 <script type="text/javascript">
 ;(function($,document){
     var JQContentLoaded = function(){
         var $ = $ || window.$;
         var $element = $('#{{ item.id }}');
         var $hidden = $('input#hidden-{{ item.name }}');
+        var _release = function (v) {
+            var _val = $hidden.val(), $val = $(this).val();
+            if(_val!=$val){ $hidden.val($val).change(); }
+        };
+        var _launch = function () {
+            $.jo.debugStop();
+            $element.knob({
+                {%- if not item.readonly %}release: _release, {% endif %}
+                {%- if item.width %}width: {{ item.width }}, {% endif %}
+                {%- if item.height %}height: {{ item.height }}, {% endif %}
+                {%- if item.min or item.min == '0' %}min: {{ item.min }}, {% endif %}
+                {%- if item.max %}max: {{ item.max }}, {% endif %}
+                {%- if item.step %}step: {{ item.step }}, {% endif %}
+                {%- if item.readonly %}readOnly: true, {% endif %}
+                {%- if item.thickness %}thickness: {{ item.thickness }}, {% endif %}
+                {%- if item.noInput %}displayInput: false, {% endif %}
+                {%- if item.angleArc %}angleArc: {{ item.angleArc }}, {% endif %}
+                {%- if item.skin %}skin: '{{ item.skin }}', {% endif %}
+                {%- if item.fgColor %}fgColor: '{{ item.fgColor }}', {% endif %}
+                {%- if item.bgColor %}bgColor: '{{ item.bgColor }}'{% endif -%}
+            });
+            
+            $hidden.on('change', function(){
+                var _val = $element.val(), $val = $(this).val();
+                if(_val!=$val){ $element.val($val).change(); }
+            });
+        };
             
         if($){
             if($.fn.knob){
-                        
-                var _release = function (v) {
-                    var _val = $hidden.val(), $val = $(this).val();
-                    if(_val!=$val){ $hidden.val($val).change(); }
-                };
-
-                $element.knob({
-                    {%- if item.readonly %}release: _release,{% endif %}
-                    {%- if item.width %}width: {{ item.width }},{% endif %}
-                    {%- if item.height %}height: {{ item.height }},{% endif %}
-                    {%- if item.min or item.min == '0' %}min: {{ item.min }},{% endif %}
-                    {%- if item.max %}max: {{ item.max }},{% endif %}
-                    {%- if item.step %}step: {{ item.step }},{% endif %}
-                    {%- if item.readonly %}readOnly: true,{% endif %}
-                    {%- if item.thickness %}thickness: {{ item.thickness }},{% endif %}
-                    {%- if item.noInput %}displayInput: false,{% endif %}
-                    {%- if item.fgColor %}fgColor: {{ item.fgColor }},{% endif %}
-                    {%- if item.bgColor %}bgColor: {{ item.bgColor }}{% endif %}
-                });
-                
-                $hidden.on('change', function(){
-                    var _val = $element.val(), $val = $(this).val();
-                    if(_val!=$val){ $element.val($val).change(); }
-                });
-
+                _launch();
             }else{
-                //--> todo error report
+                if($.jo.loadScripts){
+                    $.jo.loadScripts( ['{{ asset_path("jqknob_lib","js","vendor")|join("\',\'") }}'] , _launch );
+                }else{
+                    $element.remove();
+                }
             }
         }
+
     };
     if($){ JQContentLoaded(); }
     else{ document.addEventListener('DOMContentLoaded',JQContentLoaded); }

@@ -1,5 +1,4 @@
 {% macro render(item) %}
-{% import 'Macros/Default/dlist.twig' as Dlist %}
 <div{% if item.id %} id="{{ item.id }}"{% endif %} class="box flat{% if item.style %} box-{{ item.style }}{% else %} box-primary{% endif %}{% if item.classes %} {{ item.classes|join(' ') }}{% endif %}{% if item.collapsed %} collapsed-box{% endif %}">
   <div class="box-header{% if item.title %} with-border{% endif %}">
     {% if item.back %}
@@ -31,15 +30,11 @@
     {% endif %}
   </div>
   <!-- /.box-header -->
-  {% if item.body -%}
   <div class="box-body">
-    {% if item.body.items %}
-      {{ Dlist.setItems(item.body) }}
-    {% else %}
-      {{ item.body|raw }}
-    {% endif %}
-  </div>
+  {% if item.body -%}
+    {{ item.body|raw }}
   {%- endif %}
+  </div>
   <!-- /.box-body -->
   {% if item.footer %}
   <div class="box-footer">

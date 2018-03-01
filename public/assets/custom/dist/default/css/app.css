@@ -173,6 +173,11 @@ dl a:focus {
   font-weight: 600;
 }
 
+.no-wrap {
+  white-space: nowrap;
+  overflow: visible;
+}
+
 .margin-none {
   margin: 0px;
 }

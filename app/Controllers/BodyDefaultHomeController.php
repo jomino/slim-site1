@@ -19,11 +19,16 @@ class BodyDefaultHomeController extends \Core\Controller
 
         $datas = array(
             "info_box_contacts" => array( $self, "getContactsWidget" ),
-            "describ_box_contacts" => array( $self, "getContactsInfos" ),
+            "list_box_contacts" => array( $self, "getContactsInfos" ),
+            "pils_box_contacts" => array( $self, "getContactsPils" ),
             "info_box_properties" => array( $self, "getPropertiesWidget" ),
-            "describ_box_properties" => array( $self, "getPropertiesInfos" ),
+            "pils_box_properties" => array( $self, "getPropertiesPils" ),
+            "chart_box_properties" => array( $self, "getPropertiesInfos" ),
+            "chart_detail_properties" => array( $self, "getPropertiesDetail" ),
             "info_box_contracts" => array( $self, "getContractsWidget" ),
-            "describ_box_contracts" => array( $self, "getContractsInfos" )
+            "pils_box_contracts" => array( $self, "getContractsPils" ),
+            "knobs_box_contracts" => array( $self, "getContractsInfos" ),
+            //"list_box_contracts" => array( $self, "getContractsDetail" )
         );
 
         $viewmodel = new \App\Models\Views\HomeDefaultViewModel(array(
@@ -33,7 +38,7 @@ class BodyDefaultHomeController extends \Core\Controller
 
         //$this->logger->debug( self::class, $viewmodel);
 
-        return $this->view->render( $response, "Default/App/Renderer/widgets-renderer.html.twig", $viewmodel->items );
+        return $this->view->render( $response, "Default/App/Renderer/components-renderer.html.twig", $viewmodel->items );
         
     }
 
@@ -48,6 +53,12 @@ class BodyDefaultHomeController extends \Core\Controller
         return $self->_propertiesDatas();
     }
 
+    public static function getPropertiesDetail($container)
+    {
+        $self = self::factory($container);
+        return $self->_propertiesDetail();
+    }
+
     public static function getContactsInfos($container)
     {
         $self = self::factory($container);
@@ -58,6 +69,12 @@ class BodyDefaultHomeController extends \Core\Controller
     {
         $self = self::factory($container);
         return $self->_contractsDatas();
+    }
+
+    public static function getContractsDetail($container)
+    {
+        $self = self::factory($container);
+        return $self->_contractsDetail();
     }
 
     public static function getContactsWidget($container)
@@ -76,6 +93,24 @@ class BodyDefaultHomeController extends \Core\Controller
     {
         $self = self::factory($container);
         return $self->_infoBoxDatas(STATICS::CATEGORY_TYPE_CONTRACT);
+    }
+
+    public static function getContactsPils($container)
+    {
+        $self = self::factory($container);
+        return $self->_pils(STATICS::CATEGORY_TYPE_USERS);
+    }
+
+    public static function getContractsPils($container)
+    {
+        $self = self::factory($container);
+        return $self->_pils(STATICS::CATEGORY_TYPE_CONTRACT);
+    }
+
+    public static function getPropertiesPils($container)
+    {
+        $self = self::factory($container);
+        return $self->_pils(STATICS::CATEGORY_TYPE_PROPERTY);
     }
 
     private function _propertiesDatas()
@@ -153,9 +188,7 @@ class BodyDefaultHomeController extends \Core\Controller
             "text" => $translator->trans("messages.properties_chart_endebit")." : {$pc_today} %"
         );
 
-        $name_to_fetch = "datas_to_fetch";
-
-        $datas_to_fetch = array(
+        return array(
             "id" => "home-properties-chart",
             "type" => "line",
             "styles" => array("width: 100%;","max-height: {$chart_height}px;"),
@@ -163,25 +196,16 @@ class BodyDefaultHomeController extends \Core\Controller
             "data" => array( "datasets" => [$dataset_1] )
         );
 
-        $body = $view->fetchFromString(
-            implode( "", array(
-                "{% import 'Macros/charts-js.twig' as Chartjs %}",
-                "{{ Chartjs.render({$name_to_fetch}) }}"
-            )),
-            array( $name_to_fetch => $datas_to_fetch )
-        );
+    }
 
-        $body .= implode( "", array(
+    private function _propertiesDetail()
+    {
+        $translator = $this->container->get("translator");
+        return array( "html" => implode( "", array(
             '<blockquote><p class="h6 text-justify">',
             ucfirst($translator->trans("default.lorem_ipsum_md")),
             '</p></blockquote>'
-        ));
-
-        return array(
-            "body" => $body,
-            "pils" => $this->_pils(STATICS::CATEGORY_TYPE_PROPERTY)
-        );
-
+        )));
     }
 
     private function _getPlotset($months)
@@ -302,13 +326,11 @@ class BodyDefaultHomeController extends \Core\Controller
 
         $u_list_max = 10;
 
+        $u_list = array();
+
         //$logger->debug("ingoings",["total"=>sizeof($ingoings)]);
 
-        $boxies = array();
-
         if(!empty($ingoings)){
-
-            $u_list = array();
 
             for($j=0;$j<sizeof($ingoings);$j++){
 
@@ -360,36 +382,17 @@ class BodyDefaultHomeController extends \Core\Controller
                 "content" => $link_read_more
             );
 
-            $name_to_fetch = "datas_to_fetch";
-
-            $datas_to_fetch = array(
-                "id" => uniqid("users-list-"),
-                "tpl" => "list-unstyled",
-                "items" => $u_list
-            );
-
-            $content = $view->fetchFromString(
-                implode( "", array(
-                    "{% import 'Macros/Default/dlist.twig' as Dlist %}",
-                    "{{ Dlist.setItems({$name_to_fetch}) }}"
-                )),
-                array( $name_to_fetch => $datas_to_fetch )
-            );
-
         }
 
-        $boxies[] = array(
-            "title" => $translator->trans("messages.home_users_endebit"),
-            "content" => $content
+        return array(
+            "id" => uniqid("users-list-"),
+            "list" => $u_list
         );
 
-        return array(
-            "pils" => $this->_pils(STATICS::CATEGORY_TYPE_USERS),
-            "body" => array(
-                "tpl" => "dl-list",
-                "items" => $boxies
-            )
-        );
+    }
+
+    private function _contractsDetail()
+    {
 
     }
 
@@ -398,6 +401,7 @@ class BodyDefaultHomeController extends \Core\Controller
 
         $translator = $this->container->get("translator");
         $client = $this->container->get("client")->model;
+        $logger = $this->container->get("logger");
 
         $where = array(
             "ingoing.id_cli = ?" => $client->id_cli,
@@ -417,13 +421,28 @@ class BodyDefaultHomeController extends \Core\Controller
 
         $ingoings = $query->all();
 
-        $boxies = array();
+        $jqknob_datas_default = array(
+            "tpl" => "cmp-jqknob",
+            "classes" => array("text-center"),
+            "raw" => "not_in_use",
+            "skin" => "tron",
+            "max" => sizeof($ingoings),
+            "bgColor" => "#eee",
+            "width" => 85,
+            "height" => 85,
+            //"angleArc" => 360,
+            "readonly" => 1,
+            //"noInput" => 1,
+            "thickness" => 0.1
+        );
+
+        $jqknob_items = array();
 
         if(!empty($ingoings)){
 
-            $tip_enboni = $translator->trans("messages.tip_gesloc_enboni");
+            /*$tip_enboni = $translator->trans("messages.tip_gesloc_enboni");
             $tip_endebit = $translator->trans("messages.tip_gesloc_endebit");
-            $tip_nocount = $translator->trans("messages.tip_gesloc_nocount");
+            $tip_nocount = $translator->trans("messages.tip_gesloc_nocount");*/
 
             $gesloc_endebit = 0;
             $gesloc_enboni = 0;
@@ -432,14 +451,37 @@ class BodyDefaultHomeController extends \Core\Controller
             for($j=0;$j<sizeof($ingoings);$j++){
                 $ingoing = (array) $ingoings[$j];
                 $endebit = intval($ingoing["endebit"]);
-                if($endebit==2){ $gesloc_endebit++; }
-                elseif($endebit==1){ $gesloc_nocount++; }
+                if($endebit==2){ $gesloc_nocount++; }
+                elseif($endebit==1){ $gesloc_endebit++; }
                 else{ $gesloc_enboni++; }
             }
 
-            $boxies[] = array(
-                "title" => $translator->trans("messages.home_gesloc_title"),
-                "content" => implode("",array(
+            $jqknob_items[] = array_merge( array(
+                "id" => "jqknob-enboni",
+                "name" => "jqknob-enboni",
+                "value" => $gesloc_enboni,
+                "fgColor" => "#00a65a",
+                "label" => $translator->trans("messages.pos_contracts_knob")
+            ), $jqknob_datas_default );
+
+            $jqknob_items[] = array_merge( array(
+                "id" => "jqknob-endebit",
+                "name" => "jqknob-endebit",
+                "value" => $gesloc_endebit,
+                "fgColor" => "#ff851b",
+                "label" => $translator->trans("messages.neg_contracts_knob")
+            ), $jqknob_datas_default );
+
+            $jqknob_items[] = array_merge( array(
+                "id" => "jqknob-nocount",
+                "name" => "jqknob-nocount",
+                "value" => $gesloc_nocount,
+                "fgColor" => "#b5bbc8",
+                "label" => $translator->trans("messages.neutral_contracts_knob")
+            ), $jqknob_datas_default );
+
+            /*$jqknob_legend = implode( "", array(
+                '<div class="row">',
                     '<span class="label label-default" data-toggle="tooltip" ',
                             'title="'.$tip_enboni.'">',
                         '<span class="h5 bold">'.$gesloc_enboni.'</span>',
@@ -456,20 +498,31 @@ class BodyDefaultHomeController extends \Core\Controller
                             'title="'.$tip_nocount.'">',
                         '<span class="h5 bold">'.$gesloc_nocount.'</span>',
                         '<span class="text-blue">&#160;&#160;<i class="fa fa-chain-broken"></i></span>',
-                    '</span>'
-                ))
-            );
+                    '</span>',
+                '</div>'
+            ));
+
+            $boxies[] = array(
+                "title" => $translator->trans("messages.home_gesloc_title"),
+                "content" => $jqknob_legend
+            );*/
 
         }
 
-        return array(
+        $datas = array( "items" => $jqknob_items );
+
+        //$logger->debug("_contractsDatas()", [print_r($datas,true)]);
+
+        return $datas;
+
+        /*return array(
             "body" => array(
                 "tpl" => "dl-list",
                 "horizontal" => 1,
                 "items" => $boxies
             ),
             "pils" => $this->_pils(STATICS::CATEGORY_TYPE_CONTRACT)
-        );
+        );*/
 
     }
 
@@ -513,9 +566,7 @@ class BodyDefaultHomeController extends \Core\Controller
                     $datas["describ"] = $translator->trans("messages.limited_to_abo_describ")." {$_count}/{$_max} max.";
                     $datas["icon"] = array( "raw" => $view->fetch(
                         "Default/App/Renderer/charts-renderer.html.twig",
-                        array( "items" => array(
-                            $this->_gauge($_count,$_max)
-                        ))
+                        array( "items" => array( $this->_gauge($_count,$_max)))
                     ));
             }
         }
@@ -566,11 +617,12 @@ class BodyDefaultHomeController extends \Core\Controller
 
     private function _pils($category)
     {
-
         return array(
-            "icon" => $this->icons[$category],
-            "styles" => array( "width: 32px;", "height: 32px;"),
-            "classes" => array( "bg-blue", "bd-blue")
+            "pils" => array(
+                "icon" => $this->icons[$category],
+                "styles" => array( "width: 32px;", "height: 32px;"),
+                "classes" => array( "bg-blue", "bd-blue")
+            )
         );
     }
 

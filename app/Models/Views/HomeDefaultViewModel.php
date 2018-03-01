@@ -25,54 +25,77 @@ class HomeDefaultViewModel extends \Framework\ViewModel
             "layout" => STATICS::BS_LAYOUT_3COL,
             "items" => array(
                 array(
-                    "id" => "contacts",
+                    "tpl" => "cmp-info",
+                    "style" => "light-blue-gradient",
+                    "text" => "messages.home_contact_title",
+                    "target" => "info_box_contacts"
+                ),
+                array(
+                    "tpl" => "cmp-info",
+                    "style" => "light-blue-gradient",
+                    "text" => "messages.home_properties_title",
+                    "target" => "info_box_properties"
+                ),
+                array(
+                    "tpl" => "cmp-info",
+                    "style" => "light-blue-gradient",
+                    "text" => "messages.home_contracts_title",
+                    "target" => "info_box_contracts"
+                )
+            )
+        ),
+        array(
+            "tpl" => "row",
+            "layout" => STATICS::BS_LAYOUT_3COL,
+            "items" => array(
+                array(
+                    "tpl" => "cmp-box",
+                    "style" => "primary",
+                    "title" => "messages.contact_box_title",
+                    "target" => "pils_box_contacts",
                     "items" => array(
                         array(
-                            "tpl" => "info-box",
-                            "style" => "light-blue-gradient",
-                            "text" => "messages.home_contact_title",
-                            "name" => "info_box_contacts"
+                            "tpl" => "cmp-line",
+                            "classes" => ["h5"],
+                            "text" => "messages.contact_list_title"
                         ),
                         array(
-                            "tpl" => "box",
-                            "style" => "primary",
-                            "title" => "messages.contact_title",
-                            "name" => "describ_box_contacts"
+                            "tpl" => "cmp-dlist",
+                            "type" => "list-unstyled",
+                            "target" => "list_box_contacts"
                         )
                     )
                 ),
                 array(
-                    "id" => "properties",
+                    "tpl" => "cmp-box",
+                    "style" => "primary",
+                    "title" => "messages.properties_box_title",
+                    "target" => "pils_box_properties",
                     "items" => array(
                         array(
-                            "tpl" => "info-box",
-                            "style" => "light-blue-gradient",
-                            "text" => "messages.home_properties_title",
-                            "name" => "info_box_properties"
+                            "tpl" => "cmp-chart",
+                            "target" => "chart_box_properties"
                         ),
                         array(
-                            "tpl" => "box",
-                            "style" => "primary",
-                            "title" => "messages.property_title",
-                            "name" => "describ_box_properties"
+                            "target" => "chart_detail_properties"
                         )
                     )
                 ),
                 array(
-                    "id" => "contracts",
+                    "tpl" => "cmp-box",
+                    "style" => "primary",
+                    "title" => "messages.contracts_title",
+                    "target" => "pils_box_contracts",
                     "items" => array(
                         array(
-                            "tpl" => "info-box",
-                            "style" => "light-blue-gradient",
-                            "text" => "messages.home_contracts_title",
-                            "name" => "info_box_contracts"
-                        ),
+                            "tpl" => "row",
+                            "layout" => STATICS::BS_LAYOUT_3COL,
+                            "target" => "knobs_box_contracts"
+                        )/*,
                         array(
-                            "tpl" => "box",
-                            "style" => "primary",
-                            "title" => "messages.contract_title",
-                            "name" => "describ_box_contracts"
-                        )
+                            "tpl" => "cmp-dlist",
+                            "target" => "list_box_contracts"
+                        )*/
                     )
                 )
             )
@@ -92,36 +115,27 @@ class HomeDefaultViewModel extends \Framework\ViewModel
 
             $item = $items[$j];
 
-            if(isset($item["items"])){
-
-                if(!isset($item["id"])){
-                    if($parent && isset($parent["id"])){
-                        $item["id"] = $parent["id"]."El".$get_uid();
-                    }else{
-                        $item["id"] = uniqid()."El";
-                    }
-                }
-
-                $item["items"] = $this->_setItems($items[$j]["items"],$item);
-
-            }else{
-
-                if(!isset($item["id"])){
-                    $id = $get_uid()."El";
-                    if($parent && isset($parent["id"])){
-                        $item["id"] = $parent["id"]."-".$id;
-                    }else{
-                        $item["id"] = $id;
-                    }
-                }
-
-                if(isset($item["name"]) && isset($datas[$item["name"]])){
-                    $_datas = call_user_func_array($datas[$item["name"]],[$this->_container]);
-                    $item = array_merge($item,$_datas);
-                    unset($item["name"]);
-                }
-
+            if(isset($item["target"]) && isset($datas[$item["target"]])){
+                $_datas = call_user_func_array($datas[$item["target"]],[$this->_container]);
+                $item = array_merge_recursive($item,$_datas);
+                unset($item["target"]);
             }
+
+            if(!isset($item["id"])){
+                $id = $get_uid()."El";
+                if($parent && isset($parent["id"])){
+                    $item["id"] = $parent["id"]."-".$id;
+                }else{
+                    $item["id"] = $id;
+                }
+            }
+
+            if(isset($items[$j]["items"])){
+                $item["items"] = $this->_setItems($items[$j]["items"],$item);
+            }else if(isset($item["items"])){
+                $item["items"] = $this->_setItems($item["items"],$item);
+            }
+
 
             $items[$j] = $item;
 

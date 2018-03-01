@@ -1,0 +1,170 @@
+{% macro setItems(item) %}
+{% import _self as self %}
+{% import 'Macros/Default/info-box.twig' as bsInfo %}
+{% import 'Macros/charts-js.twig' as Chartjs %}
+{% import 'Macros/gauge-js.twig' as Gaugejs %}
+{% import 'Macros/bs-button.twig' as bsButton %}
+{% import 'Macros/bs-divider.twig' as bsDivider %}
+{% import 'Macros/bs-list.twig' as bsList %}
+{% import 'Macros/jq-knob.twig' as jqKnob %}
+    {% if item.items %}
+    <!-- begin_with_items-{% if item.id %}{{ item.id|raw }}{% endif %} -->
+        {% if item.tpl == "cmp-panel" %}
+            <div class="panel panel-default"{% if item.id %} id="{{ item.id }}"{% endif %}>
+                {% if item.title %}
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{ trans(item.title)|capitalize }}</h3>
+                </div>
+                {% endif %}
+                <div class="panel-body">
+                    {% for item_1 in item.items %}
+                        {% if item.vertical %}
+                            {% if loop.index0 % item.vertical == 0 %}
+                                <!-- begin_v --><div class="{{ item.layout }}">
+                            {% endif %}
+                            {{ self.setItems(item_1) }}
+                            {% if (loop.index0 % item.vertical == ( item.vertical - 1 ) ) or loop.last %}
+                                </div><!-- end_v -->
+                            {% endif %}
+                        {% else %}
+                            <div class="{{ item.layout }}">{{ self.setItems(item_1) }}</div>
+                        {% endif %}
+                    {% endfor %}                
+                </div>
+            </div>
+        {% elseif item.tpl == "cmp-tabs" %}
+            <label class="control-label" style="white-space: nowrap;">{{ trans(item.title)|capitalize }}</label>
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                    {% for item_head in item.items %}
+                        <li{% if loop.first %} class="active"{% endif %}>
+                            <a href="#tab_{{ item.id }}-{{ loop.index }}" data-toggle="tab">
+                                {{ trans(item_head.title)|capitalize }}
+                            </a>
+                        </li>
+                    {% endfor %} 
+                </ul>
+            </div>
+            <div class="tab-content">
+                {% for item_body in item.items %}
+                    <div class="tab-pane{% if loop.first %} active{% endif %}" id="tab_{{ item.id }}-{{ loop.index }}">
+                        <div class="{{ item.layout }}">{{ self.setItems(item_body) }}</div>
+                    </div>
+                {% endfor %} 
+            </div>
+        {% elseif item.tpl == "cmp-box" %}
+            <div{% if item.id %} id="{{ item.id }}"{% endif %} class="box flat{% if item.style %} box-{{ item.style }}{% else %} box-primary{% endif %}{% if item.classes %} {{ item.classes|join(' ') }}{% endif %}{% if item.collapsed %} collapsed-box{% endif %}">
+                <div class="box-header{% if item.title %} with-border{% endif %}">
+                    {% if item.back -%}
+                        <button type="button" class="btn{% if item.back.style %} btn-{{ item.back.style }}{% else %} btn-primary{% endif %} btn-xs btn-history-back" style="margin-top: -3px; cursor: pointer;">
+                            <i class="fa fa-arrow-left"></i>
+                        </button>
+                    {% endif -%}
+                    {% if item.title -%}
+                        {% if item.pils -%}
+                            <div class="pils {% if item.pils.classes -%}{{ item.pils.classes|join(' ') }}{%- endif %}" style="{% if item.pils.styles -%}{{ item.pils.styles|join(' ') }}{%- endif %}">
+                                <span class="fa fa-{% if item.pils.icon -%}{{ item.pils.icon }}{%- endif %}"></span>
+                            </div>
+                        {% endif -%}
+                        <h3 class="box-title"{% if item.pils %} style="margin-top:7px;"{% endif %}>{{ trans(item.title)|capitalize }}</h3>
+                    {% endif -%}
+                    {% if item.expandable -%}
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                <i class="fa {% if item.collapsed %}fa-plus{% else %}fa-minus{% endif %}"></i>
+                            </button>
+                        </div>
+                    {% endif -%}
+                    {% if item.closable -%}
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="remove">
+                                <i class="fa fa-times"></i>
+                            </button>
+                        </div>
+                    {% endif -%}
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    {% for item_box in item.items %}
+                        {{ self.setItems(item_box) }}
+                    {% endfor %}
+                </div>
+                <!-- /.box-body -->
+                {% if item.footer %}
+                    <div class="box-footer">
+                        {{ item.footer|raw }}
+                    </div>
+                    <!-- box-footer -->
+                {% endif %}
+            </div>
+            <!-- /.box -->
+        {% elseif item.tpl == "cmp-1column" %}
+            <div class="row">
+                <div class="{% if item.layout %}{{ item.layout }}{% else %}col-md-12{% endif %}">
+                {% for item_v in item.items %}
+                    {{ self.setItems(item_v) }}
+                {% endfor %} 
+                </div>
+            </div>
+        {% else %}
+            {% if item.tpl %}<div class="{{ item.tpl }}">{% endif %}
+            {% for item_n in item.items %}
+                {% if item.layout %}<div class="{{ item.layout }}">{% endif %}
+                    {{ self.setItems(item_n) }}
+                {% if item.layout %}</div>{% endif %}
+            {% endfor %} 
+            {% if item.tpl %}</div>{% endif %}
+        {% endif %}
+        <!-- end_with_items -->
+    {% else %}
+    {% if item.layout %}<div class="{{ item.layout }}">{% endif %}
+    <!-- begin_with_component -->
+        {% if item.tpl %}
+        <!-- component_with_tpl -->
+            {% if item.tpl == "cmp-button" %}
+                <!-- begin_cmp-button_component -->
+                {{ bsButton.render(item) }}
+                <!-- end_cmp-button_component -->
+            {% elseif item.tpl == "cmp-hr" %}
+                <!-- begin_cmp-hr_component -->
+                {{ bsDivider.render(item) }}
+                <!-- end_cmp-hr_component -->
+            {% elseif item.tpl == "cmp-dlist" %}
+                <!-- begin_cmp-dlist_component -->
+                {{ bsList.render(item) }}
+                <!-- end_cmp-dlist_component -->
+            {% elseif item.tpl == "cmp-jqknob" %}
+                <!-- begin_cmp-jqknob_component -->
+                {{ jqKnob.render(item) }}
+                <!-- end_cmp-jqknob_component -->
+            {% elseif item.tpl == "cmp-chart" %}
+                <!-- begin_cmp-chart_component -->
+                {{ Chartjs.render(item) }}
+                <!-- end_cmp-chart_component -->
+            {% elseif item.tpl == "cmp-gauge" %}
+            <!-- begin_cmp-gauge_component -->
+                {{ Gaugejs.render(item) }}
+            <!-- end_cmp-gauge_component -->
+            {% elseif item.tpl == "cmp-info" %}
+                <!-- begin_cmp-info_component -->
+                {{ bsInfo.render(item) }}
+                <!-- end_cmp-info_component -->
+            {% elseif item.tpl == "cmp-line" %}
+                <!-- begin_cmp-line_component -->
+                <p{% if item.classes %} class="{{ item.classes|join(' ') -}}"{% endif %}>
+                    {{ trans(item.text)|capitalize -}}
+                </p>
+                <!-- end_cmp-line_component -->
+            {% else %}
+                <!-- tpl_not_found !! -->     
+                <p class="h5 no-wrap text-danger bold">Error: "{{- item.tpl -}}" not found !! </p>
+                <p>{{- dump(item) -}}</p>
+            {% endif %}
+        {% else %}
+            <!-- component_raw_html -->
+            {{- item.html|raw -}}
+        {% endif %}
+    {% if item.layout %}</div>{% endif %}
+    <!-- end_with_component -->
+    {% endif %}
+{% endmacro %}

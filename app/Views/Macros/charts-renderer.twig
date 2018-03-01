@@ -22,10 +22,11 @@
                 {{ Chartjs.render(item) }}
             <!-- end_chart-js_component -->
             {% elseif item.tpl == "gauge-js" %}
-            <!-- begin_form-hr_component -->
+            <!-- begin_gauge-js_component -->
                 {{ Gaugejs.render(item) }}
-            <!-- end_form-hr_component -->
-            {% else %}    
+            <!-- end_gauge-js_component -->
+            {% else %} 
+                <!-- tpl_not_found !! -->   
                 <p class="placeholder hidden-sm hidden-xs {% if item.classes %}{{- item.classes|join(' ') -}}{% endif %}">&#160;</p>
             {% endif %}
         {% else %}
