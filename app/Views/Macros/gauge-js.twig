@@ -1,7 +1,7 @@
 {% macro render(datas) %}
 <canvas id="{{- datas.id -}}" style="width: 100%; height: {{ datas.height }};"{% if datas.classes %} class="{{ datas.classes|join(' ') }}"{% endif %}></canvas>
 <script type="text/javascript">
-;(function($){
+;(function($,document){
     var JQContentLoaded = function(){
         var $ = $ || window.$,
             $el = $('#{{- datas.id -}}'),
@@ -75,6 +75,6 @@
     };
     if($){ JQContentLoaded(); }
     else{ document.addEventListener('DOMContentLoaded',JQContentLoaded); }
-})(window.jQuery);
+})(window.jQuery,window.document);
 </script>
 {% endmacro %}

@@ -36,7 +36,6 @@ class HomeDefaultViewModel extends \Framework\ViewModel
                         array(
                             "tpl" => "box",
                             "style" => "primary",
-                            "classes" => array("flat"),
                             "title" => "messages.contact_title",
                             "name" => "describ_box_contacts"
                         )
@@ -54,7 +53,6 @@ class HomeDefaultViewModel extends \Framework\ViewModel
                         array(
                             "tpl" => "box",
                             "style" => "primary",
-                            "classes" => array("flat"),
                             "title" => "messages.property_title",
                             "name" => "describ_box_properties"
                         )
@@ -72,7 +70,6 @@ class HomeDefaultViewModel extends \Framework\ViewModel
                         array(
                             "tpl" => "box",
                             "style" => "primary",
-                            "classes" => array("flat"),
                             "title" => "messages.contract_title",
                             "name" => "describ_box_contracts"
                         )

@@ -8,7 +8,7 @@
     {% if item.icon_after or item.icon_before %}</div>{% endif %}
     <div id="{{ item.id }}-status" class="help-block with-errors"></div>
 <script type="text/javascript">
-;(function($){
+;(function($,document){
     var _defaults = {
         fr: {
             monthsFull: [ 'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre' ],
@@ -80,7 +80,7 @@
     };
     if($){ JQContentLoaded(); }
     else{ document.addEventListener('DOMContentLoaded',JQContentLoaded); }
-})(window.jQuery);
+})(window.jQuery,window.document);
 </script>
 </div>
 {% endmacro %}

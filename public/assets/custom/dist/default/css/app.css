@@ -43,6 +43,33 @@ dl a:focus {
   margin-top: 0px;
 }
 
+.box-header h1,
+.box-header h2,
+.box-header h3,
+.box-header h4,
+.box-header h5,
+.box-header h6 {
+  vertical-align: middle;
+}
+
+.pils {
+    display: inline-block;
+    border: 2px solid;
+    border-radius: 50% !important;
+    font-size: 1em;
+    line-height: 1em;
+    text-align: center;
+}
+
+.box-header .pils .fa {
+    margin-top: 7px;
+    vertical-align: middle;
+}
+
+.bd-blue {
+  border-color: #467D9E;
+}
+
 #app-loader {
 	position: absolute;
 	top: 50%;

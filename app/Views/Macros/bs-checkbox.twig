@@ -9,7 +9,7 @@
     </div>
 </div>
 <script type="text/javascript">
-;(function($){
+;(function($,document){
     var JQContentLoaded = function(){
         var $ = $ || window.$;
         if($){
@@ -32,6 +32,6 @@
     };
     if($){ JQContentLoaded(); }
     else{ document.addEventListener('DOMContentLoaded',JQContentLoaded); }
-})(window.jQuery);
+})(window.jQuery,window.document);
 </script>
 {% endmacro %}

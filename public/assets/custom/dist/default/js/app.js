@@ -945,7 +945,7 @@ String.prototype.capitalize = function(s){
             if(extPart=='css'){ _loadCSS(file); }
             if(extPart=='js'){ _loadJS(file); }
         }else{
-            window.setTimeout(()=>{callback.call(this)},100);
+            window.setTimeout(()=>{callback.call(this)},250);
         }
       };
 

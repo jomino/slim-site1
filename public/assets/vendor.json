@@ -108,6 +108,11 @@
             "js": ["dist/Chart.min.js"]
         }
     },
+    "jqknob_lib": {
+        "jquery-knob": {
+            "js": ["dist/jquery.knob.min.js"]
+        }
+    },
     "gaugejs_lib": {
         "gauge.js": {
             "js": ["dist/gauge.min.js"]

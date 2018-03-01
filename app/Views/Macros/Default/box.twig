@@ -7,7 +7,14 @@
         <i class="fa fa-arrow-left"></i>
       </button>
     {% endif %}
-    {% if item.title %}<h3 class="box-title">{{ trans(item.title)|capitalize }}</h3>{% endif %}
+    {% if item.title %}
+      {% if item.pils %}
+        <div class="pils {% if item.pils.classes -%}{{ item.pils.classes|join(' ') }}{%- endif %}" style="{% if item.pils.styles -%}{{ item.pils.styles|join(' ') }}{%- endif %}">
+            <span class="fa fa-{% if item.pils.icon -%}{{ item.pils.icon }}{%- endif %}"></span>
+        </div>
+      {% endif %}
+      <h3 class="box-title"{% if item.pils %} style="margin-top:7px;"{% endif %}>{{ trans(item.title)|capitalize }}</h3>
+    {% endif %}
     {% if item.expandable %}
     <div class="box-tools pull-right">
       <button type="button" class="btn btn-box-tool" data-widget="collapse">

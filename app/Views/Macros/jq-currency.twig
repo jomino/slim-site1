@@ -8,7 +8,7 @@
     {% if item.icon_after %}<span class="input-group-addon">{{ item.icon_after|raw }}</span>{% endif %}
     {% if item.icon_after or item.icon_before %}</div>{% endif %}
 <script type="text/javascript">
-;(function($){
+;(function($,document){
     var JQContentLoaded = function(){
         var $ = $ || window.$;
         if($){
@@ -56,7 +56,7 @@
     };
     if($){ JQContentLoaded(); }
     else{ document.addEventListener('DOMContentLoaded',JQContentLoaded); }
-})(window.jQuery);
+})(window.jQuery,window.document);
 </script>
 </div>
 {% endmacro %}

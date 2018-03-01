@@ -7,6 +7,12 @@ use App\Statics\Models as STATICS;
 class BodyDefaultHomeController extends \Core\Controller
 {
 
+    private $icons = array(
+        STATICS::CATEGORY_TYPE_USERS => "user",
+        STATICS::CATEGORY_TYPE_PROPERTY => "home",
+        STATICS::CATEGORY_TYPE_CONTRACT => "file-text"
+    );
+
     public function __invoke($request, $response, $args)
     {
         $self = self::class;
@@ -39,7 +45,7 @@ class BodyDefaultHomeController extends \Core\Controller
     public static function getPropertiesInfos($container)
     {
         $self = self::factory($container);
-        return $self->_propertiesChart();
+        return $self->_propertiesDatas();
     }
 
     public static function getContactsInfos($container)
@@ -72,7 +78,7 @@ class BodyDefaultHomeController extends \Core\Controller
         return $self->_infoBoxDatas(STATICS::CATEGORY_TYPE_CONTRACT);
     }
 
-    private function _propertiesChart()
+    private function _propertiesDatas()
     {
 
         $view = $this->container->get("view");
@@ -172,7 +178,8 @@ class BodyDefaultHomeController extends \Core\Controller
         ));
 
         return array(
-            "body" => $body
+            "body" => $body,
+            "pils" => $this->_pils(STATICS::CATEGORY_TYPE_PROPERTY)
         );
 
     }
@@ -377,6 +384,7 @@ class BodyDefaultHomeController extends \Core\Controller
         );
 
         return array(
+            "pils" => $this->_pils(STATICS::CATEGORY_TYPE_USERS),
             "body" => array(
                 "tpl" => "dl-list",
                 "items" => $boxies
@@ -459,7 +467,8 @@ class BodyDefaultHomeController extends \Core\Controller
                 "tpl" => "dl-list",
                 "horizontal" => 1,
                 "items" => $boxies
-            )
+            ),
+            "pils" => $this->_pils(STATICS::CATEGORY_TYPE_CONTRACT)
         );
 
     }
@@ -471,15 +480,9 @@ class BodyDefaultHomeController extends \Core\Controller
         $translator = $this->container->get("translator");
         $view = $this->container->get("view");
 
-        $icons =array(
-            STATICS::CATEGORY_TYPE_USERS => "user",
-            STATICS::CATEGORY_TYPE_PROPERTY => "home",
-            STATICS::CATEGORY_TYPE_CONTRACT => "file-text"
-        );
-
         $datas = array();
 
-        $_count = \App\Models\Ingoing::count(array(
+        $_count = \App\Models\Ingoing::count( array(
             "id_cli = ?" => $client->id_cli,
             "id_cat = ?" => $category
         ));
@@ -494,7 +497,7 @@ class BodyDefaultHomeController extends \Core\Controller
                     $datas["progress"] = $progress;
                     $datas["text"] = $translator->trans("messages.unlimited_abo_title");
                     $datas["describ"] = $translator->trans("messages.unlimited_abo_describ");
-                    $datas["icon"] = array( "fa" => $icons[$category] );
+                    $datas["icon"] = array( "fa" => $this->icons[$category] );
                 break;
                 case 1:
                     $datas["number"] = "Pack free";
@@ -559,6 +562,16 @@ class BodyDefaultHomeController extends \Core\Controller
 
         return null;
 
+    }
+
+    private function _pils($category)
+    {
+
+        return array(
+            "icon" => $this->icons[$category],
+            "styles" => array( "width: 32px;", "height: 32px;"),
+            "classes" => array( "bg-blue", "bd-blue")
+        );
     }
 
 }
