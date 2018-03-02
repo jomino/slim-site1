@@ -28,7 +28,7 @@ class BodyDefaultHomeController extends \Core\Controller
             "info_box_contracts" => array( $self, "getContractsWidget" ),
             "pils_box_contracts" => array( $self, "getContractsPils" ),
             "knobs_box_contracts" => array( $self, "getContractsInfos" ),
-            //"list_box_contracts" => array( $self, "getContractsDetail" )
+            "list_box_contracts" => array( $self, "getContractsDetail" )
         );
 
         $viewmodel = new \App\Models\Views\HomeDefaultViewModel(array(
@@ -265,35 +265,17 @@ class BodyDefaultHomeController extends \Core\Controller
     private function _getPlotsByDates($start,$end)
     {
 
-        $logger = $this->container->get("logger");
-        $client = $this->container->get("client")->model;
-
-        $where = array(
-            "ingoing.id_cli = ?" => (int) $client->id_cli,
-            "ingoing.id_cat = ?" => (int) STATICS::CATEGORY_TYPE_CONTRACT,
-            "geslocpay.paytype = ?" => 0,
-            "geslocpay.dt_debit BETWEEN ? AND ?" => array($start,$end)
+        return $this->_queryIngoing( STATICS::CATEGORY_TYPE_CONTRACT,
+            array(
+                array( "gesloc", "gesloc.idgesloc=ingoing.id_ref", ["gesloc.idgesloc"]),
+                array( "properties", "properties.id_ref=gesloc.idbien", ["properties.name"]),
+                array( "geslocpay", "geslocpay.idgesloc=gesloc.idgesloc", ["geslocpay.idpay","geslocpay.debitsum","geslocpay.creditsum"])
+            ),
+            array(
+                "geslocpay.paytype = ?" => 0,
+                "geslocpay.dt_debit BETWEEN ? AND ?" => array($start,$end)
+            )
         );
-
-        $ingoing = new \App\Models\Ingoing();
-
-        $query = $ingoing->connector->query()
-            ->from($ingoing->table,["ingoing.id_ingo"]);
-
-        foreach($where as $k=>$v){
-            if(is_array($v)){
-                array_unshift($v,$k);
-                $query->where(...$v);
-            }else{
-                $query->where($k,$v);
-            }
-        }
-
-        $query->join("gesloc","gesloc.idgesloc=ingoing.id_ref",["gesloc.idgesloc"]);
-        $query->join("properties","properties.id_ref=gesloc.idbien",["properties.name"]);
-        $query->join("geslocpay","geslocpay.idgesloc=gesloc.idgesloc",["geslocpay.idpay","geslocpay.debitsum","geslocpay.creditsum"]);
-
-        return $query->all();
 
     }
 
@@ -305,24 +287,10 @@ class BodyDefaultHomeController extends \Core\Controller
         $translator = $this->container->get("translator");
         $client = $this->container->get("client")->model;
 
-        $where = array(
-            "ingoing.id_cli = ?" => $client->id_cli,
-            "ingoing.id_cat = ?" => STATICS::CATEGORY_TYPE_CONTRACT
-        );
-
-        $ingoing = new \App\Models\Ingoing();
-
-        $query = $ingoing->connector->query()
-            ->from($ingoing->table,["ingoing.id_cli"]);
-
-        foreach($where as $k=>$v){
-            $query->where($k,$v);
-        }
-
-        $query->join("gesloc","gesloc.idgesloc=ingoing.id_ref",["gesloc.idgesloc","gesloc.endebit"]);
-        $query->join("users","users.id_ref=gesloc.idloc",["users.id_user","users.pnom","users.nom"]);
-
-        $ingoings = $query->all();
+        $ingoings = $this->_queryIngoing( STATICS::CATEGORY_TYPE_CONTRACT, array(
+            array( "gesloc", "gesloc.idgesloc=ingoing.id_ref", ["gesloc.idgesloc","gesloc.endebit"]),
+            array( "users", "users.id_ref=gesloc.idloc", ["users.id_user","users.pnom","users.nom"])
+        ));
 
         $u_list_max = 10;
 
@@ -391,35 +359,15 @@ class BodyDefaultHomeController extends \Core\Controller
 
     }
 
-    private function _contractsDetail()
-    {
-
-    }
-
     private function _contractsDatas()
     {
 
         $translator = $this->container->get("translator");
-        $client = $this->container->get("client")->model;
         $logger = $this->container->get("logger");
 
-        $where = array(
-            "ingoing.id_cli = ?" => $client->id_cli,
-            "ingoing.id_cat = ?" => STATICS::CATEGORY_TYPE_CONTRACT
-        );
-
-        $ingoing = new \App\Models\Ingoing();
-
-        $query = $ingoing->connector->query()
-            ->from($ingoing->table,["ingoing.id_cli"]);
-
-        foreach($where as $k=>$v){
-            $query->where($k,$v);
-        }
-
-        $query->join("gesloc","gesloc.idgesloc=ingoing.id_ref",["gesloc.endebit"]);
-
-        $ingoings = $query->all();
+        $ingoings = $this->_queryIngoing( STATICS::CATEGORY_TYPE_CONTRACT, array(
+            array( "gesloc", "gesloc.idgesloc=ingoing.id_ref", ["gesloc.endebit"])
+        ));
 
         $jqknob_datas_default = array(
             "tpl" => "cmp-jqknob",
@@ -439,10 +387,6 @@ class BodyDefaultHomeController extends \Core\Controller
         $jqknob_items = array();
 
         if(!empty($ingoings)){
-
-            /*$tip_enboni = $translator->trans("messages.tip_gesloc_enboni");
-            $tip_endebit = $translator->trans("messages.tip_gesloc_endebit");
-            $tip_nocount = $translator->trans("messages.tip_gesloc_nocount");*/
 
             $gesloc_endebit = 0;
             $gesloc_enboni = 0;
@@ -480,33 +424,6 @@ class BodyDefaultHomeController extends \Core\Controller
                 "label" => $translator->trans("messages.neutral_contracts_knob")
             ), $jqknob_datas_default );
 
-            /*$jqknob_legend = implode( "", array(
-                '<div class="row">',
-                    '<span class="label label-default" data-toggle="tooltip" ',
-                            'title="'.$tip_enboni.'">',
-                        '<span class="h5 bold">'.$gesloc_enboni.'</span>',
-                        '<span class="text-green">&#160;&#160;<i class="fa fa-thumbs-up"></i></span>',
-                    '</span>',
-                    '<span>&#160;&#160;&#160;&#160;</span>',
-                    '<span class="label label-default" data-toggle="tooltip" ',
-                            'title="'.$tip_endebit.'">',
-                        '<span class="h5 bold">'.$gesloc_endebit.'</span>',
-                        '<span class="text-red">&#160;&#160;<i class="fa fa-thumbs-down"></i></span>',
-                    '</span>',
-                    '<span>&#160;&#160;&#160;&#160;</span>',
-                    '<span class="label label-default" data-toggle="tooltip" ',
-                            'title="'.$tip_nocount.'">',
-                        '<span class="h5 bold">'.$gesloc_nocount.'</span>',
-                        '<span class="text-blue">&#160;&#160;<i class="fa fa-chain-broken"></i></span>',
-                    '</span>',
-                '</div>'
-            ));
-
-            $boxies[] = array(
-                "title" => $translator->trans("messages.home_gesloc_title"),
-                "content" => $jqknob_legend
-            );*/
-
         }
 
         $datas = array( "items" => $jqknob_items );
@@ -515,14 +432,58 @@ class BodyDefaultHomeController extends \Core\Controller
 
         return $datas;
 
-        /*return array(
-            "body" => array(
-                "tpl" => "dl-list",
-                "horizontal" => 1,
-                "items" => $boxies
-            ),
-            "pils" => $this->_pils(STATICS::CATEGORY_TYPE_CONTRACT)
-        );*/
+    }
+
+    private function _contractsDetail()
+    {
+        $translator = $this->container->get("translator");
+
+        $ingoings = $this->_queryIngoing( STATICS::CATEGORY_TYPE_CONTRACT, array(
+            array( "gesloc", "gesloc.idgesloc=ingoing.id_ref", ["gesloc.endebit"])
+        ));
+
+        $tip_enboni = $translator->trans("messages.tip_gesloc_enboni");
+        $tip_endebit = $translator->trans("messages.tip_gesloc_endebit");
+        $tip_nocount = $translator->trans("messages.tip_gesloc_nocount");
+
+        $gesloc_endebit = 0;
+        $gesloc_enboni = 0;
+        $gesloc_nocount = 0;
+
+        for($j=0;$j<sizeof($ingoings);$j++){
+            $ingoing = (array) $ingoings[$j];
+            $endebit = intval($ingoing["endebit"]);
+            if($endebit==2){ $gesloc_nocount++; }
+            elseif($endebit==1){ $gesloc_endebit++; }
+            else{ $gesloc_enboni++; }
+        }
+
+        $datas = implode( "", array(
+            '<div class="row">',
+                '<span class="label label-default" data-toggle="tooltip" ',
+                        'title="'.$tip_enboni.'">',
+                    '<span class="h5 bold">'.$gesloc_enboni.'</span>',
+                    '<span class="text-green">&#160;&#160;<i class="fa fa-thumbs-up"></i></span>',
+                '</span>',
+                '<span>&#160;&#160;&#160;&#160;</span>',
+                '<span class="label label-default" data-toggle="tooltip" ',
+                        'title="'.$tip_endebit.'">',
+                    '<span class="h5 bold">'.$gesloc_endebit.'</span>',
+                    '<span class="text-red">&#160;&#160;<i class="fa fa-thumbs-down"></i></span>',
+                '</span>',
+                '<span>&#160;&#160;&#160;&#160;</span>',
+                '<span class="label label-default" data-toggle="tooltip" ',
+                        'title="'.$tip_nocount.'">',
+                    '<span class="h5 bold">'.$gesloc_nocount.'</span>',
+                    '<span class="text-blue">&#160;&#160;<i class="fa fa-chain-broken"></i></span>',
+                '</span>',
+            '</div>'
+        ));
+
+        return array( "list" => array( array(
+            "title" => $translator->trans("messages.home_gesloc_title"),
+            "content" => $datas
+        )));
 
     }
 
@@ -548,21 +509,21 @@ class BodyDefaultHomeController extends \Core\Controller
                 case 9999:
                     $datas["number"] = $_count." ".$translator->trans("default.entries");
                     $datas["progress"] = $progress;
-                    $datas["text"] = $translator->trans("messages.unlimited_abo_title");
+                    $datas["title"] = "messages.unlimited_abo_title";
                     $datas["describ"] = $translator->trans("messages.unlimited_abo_describ");
                     $datas["icon"] = array( "fa" => $this->icons[$category] );
                 break;
                 case 1:
                     $datas["number"] = "Pack free";
                     $datas["progress"] = 100;
-                    $datas["text"] = $translator->trans("messages.free_abo_title");
+                    $datas["title"] = "messages.free_abo_title";
                     $datas["describ"] = $translator->trans("messages.free_abo_describ");
                     $datas["icon"] = array( "fa" => "user-circle" );
                 break;
                 default:
                     $datas["number"] = $progress." %";
                     $datas["progress"] = $progress;
-                    $datas["text"] = $translator->trans("messages.limited_to_abo_title");
+                    $datas["title"] = "messages.limited_to_abo_title";
                     $datas["describ"] = $translator->trans("messages.limited_to_abo_describ")." {$_count}/{$_max} max.";
                     $datas["icon"] = array( "raw" => $view->fetch(
                         "Default/App/Renderer/charts-renderer.html.twig",
@@ -624,6 +585,39 @@ class BodyDefaultHomeController extends \Core\Controller
                 "classes" => array( "bg-blue", "bd-blue")
             )
         );
+    }
+
+    private function _queryIngoing($what="",$join=array(),$where=array())
+    {
+
+        $client = $this->container->get("client")->model;
+        $logger = $this->container->get("logger");
+
+        $where = array_merge( $where, array(
+            "ingoing.id_cli = ?" => $client->id_cli,
+            "ingoing.id_cat = ?" => $what
+        ));
+
+        $ingoing = new \App\Models\Ingoing();
+
+        $query = $ingoing->connector->query()
+            ->from($ingoing->table,["ingoing.id_cli"]);
+
+        foreach($where as $k=>$v){
+            if(is_array($v)){
+                array_unshift($v,$k);
+                $query->where(...$v);
+            }else{
+                $query->where($k,$v);
+            }
+        }
+
+        for($i=0;$i<sizeof($join);$i++){
+            $query->join(...$join[$i]);
+        }
+
+        return $query->all();
+
     }
 
 }

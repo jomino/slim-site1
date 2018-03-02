@@ -1,6 +1,6 @@
 {% macro render(item) %}
 <!-- /.info-box -->
-<div{% if item.id %} id="{{ item.id }}"{% endif %} class="info-box{% if item.style %} bg-{{ item.style }}{% else %} bg-gray text-black{% endif %}{% if item.classes %} {{ item.classes|join(' ') }}{% endif %}">
+<div{% if item.id %} id="{{ item.id }}"{% endif %} class="info-box{% if item.style %} bg-{{ item.style }}{% else %} bg-gray text-default{% endif %}{% if item.classes %} {{ item.classes|join(' ') }}{% endif %}">
     <span class="info-box-icon">
     {% if item.icon %}
         {% if item.icon.fa %}<i class="fa fa-{{ item.icon.fa }}"></i>
@@ -12,7 +12,7 @@
     {% endif %}
     </span>
     <div class="info-box-content">
-        <span class="info-box-text">{% if item.text %}{{ item.text|raw }}{% else %}{{ trans("default.no_text")|capitalize }}{% endif %}</span>
+        <span class="info-box-text">{% if item.title %}{{ trans(item.title)|capitalize }}{% else %}{{ trans("default.no_title")|capitalize }}{% endif %}</span>
         {% if item.number %}<span class="info-box-number">{{ item.number }}</span>{% endif %}
         {% if item.progress or item.progress == 0 %}
             <div class="progress">

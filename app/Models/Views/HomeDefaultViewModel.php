@@ -27,19 +27,16 @@ class HomeDefaultViewModel extends \Framework\ViewModel
                 array(
                     "tpl" => "cmp-info",
                     "style" => "light-blue-gradient",
-                    "text" => "messages.home_contact_title",
                     "target" => "info_box_contacts"
                 ),
                 array(
                     "tpl" => "cmp-info",
                     "style" => "light-blue-gradient",
-                    "text" => "messages.home_properties_title",
                     "target" => "info_box_properties"
                 ),
                 array(
                     "tpl" => "cmp-info",
                     "style" => "light-blue-gradient",
-                    "text" => "messages.home_contracts_title",
                     "target" => "info_box_contracts"
                 )
             )
@@ -88,14 +85,17 @@ class HomeDefaultViewModel extends \Framework\ViewModel
                     "target" => "pils_box_contracts",
                     "items" => array(
                         array(
+                            // items added by BodyDefaultHomeController class 
                             "tpl" => "row",
                             "layout" => STATICS::BS_LAYOUT_3COL,
                             "target" => "knobs_box_contracts"
-                        )/*,
+                        ),
                         array(
                             "tpl" => "cmp-dlist",
+                            "type" => "dl-list",
+                            "horizontal" => 1,
                             "target" => "list_box_contracts"
-                        )*/
+                        )
                     )
                 )
             )
