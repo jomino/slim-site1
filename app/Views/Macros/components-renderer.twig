@@ -3,6 +3,7 @@
 {% import 'Macros/Default/info-box.twig' as bsInfo %}
 {% import 'Macros/charts-js.twig' as Chartjs %}
 {% import 'Macros/gauge-js.twig' as Gaugejs %}
+{% import 'Macros/sparkline-js.twig' as Sparkline %}
 {% import 'Macros/bs-button.twig' as bsButton %}
 {% import 'Macros/bs-divider.twig' as bsDivider %}
 {% import 'Macros/bs-list.twig' as bsList %}
@@ -53,7 +54,7 @@
                 {% endfor %} 
             </div>
         {% elseif item.tpl == "cmp-box" %}
-            <div{% if item.id %} id="{{ item.id }}"{% endif %} class="box flat{% if item.style %} box-{{ item.style }}{% else %} box-primary{% endif %}{% if item.classes %} {{ item.classes|join(' ') }}{% endif %}{% if item.collapsed %} collapsed-box{% endif %}">
+            <div{% if item.id %} id="{{ item.id }}"{% endif %} class="box flat{% if item.style %} box-{{ item.style }}{% else %} box-primary{% endif %}{% if item.classes %} {{ item.classes|join(' ') }}{% endif %}{% if item.collapsed %} collapsed-box{% endif %}"{% if item.css %} style="{{ item.css|join('') }}"{% endif %}>
                 <div class="box-header{% if item.title %} with-border{% endif %}">
                     {% if item.back -%}
                         <button type="button" class="btn{% if item.back.style %} btn-{{ item.back.style }}{% else %} btn-primary{% endif %} btn-xs btn-history-back" style="margin-top: -3px; cursor: pointer;">
@@ -145,6 +146,10 @@
             <!-- begin_cmp-gauge_component -->
                 {{ Gaugejs.render(item) }}
             <!-- end_cmp-gauge_component -->
+            {% elseif item.tpl == "cmp-spark" %}
+            <!-- begin_cmp-spark_component -->
+                {{ Gaugejs.render(item) }}
+            <!-- end_cmp-spark_component -->
             {% elseif item.tpl == "cmp-info" %}
                 <!-- begin_cmp-info_component -->
                 {{ bsInfo.render(item) }}

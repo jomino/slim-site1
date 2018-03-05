@@ -1,7 +1,7 @@
 {% macro render(item) %}
 <div class="form-group{%- if item.classes %} {{ item.classes|join(' ') }}{% endif -%}">
     <input type="hidden"{%- if item.form %} form="{{ item.form }}"{% endif -%} id="hidden-{{ item.name }}" value="{% if item.raw %}{{ item.raw }}{% endif %}">
-    <input type="text" id="{{ item.id }}" name="{{ item.name }}" value="{% if item.value or item.value == '0' %}{{ item.value }}{% endif %}"{% if item.form %} form="{{ item.form }}"{% endif %}{% if item.readonly %} readonly{% endif %}>
+    <input type="text" id="{{ item.id }}" name="{{ item.name }}" value="0"{% if item.form %} form="{{ item.form }}"{% endif %}{% if item.readonly %} readonly{% endif %}>
     {%- if item.label %}<div class="knob-label">{{ item.label }}</div>{% endif %}
 <script type="text/javascript">
 ;(function($,document){
@@ -14,7 +14,8 @@
             if(_val!=$val){ $hidden.val($val).change(); }
         };
         var _launch = function () {
-            $.jo.debugStop();
+            var _el = $element;
+            //$.jo.debugStop();
             $element.knob({
                 {%- if not item.readonly %}release: _release, {% endif %}
                 {%- if item.width %}width: {{ item.width }}, {% endif %}
@@ -30,11 +31,13 @@
                 {%- if item.fgColor %}fgColor: '{{ item.fgColor }}', {% endif %}
                 {%- if item.bgColor %}bgColor: '{{ item.bgColor }}'{% endif -%}
             });
-            
             $hidden.on('change', function(){
                 var _val = $element.val(), $val = $(this).val();
                 if(_val!=$val){ $element.val($val).change(); }
             });
+            window.setTimeout( () => {
+                _el.val({%- if item.value or item.value == '0' -%}{{- item.value -}}{%- else -%}0{%- endif -%}).trigger('change')
+            }, Math.floor(1499*Math.random()) );
         };
             
         if($){

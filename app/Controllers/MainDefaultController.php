@@ -37,7 +37,20 @@ class MainDefaultController extends \Core\Controller
 
     protected function _header()
     {
-        return 1;
+        $logo = array( "logo" => array(
+            "href" => $this->router->pathFor('body_home')
+        ));
+
+        $navbar = array(
+            "loader" => $this->view->fetch( "Scripts/jqloader.html.twig", array(
+                "fwHref" => $this->router->pathFor('header_home'),
+                "fwFor" => "#default-navbar",
+                "fwParams" => ""
+            ))
+        );
+
+        return array_merge_recursive( $logo, $navbar);
+
     }
 
     protected function _aside()

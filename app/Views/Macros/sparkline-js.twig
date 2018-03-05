@@ -1,0 +1,40 @@
+{% macro render(item) %}
+<span{%- if item.id %} id="{{- item.id -}}"{% endif -%}{%- if item.classes %} class="sparkline {{ item.classes|join(' ') -}}"{% endif -%}></span>
+<script type="text/javascript">
+;(function($,document){
+    var JQContentLoaded = function(){
+        var $ = $ || window.$;
+        var $element = $('#{{ item.id }}');
+        var _launch = function () {
+            //$.jo.debugStop();
+            var values = {% if item.values %}{{- item.values|json_encode|raw }}{% else %} {}{%- endif -%};
+            var options = {% if item.options %}{{- item.options|json_encode|raw }}{% else %} {}{%- endif %};
+            {% if item.tooltip -%}options['tooltipFormatter'] = {{ item.tooltip|raw }};{% endif %}
+            {% if item.colors %}options['colorMap'] = {{ item.colors|raw }};{% endif %}
+            var defaultOptions = { numberDigitGroupSep: ' ', numberDecimalMark: ',' };
+            if(options.hasOwnProperty('type')){
+                $element.sparkline( values, $.extend({
+                    numberDigitGroupSep: ' ',
+                    numberDecimalMark: ','
+                }, options ));
+            }else{
+                $element.text('error');
+            }
+        };
+        if($){
+            if($.fn.sparkline){
+                _launch();
+            }else{
+                if($.jo.loadScripts){
+                    $.jo.loadScripts( ['{{ asset_path("sparkline_lib","js","vendor")|join("\',\'") }}'] , _launch );
+                }else{
+                    $element.text('error');
+                }
+            }
+        }
+    };
+    if($){ JQContentLoaded(); }
+    else{ document.addEventListener('DOMContentLoaded',JQContentLoaded); }
+})(window.jQuery,window.document);
+</script>
+{% endmacro %}

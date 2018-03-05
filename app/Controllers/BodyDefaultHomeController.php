@@ -167,7 +167,7 @@ class BodyDefaultHomeController extends \Core\Controller
 
         $retro_months = 13;
 
-        $this->_datesPlotsInit("now -{$retro_months} month midnight");
+        $this->_datesInit("now -{$retro_months} month midnight");
 
         $dataset_1 = array(
             "label" => $translator->trans("messages.chart_label_boni"),
@@ -191,7 +191,7 @@ class BodyDefaultHomeController extends \Core\Controller
         return array(
             "id" => "home-properties-chart",
             "type" => "line",
-            "styles" => array('width: 100%;','max-height: 260px;'), // using "'" seems to have a bug (PHP Warning:  Division by zero in ... line 194 ?)
+            "styles" => array('width: 100%;','max-height: 260px;'), // using "'" seems to catch a bug (PHP Warning:  Division by zero in ... line 194 )
             "options" => $chart_default_options,
             "data" => array( "datasets" => [$dataset_1] )
         );
@@ -231,32 +231,15 @@ class BodyDefaultHomeController extends \Core\Controller
         return array( "x" => $_dates[0], "y" => $pc_plus );
     }
 
-    private function _datesPlotsInit($start)
+    private function _datesPlotsBound($interval="P1M",$format="Y-m-d")
     {
-        if(!property_exists($this,"sdtDate")){
-            $this->sdtDate = new \DateTime( $start, new \DateTimeZone("Europe/Brussels"));
-        }
-    }
+        if(!property_exists($this,"sdtDate")){ $this->_datesInit("now"); }
 
-    private function _datesPlotsAdd($interval)
-    {
-        return $this->sdtDate->add(new \DateInterval($interval));
-    }
+        $s_date = $this->_datesFormat($format);
 
-    private function _datesPlotsFormat($format)
-    {
-        return $this->sdtDate->format($format);
-    }
+        $this->_datesAdd($interval);
 
-    private function _datesPlotsBound()
-    {
-        if(!property_exists($this,"sdtDate")){ $this->_datesPlotsInit("now"); }
-
-        $s_date = $this->_datesPlotsFormat("Y-m-d");
-
-        $this->_datesPlotsAdd('P1M');
-
-        $e_date = $this->_datesPlotsFormat("Y-m-d");
+        $e_date = $this->_datesFormat($format);
 
         return [$s_date,$e_date];
 
@@ -277,6 +260,22 @@ class BodyDefaultHomeController extends \Core\Controller
             )
         );
 
+    }
+
+    private function _datesInit($date="1970-01-01")
+    {
+        $this->sdtDate = new \DateTime( $date, new \DateTimeZone("Europe/Brussels"));
+        return $this->sdtDate;
+    }
+
+    private function _datesAdd($interval)
+    {
+        return $this->sdtDate->add(new \DateInterval($interval));
+    }
+
+    private function _datesFormat($format="Y-m-d")
+    {
+        return $this->sdtDate->format($format);
     }
 
     private function _usersDatas()
@@ -306,8 +305,10 @@ class BodyDefaultHomeController extends \Core\Controller
 
                 if(intval($ingoing["endebit"])==1){
 
+                    $_id = $ingoing["idgesloc"];
+
                     $ref_model = \App\Models\Geslocpay::first(array(
-                        "idgesloc = ?" => $ingoing["idgesloc"],
+                        "idgesloc = ?" => $_id,
                         "debitsum > ?" => 0
                     ), array("MAX(dt_credit)"=>"dt_credit"));
 
@@ -316,7 +317,7 @@ class BodyDefaultHomeController extends \Core\Controller
                     $u_name = ucfirst($ingoing["pnom"]).(!empty($ingoing["pnom"])?" ":"").ucfirst($ingoing["nom"]);
 
                     if(strlen($u_name)>$char_max){ $u_name = substr($u_name,0,$char_max)."&#160;&hellip;&#160;&#160;"; }
-
+                    
                     $u_content = implode( "", array(
                         '<span class="h6">',
                                 "{$u_name}&#160;&#160;",
@@ -326,6 +327,8 @@ class BodyDefaultHomeController extends \Core\Controller
                             '</small>',
                         '</span>'
                     ));
+
+                    $u_content .= $this->_sparklineDatas($_id);
 
                     $u_list[] = array(
                         "id" => "list-item-".$ingoing["id_user"],
@@ -355,6 +358,89 @@ class BodyDefaultHomeController extends \Core\Controller
         return array(
             "id" => uniqid("users-list-"),
             "list" => $u_list
+        );
+
+    }
+
+    private function _sparklineDatas($id)
+    {
+        $view = $this->container->get("view");
+        $translator = $this->container->get("translator");
+
+        $spark_datas = array();
+        $spark_values = array();
+
+        $spark_map = json_encode(array(
+            "1:" => "#6B8E23",
+            "12:" => "#FFD700",
+            "24:" => "#CD5C5C",
+            "27:" => "#6B8E23"
+        ));
+
+        $spark_otions = array(
+            "type" => "bar",
+            "width" => "100px",
+            "height" => "1em",
+            "barWidth" => 3,
+            "barSpacing" => 1,
+            "chartRangeMin" => 1,
+            "chartRangeMax" => 31
+        );
+
+        $dt = new \DateTime( "now -6 month", new \DateTimeZone("Europe/Brussels"));
+
+        $results = \App\Models\Geslocpay::all(
+            array(
+                "idgesloc = ?" => $id,
+                "paytype = ?" => 0,
+                "debitsum > ?" => 0,
+                "dt_credit > ?" => $dt->format("Y-m-")."01"
+            ),
+            array(
+                "dt_credit",
+                "refpay"
+            )
+        );
+
+        if(!empty($results)){
+
+            for($j=0;$j<sizeof($results);$j++){
+
+                $result = $results[$j];
+
+                $dt_credit = $result->dt_credit;
+
+                $refpay = $result->refpay;
+
+                $spark_values[] = intval(explode("-",$dt_credit)[2]);
+
+                $spark_datas[] = array(
+                    !empty($refpay)?:$translator->trans("default.none"),
+                    $dt_credit
+                );
+
+            }
+
+        }else{
+            //--> todo
+        }
+
+        $spark_tooltip = "$.jo.spFormatter('sp-home-contacts',".json_encode($spark_datas).")";
+
+        $spark_colors = "$.range_map({$spark_map})";
+
+        $datas_to_fetch = array(
+            "id" => "sp-contacts-{$id}",
+            "classes" => array("pull-right"),
+            "options" => $spark_otions,
+            "values" => $spark_values,
+            "tooltip" => $spark_tooltip,
+            "colors" => $spark_colors
+        );
+
+        return $view->fetch(
+            "Default/App/Renderer/sparkline-js.html.twig",
+            array( "items" => array($datas_to_fetch) )
         );
 
     }

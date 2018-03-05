@@ -50,10 +50,11 @@ class HomeDefaultViewModel extends \Framework\ViewModel
                     "style" => "primary",
                     "title" => "messages.contact_box_title",
                     "target" => "pils_box_contacts",
+                    "css" => array("min-height: 450px;"),
                     "items" => array(
                         array(
                             "tpl" => "cmp-line",
-                            "classes" => ["h5"],
+                            "classes" => array( "h5", "bold"),
                             "text" => "messages.contact_list_title"
                         ),
                         array(
@@ -68,6 +69,7 @@ class HomeDefaultViewModel extends \Framework\ViewModel
                     "style" => "primary",
                     "title" => "messages.properties_box_title",
                     "target" => "pils_box_properties",
+                    "css" => array("min-height: 450px;"),
                     "items" => array(
                         array(
                             "tpl" => "cmp-chart",
@@ -83,18 +85,19 @@ class HomeDefaultViewModel extends \Framework\ViewModel
                     "style" => "primary",
                     "title" => "messages.contracts_title",
                     "target" => "pils_box_contracts",
+                    "css" => array("min-height: 450px;"),
                     "items" => array(
-                        array(
-                            // items added by BodyDefaultHomeController class 
-                            "tpl" => "row",
-                            "layout" => STATICS::BS_LAYOUT_3COL,
-                            "target" => "knobs_box_contracts"
-                        ),
                         array(
                             "tpl" => "cmp-dlist",
                             "type" => "dl-list",
                             "horizontal" => 1,
                             "target" => "list_box_contracts"
+                        ),
+                        array(
+                            // items added by BodyDefaultHomeController class 
+                            "tpl" => "row",
+                            "layout" => STATICS::BS_LAYOUT_3COL,
+                            "target" => "knobs_box_contracts"
                         )
                     )
                 )

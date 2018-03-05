@@ -118,6 +118,11 @@
             "js": ["dist/gauge.min.js"]
         }
     },
+    "sparkline_lib": {
+        "sparkline": {
+            "js": ["js/jquery.sparkline.min.js"]
+        }
+    },
     "util_lib": {
         "select2": {
             "js": ["dist/js/select2.full.min.js"],

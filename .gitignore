@@ -7,6 +7,7 @@
 /public/assets/vendor/
 !/public/assets/vendor/admin-lte/*
 !/public/assets/vendor/Ionicons/*
+!/public/assets/vendor/sparkline/*
 /sql/*.svg
 /sql/*.xml
 /logs/*

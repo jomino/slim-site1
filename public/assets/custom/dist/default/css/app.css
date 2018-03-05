@@ -169,8 +169,13 @@ dl a:focus {
   padding-top: 0px;
 }
 
+.navbar-custom-menu .navbar-nav li > a {
+  padding-top: 20px !important;
+  padding-bottom: 10px !important;
+}
+
 .bold {
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .no-wrap {

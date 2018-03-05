@@ -1,0 +1,16 @@
+<script type="text/javascript">
+;(function($,document){
+    var _run = function(){
+        {{ script_run|raw }}
+    };
+    var _ready = function(){
+        var $ = $ || window.$;
+        if($){
+            if($.jo){ _run(); }
+            else{ $(document).on( 'jo.init', _run); }
+        }
+    };
+    if($){ _ready(); }
+    else{ document.addEventListener( 'DOMContentLoaded', _ready); }
+})(window.jQuery,window.document);
+</script>

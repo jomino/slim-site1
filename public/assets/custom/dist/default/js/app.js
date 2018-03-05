@@ -754,7 +754,8 @@ String.prototype.capitalize = function(s){
 
     var _timeoutIds = {};
     
-    $.jo.jobScheduler = function([...args]){
+    $.jo.jobScheduler = function(){
+        var args = arguments;
         if(!args.length){
             for (var _t in _timeoutIds) {
                 window.clearTimeout(_timeoutIds[_t]);
@@ -1191,6 +1192,26 @@ String.prototype.capitalize = function(s){
                 var val = args[0], type = args[1], row = args[2];
                 return _setColumnContent(val,type,row);
             };
+        }
+        return (()=>{});
+    };
+
+    /* sparkline */
+    $.jo.spFormatter = function(name,value) {
+        var _name = name || undefined, _value = value || '',
+            _getContent = function(spark,opt,fields){
+                switch(true){
+                    case _name=='sp-home-contacts':
+                        return $('<span>').text('todo').html();
+                    break;
+                    default:
+                        return $('<span>').text('error').html();
+                }
+            };
+        if(_name){
+            return (function(spark,opt,fields){
+                return _getContent.apply(this,[spark,opt,fields]);
+            });
         }
         return (()=>{});
     };

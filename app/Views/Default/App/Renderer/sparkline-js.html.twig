@@ -1,0 +1,7 @@
+{% import 'Macros/sparkline-js.twig' as Renderer %}
+
+{% for item in items %}
+<!-- begin_render-sparkline-{{ item.id|raw }} -->
+    {{ Renderer.render(item) }}
+<!-- end_render-sparkline-{{ item.id|raw }} -->
+{% endfor %}

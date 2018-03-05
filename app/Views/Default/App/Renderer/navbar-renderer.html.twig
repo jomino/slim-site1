@@ -1,0 +1,7 @@
+{% import 'Macros/navbar-renderer.twig' as Renderer %}
+
+{% for item in items %}
+<!-- begin_render-navbar-{{ item.id }} -->
+    {{ Renderer.setItems(item) }}
+<!-- end_render-navbar-{{ item.id }} -->
+{% endfor %}

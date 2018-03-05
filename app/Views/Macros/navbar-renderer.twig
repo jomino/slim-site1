@@ -1,0 +1,46 @@
+{% macro setItems(item) %}
+<li{%- if item.id %} id="{{ item.id }}"{% endif %} class="
+            {%- if item.menu %}dropdown
+                {%- if item.type %} {{ item.type }}{% else %} messages-menu{% endif %}
+            {%- endif -%}
+            {%- if item.classes %} {{ item.classes|join(' ') }}{% endif -%}">
+    {% if item.icon -%}<!-- ./title -->
+    <a href="#"{%- if item.menu %} class="dropdown-toggle" data-toggle="dropdown"
+            {%- else %} data-link="post" data-href="{{ item.href }}" data-for="{{ item.for }}"{% endif -%}>
+        <i class="fa fa-{{ item.icon }}"></i>
+        {% if item.tagged -%}
+            <span class="label{% if item.tagged.classes %} {{ item.tagged.classes|join(' ') }}{% else %} label-success{%- endif %}">
+                {%- if item.tagged.text or item.tagged.text == 0 -%}{{ item.tagged.text }}{% endif -%}
+            </span>
+        {% endif -%}
+    </a>
+    {%- endif %}
+    {%- if item.menu %}
+    <!-- ./menu -->
+    <ul class="dropdown-menu">
+        {%- if item.title %}
+            <li class="header">{{ trans(item.title)|capitalize }}</li>
+        {% endif -%}
+        <li>
+            <ul class="menu">
+                {% for item_n in item.menu -%}
+                <li{% if item_n.id %} id="{{ item_n.id }}"{% else %} id="{{ item.id }}-li-{{ loop.index0 }}"{%- endif %}>
+                    {% if item_n.content -%}{{ item_n.content|raw }}
+                    {%- else %}{{ trans('default.loading') }}&#160;&#133;{% endif %}
+                </li>
+                {% endfor %}
+            </ul>
+        </li>
+        {% if item.link -%}
+            <!-- ./footer -->
+            <li class="footer"><a href="javascript:" data-link="get" data-href="{{ item.link.href }}">
+                {%- if item.link.text %}{{ trans(item.link.text) }}{% endif -%}
+            </a></li>
+        {% endif -%}
+    </ul>
+    {% endif -%}
+    {%- if item.script %}
+        {{- item.script|raw -}}
+    {% endif -%}
+</li>
+{% endmacro %}

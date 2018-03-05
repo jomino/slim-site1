@@ -1,5 +1,4 @@
 {% macro render(item) %}
-<!-- ./dlist-{% if item.id %}{{ item.id }}{% else %}default{% endif %} -->
 {% if item.type == "dl-list" -%}
 <dl class="{% if item.horizontal %}dl-horizontal{% endif %}{% if item.classes %} {{ item.classes|join(' ') }}{% endif %}"{% if item.id %} id="{{ item.id }}"{% endif %}>
     {% for item_n in item.list %}

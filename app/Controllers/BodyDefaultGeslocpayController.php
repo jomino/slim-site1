@@ -2,8 +2,6 @@
 
 namespace App\Controllers;
 
-use App\Auth\Auth as Auth;
-
 use App\Models\Geslocpay as Geslocpay;
 
 use Framework\ArrayMethods as ArrayMethods;

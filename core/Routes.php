@@ -20,6 +20,7 @@ class Routes
             $this->get('/main', Controllers\MainDefaultController::class);
             $this->post('/body/home', Controllers\BodyDefaultHomeController::class)->setName('body_home');
             $this->post('/aside/home', Controllers\AsideDefaultController::class)->setName('aside_home');
+            $this->post('/header/home[/{id}]', Controllers\HeaderDefaultController::class)->setName('header_home');
             /* USERS */
             $this->post('/body/contacts', Controllers\BodyDefaultUsersController::class.":home")->setName('body_contacts');
             $this->post('/contacts/pipe', Controllers\BodyDefaultUsersController::class.":pipe")->setName('contact_pipe');
@@ -41,6 +42,10 @@ class Routes
             $this->post('/geslocpay/edit[/{id}]', Controllers\BodyDefaultGeslocpayController::class.":edit")->setName('geslocpay_edit');
             $this->post('/geslocpay/save[/{id}]', Controllers\BodyDefaultGeslocpayController::class.":save")->setName('geslocpay_save');
             $this->post('/geslocpay/delete[/{id}]', Controllers\BodyDefaultGeslocpayController::class.":del")->setName('geslocpay_del');
+            /* CALENDAR */
+            $this->post('/body/calendar', Controllers\BodyDefaultCalendarController::class.":home")->setName('body_calendar');
+            /* MAILBOX */
+            $this->post('/body/mailbox', Controllers\BodyDefaultMailController::class.":home")->setName('body_mailbox');
         });
 
         $app->group('/admin', function () {
