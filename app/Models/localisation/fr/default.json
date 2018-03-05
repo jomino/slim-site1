@@ -326,7 +326,8 @@
 			"type" : "choice",
 			"choice" : [
 				{ "text" : "arrivée" },
-				{ "text" : "finaliser" }
+				{ "text" : "finaliser" },
+				{ "text" : "fin" }
 			]
 		},
 		"spEncode" : {
@@ -751,6 +752,13 @@
 			"choice" : [
 				{ "text" : "locataire" },
 				{ "text" : "locataires" }
+			]
+		},
+		"spTime" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "temps" }
 			]
 		},
 		"spTitle" : {

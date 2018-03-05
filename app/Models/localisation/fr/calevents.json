@@ -1,0 +1,88 @@
+{
+	"id_cev" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spId,2}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "numeric"
+		}
+	},
+	"id_cal" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spId,2} calendrier" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "numeric"
+		}
+	},
+	"id_cevtype" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spId,2} évennement" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "numeric"
+		}
+	},
+	"start" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spDate} {ET} {spHour} {spSur} {spStart}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "date",
+			"pattern" : "d/m/Y H:i:s"
+		}
+	},
+	"end" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spDate,0} {ET,0} {spHour,0} {spSur,0} {spEnd,2}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "date",
+			"pattern" : "d/m/Y H:i:s"
+		}
+	},
+	"title" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spTitle}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "text"
+		}
+	},
+	"description" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spDescr}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "text"
+		}
+	}
+}

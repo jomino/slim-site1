@@ -1,0 +1,31 @@
+{
+	"id_cevtype" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spId,2}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "numeric"
+		}
+    },
+	"ref_cevtype" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spType} d\\'évennement" }
+			]
+		},
+		"format" : {
+			"comment" : "type de ",
+			"type" : "values",
+			"values" : {
+				"default": "{noinfo}",
+				"rdv": "rendez-vous",
+				"reminder": "rappel"
+			}
+		}
+    }
+}

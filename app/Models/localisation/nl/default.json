@@ -333,7 +333,8 @@
 			"type" : "choice",
 			"choice" : [
 				{ "text" : "aankomst" },
-				{ "text" : "ronden" }
+				{ "text" : "ronden" },
+				{ "text" : "einde" }
 			]
 		},
 		"spEtranger" : {
@@ -742,6 +743,13 @@
 			"choice" : [
 				{ "text" : "huurder" },
 				{ "text" : "huurders" }
+			]
+		},
+		"spTime" : {
+			"comment" : "",
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "tijd" }
 			]
 		},
 		"spTitle" : {

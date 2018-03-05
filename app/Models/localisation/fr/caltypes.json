@@ -1,0 +1,31 @@
+{
+	"id_caltype" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spId,2}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "numeric"
+		}
+    },
+	"ref_caltype" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spType} de calendrier" }
+			]
+		},
+		"format" : {
+			"comment" : "type de ",
+			"type" : "values",
+			"values" : {
+				"local": "local",
+				"google": "google",
+				"shared": "partagé"
+			}
+		}
+    }
+}
