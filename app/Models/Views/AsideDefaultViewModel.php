@@ -17,26 +17,26 @@ class AsideDefaultViewModel extends \Framework\ViewModel
     protected $_map = array(
         array(
             "id" => "heading-title",
-            "name" => "heading_title",
+            "target" => "heading_title",
             "heading" => array( "label" => "Menu" )
         ),
        array(
             "id" => "contacts-all-link",
-            "name" => "contacts_all",
+            "target" => "contacts_all",
             "label" => "messages.contacts_all",
             "iconCls" => "fa fa-circle-o",
             "type" => "get"
         ),
         array(
             "id" => "properties-all-link",
-            "name" => "properties_all",
+            "target" => "properties_all",
             "label" => "messages.properties_all",
             "iconCls" => "fa fa-circle-o",
             "type" => "get"
         ),
         array(
             "id" => "contracts-all-link",
-            "name" => "contracts_all",
+            "target" => "contracts_all",
             "label" => "messages.gesloc_all",
             "iconCls" => "fa fa-circle-o",
             "type" => "get"
@@ -51,13 +51,13 @@ class AsideDefaultViewModel extends \Framework\ViewModel
             "iconCls" => "fa fa-user",
             "items" => array(
                 array(
-                    "name" => "menu_users_add",
+                    "target" => "menu_users_add",
                     "label" => "messages.menu_users_add",
                     "iconCls" => "fa fa-plus-square-o",
                     "type" => "get"
                 ),
                 array(
-                    "name" => "menu_users_send",
+                    "target" => "menu_users_send",
                     "label" => "messages.menu_users_send",
                     "iconCls" => "fa fa-envelope-o",
                     "type" => "get"
@@ -70,13 +70,13 @@ class AsideDefaultViewModel extends \Framework\ViewModel
             "iconCls" => "fa fa-home",
             "items" => array(
                 array(
-                    "name" => "menu_properties_add",
+                    "target" => "menu_properties_add",
                     "label" => "messages.menu_properties_add",
                     "iconCls" => "fa fa-plus-square-o",
                     "type" => "get"
                 ),
                 array(
-                    "name" => "menu_properties_send",
+                    "target" => "menu_properties_send",
                     "label" => "messages.menu_properties_send",
                     "iconCls" => "fa fa-envelope-o",
                     "type" => "get"
@@ -89,18 +89,22 @@ class AsideDefaultViewModel extends \Framework\ViewModel
             "iconCls" => "fa fa-file-text",
             "items" => array(
                 array(
-                    "name" => "menu_contracts_add",
+                    "target" => "menu_contracts_add",
                     "label" => "messages.menu_contracts_add",
                     "iconCls" => "fa fa-plus-square-o",
                     "type" => "get"
                 ),
                 array(
-                    "name" => "menu_contracts_send",
+                    "target" => "menu_contracts_send",
                     "label" => "messages.menu_contracts_send",
                     "iconCls" => "fa fa-envelope-o",
                     "type" => "get"
                 )
             )
+        ),
+        array(
+            "id" => "actions-title",
+            "heading" => array( "label" => "Outils" )
         )
     );
 
@@ -124,9 +128,9 @@ class AsideDefaultViewModel extends \Framework\ViewModel
                 $item["label"] = $translator->trans($item["label"]);
             }
 
-            if(isset($item["name"]) && isset($datas[$item["name"]])){
-                $item = array_merge_recursive($item,$datas[$item["name"]]);
-                unset($item["name"]);
+            if(isset($item["target"]) && isset($datas[$item["target"]])){
+                $item = array_merge_recursive($item,$datas[$item["target"]]);
+                unset($item["target"]);
             }
 
             if(isset($item["items"])){

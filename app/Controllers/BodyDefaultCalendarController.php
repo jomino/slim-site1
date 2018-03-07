@@ -76,7 +76,7 @@ class BodyDefaultCalendarController extends \Core\Controller
                     $result = $results[$i];
                     $events[] = array(
                         "id" => "event-".$result->id_cev,
-                        "className" => "text-black",
+                        "className" => array("text-black"),
                         "title" => $result->title,
                         "color" => $result->getBelongTo("id_cevtype.color"),
                         "start" => $result->start,
