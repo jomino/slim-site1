@@ -1,0 +1,5 @@
+{% macro render(item) %}
+<div class="pils {% if item.classes -%}{{ item.classes|join(' ') }}{%- endif %}"{% if item.styles %} style="{{ item.styles|join(' ') }}"{% endif %}>
+    <span class="fa fa-{% if item.icon -%}{{ item.icon }}{%- endif %}"></span>
+</div>
+{% endmacro %}

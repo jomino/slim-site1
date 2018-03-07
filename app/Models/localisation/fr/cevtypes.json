@@ -15,7 +15,7 @@
 		"label" : {
 			"type" : "choice",
 			"choice" : [
-				{ "text" : "{spType} d\\'évennement" }
+				{ "text" : "{spType} d\\'évenement" }
 			]
 		},
 		"format" : {
@@ -26,6 +26,18 @@
 				"rdv": "rendez-vous",
 				"reminder": "rappel"
 			}
+		}
+    },
+	"color" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "couleur de l\\'évenement" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "text"
 		}
     }
 }

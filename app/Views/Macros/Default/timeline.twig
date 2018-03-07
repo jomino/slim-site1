@@ -1,0 +1,56 @@
+{% macro render(item) %}
+{%- if item.header %}
+<h4>
+    {{- trans(item.header.title) }}
+    {% if item.header.small %}&#160;<small>{{ trans(item.header.small) }}</small>{% endif -%}
+</h4>
+{% endif -%}
+<!-- ./timeline -->
+<ul class="timeline">
+    {% for item_n in item.timeline -%}
+        <!-- ./time-label -->
+        {% if item_n.label -%}
+            <li class="time-label">
+                <span class="{% if item_n.label.classes %}{{ item_n.label.classes|join(' ') }}{% else %}bg-red{% endif %}">
+                    {{- item_n.label.text|raw -}}
+                </span>
+            </li>
+        {% else -%}
+            <!-- timeline item -->
+            <li>
+                <i class="fa fa-{% if item_n.icon %}{{ item_n.icon }}{% else %}exclamation{% endif %}{% if item_n.classes %}{{ item_n.classes|join(' ') }}{% else %} bg-blue{% endif %}"></i>
+                {%- if item_n.content %}
+                    <div class="timeline-item">
+                        {%- if item_n.content.time %}
+                            <span class="time"><i class="fa fa-clock-o"></i>&#160;{{ item_n.content.time }}</span>
+                        {% endif -%}
+                        {%- if item_n.content.header %}
+                            {%- set header = item_n.content.header %}
+                            <h3 class="timeline-header">
+                                {% if header.link -%}
+                                <a href="javascript:" 
+                                    data-link="{% if header.link.type -%}{{ header.link.type }}{% else %}get{% endif %}"
+                                    {%- if header.link.href %} data-href="{{ header.link.href }}" {% endif -%}
+                                    {%- if header.link.for %} data-for="{{ header.link.for }}" {% endif -%}
+                                >{%- endif %}
+                                    {{ header.title }}
+                                {%- if header.link %}</a>{% endif -%}
+                            </h3>
+                        {% endif -%}
+                        {%- if item_n.content.body %}
+                            <div class="timeline-body">
+                                {{ item_n.content.body|raw }}
+                            </div>
+                        {% endif -%}
+                        {%- if item_n.content.footer %}
+                            <div class="timeline-footer">
+                                {{ item_n.content.footer|raw }}
+                            </div>
+                        {% endif -%}
+                    </div>
+                {% endif -%}
+            </li>
+        {% endif -%}
+    {% endfor %}
+</ul>
+{% endmacro %}

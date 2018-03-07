@@ -149,9 +149,8 @@ namespace Framework\Database\Query
         {
             $sql = $this->_buildSelect();
             $result = $this->connector->execute($sql);
-
-            // $logger = Registry::get("logger");
-            //if(isset($logger)){ $logger->log($sql); }
+            
+            //Registry::get('container')->get('logger')->debug(self::class,["request"=>$sql]);
 
             if ($result === false)
             {
@@ -166,8 +165,6 @@ namespace Framework\Database\Query
             {
                 $rows[] = $result->fetch_array(MYSQLI_ASSOC);
             }
-
-            if(isset($logger)){ $logger->log(print_r($rows,true)); }
 
             return $rows;
         }

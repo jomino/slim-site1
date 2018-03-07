@@ -1,0 +1,95 @@
+<div{% if item.id %} id="{{ item.id }}"{% endif %}></div>
+<script type="text/javascript">
+;(function($,document){
+    var JQContentLoaded = function(){
+        var $ = $ || window.$;
+        if($){
+            var $element = $('#{{ item.id }}');
+            var onButton1Click = function(){
+                console.log('Button1 clicked !');
+                console.dir(arguments);
+                console.dir(this);
+                return;
+            };
+            var onButton2Click = function(){
+                console.log('Button2 clicked !');
+                console.dir(arguments);
+                console.dir(this);
+                return;
+            };
+            var onSelectionChange = function(start,end){
+                console.dir(arguments);
+                console.dir(this);
+                return;
+            };
+            var onEventClick = function(event,e){
+                console.dir(arguments);
+                console.dir(this);
+                return;
+            };
+            var onEvents = function(start, end, timezone, callback){
+                var format = 'YYYY-MM-DD HH:mm:ss';
+                var start = start.format(format);
+                var end = end.format(format);
+                var _processValues = function(response) {
+                    var events = response.events || [];
+                    callback.call(this,events);
+                };
+                $.jo.jqXhr(
+                    '{{ item.url }}',
+                    { start: start, end: end },
+                    _processValues,
+                    null,
+                    'json',
+                    'post'
+                );
+            };
+            var _launch = function(){
+                $element.fullCalendar({
+                    themeSystem: 'bootstrap3',
+                    locale: '{{ lang() }}',
+                    aspectRatio: 1.65,
+                    columnHeaderFormat: 'dddd',
+                    timeFormat: 'H:mm',
+                    selectable: true,
+                    allDayDefault: false,
+                    select: onSelectionChange,
+                    eventClick: onEventClick,
+                    eventSources: [{
+                        events: onEvents
+                    }],
+                    bootstrapGlyphicons: {
+                        button1: 'glyphicon-cog'
+                    },
+                    customButtons: {
+                        button1: {
+                            click: onButton1Click
+                        },
+                        button2: {
+                            text: '{{ trans("default.add") }}'+' ...',
+                            click: onButton2Click
+                        }
+                    },
+                    header: {
+                        left:   'prevYear,prev,next,nextYear today',
+                        center: 'title',
+                        right:  'button2 button1'
+                    }
+                });
+            };
+            //$.jo.debugStop();
+            if($.fn.fullCalendar){
+                _launch();
+            }else{
+                if($.jo.loadScripts){
+                    $.jo.loadScripts( ['{{ asset_path("fullcalendar_lib","css","vendor")|join("\',\'")|raw }}','{{ asset_path("fullcalendar_lib","js","vendor")|join("\',\'")|raw }}'] , _launch );
+                }else{
+                    $element.html('<div class="alert alert-warning flat" role="alert">{{ trans("default.missing_library") }} "{{ asset_path("default","js","custom")|join("\',\'")|raw }}"</div>');
+                }
+            }
+        }
+    };
+    if($){ JQContentLoaded(); }
+    else{ document.addEventListener('DOMContentLoaded',JQContentLoaded); }
+})(window.jQuery,window.document);
+</script>

@@ -5,5 +5,7 @@ CREATE TABLE `calevents` (
  `start` datetime NOT NULL,
  `end` datetime NOT NULL,
  `title` varchar(128) NOT NULL DEFAULT '',
- `description` text NOT NULL DEFAULT ''
+ `description` text NOT NULL DEFAULT '',
+  PRIMARY KEY  (`id_cev`),
+  KEY `id_cal` (`id_cal`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;

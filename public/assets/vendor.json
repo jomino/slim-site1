@@ -73,8 +73,8 @@
     {
         "fullcalendar":
         {
-            "js" : ["dist/*"],
-            "css" : ["dist/*"]
+            "js" : ["dist/fullcalendar.min.js","dist/gcal.min.js","dist/locale-all.js"],
+            "css" : ["dist/fullcalendar.min.css"]
         }
     },
     "fa_lib": {

@@ -43,9 +43,10 @@ class Routes
             $this->post('/geslocpay/save[/{id}]', Controllers\BodyDefaultGeslocpayController::class.":save")->setName('geslocpay_save');
             $this->post('/geslocpay/delete[/{id}]', Controllers\BodyDefaultGeslocpayController::class.":del")->setName('geslocpay_del');
             /* CALENDAR */
-            $this->post('/body/calendar', Controllers\BodyDefaultCalendarController::class.":home")->setName('body_calendar');
+            $this->post('/calendar/view', Controllers\BodyDefaultCalendarController::class.":home")->setName('calendar_view');
+            $this->post('/calendar/pipe[/{id}]', Controllers\BodyDefaultCalendarController::class.":pipe")->setName('calendar_pipe');
             /* MAILBOX */
-            $this->post('/body/mailbox', Controllers\BodyDefaultMailController::class.":home")->setName('body_mailbox');
+            $this->post('/mailbox/view', Controllers\BodyDefaultMailController::class.":home")->setName('mailbox_view');
         });
 
         $app->group('/admin', function () {

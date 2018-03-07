@@ -25,7 +25,6 @@ class Calevents extends \Framework\Model
         * @readwrite
         * @type integer
         * @label id calendar
-        * @validate required
         */
         protected $_id_cal;
     
@@ -34,7 +33,7 @@ class Calevents extends \Framework\Model
         * @readwrite
         * @type integer
         * @label id cevtypes
-        * @belongto cevtypes.id_cevtype::cevtypes.ref_cevtype
+        * @belongto cevtypes.id_cevtype::-
         */
         protected $_id_cevtype;
         

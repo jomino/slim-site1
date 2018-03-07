@@ -6,7 +6,9 @@
             {%- if item.classes %} {{ item.classes|join(' ') }}{% endif -%}">
     {% if item.icon -%}<!-- ./title -->
     <a href="#"{%- if item.menu %} class="dropdown-toggle" data-toggle="dropdown"
-            {%- else %} data-link="post" data-href="{{ item.href }}" data-for="{{ item.for }}"{% endif -%}>
+            {%- else %} data-link="get" data-href="{{ item.href }}"
+                {%- if item.for %} data-for="{{ item.for }}"{% endif -%}
+            {%- endif %}>
         <i class="fa fa-{{ item.icon }}"></i>
         {% if item.tagged -%}
             <span class="label{% if item.tagged.classes %} {{ item.tagged.classes|join(' ') }}{% else %} label-success{%- endif %}">

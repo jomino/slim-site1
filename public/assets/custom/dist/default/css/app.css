@@ -57,13 +57,17 @@ dl a:focus {
     border: 2px solid;
     border-radius: 50% !important;
     font-size: 1em;
-    line-height: 1em;
+    line-height: 1.1em;
     text-align: center;
 }
 
 .box-header .pils .fa {
     margin-top: 7px;
     vertical-align: middle;
+}
+
+.box-title small {
+  margin-left: 0.85em;
 }
 
 .bd-blue {
@@ -174,6 +178,25 @@ dl a:focus {
   padding-bottom: 10px !important;
 }
 
+.fc .glyphicon {
+  color: #467D9E;
+}
+
+.fc table td.fc-today {
+  background-color: #467D9E !important;
+}
+
+.fc-day-number {
+  font-size: 14px !important;
+  font-weight: 600 !important;
+}
+
+.timeline .time-label span.fixed-width {
+  width: 85px;
+  min-width: 85px;
+  max-width: 85px;
+}
+
 .bold {
   font-weight: 700;
 }
@@ -209,6 +232,36 @@ dl a:focus {
 
 .footable-filtering {
 	display: none;
+}
+
+.jo-bg-yellow {
+  color: #333 !important;
+}
+
+.jo-bg-aqua,
+.jo-bg-orange,
+.jo-bg-red {
+  color: #fff !important;
+}
+
+.jo-bg-yellow {
+  background-color: #EFD28D;
+}
+
+.jo-bg-orange {
+  background-color: #FF7700;
+}
+
+.jo-bg-red {
+  background-color: #A30000;
+}
+
+.jo-bg-aqua {
+  background-color: #00AFB5;
+}
+
+.jo-bg-blue {
+  background-color: #3E8BB9;
 }
 
 .jo-gesloc-coins-0 {

@@ -49,12 +49,23 @@ class Models
     const PROPERTY_TYPE_APPART = 2;
     const PROPERTY_TYPE_HOUSE = 3;
     const PROPERTY_TYPE_PARKING = 4;
+    
+    const CALENDAR_TYPE_LOCAL = 1;
+    const CALENDAR_TYPE_GOOGLE = 2;
+    const CALENDAR_TYPE_SHARED = 3;
+    
+    const CALEVENT_TYPE_DEFAULT = 1;
+    const CALEVENT_TYPE_RDV = 2;
+    const CALEVENT_TYPE_REMINDER = 3;
 
     const BS_LAYOUT_6COL = "col-md-2 col-sm-4 col-xs-6";
     const BS_LAYOUT_4COL = "col-md-3 col-sm-6 col-xs-12";
     const BS_LAYOUT_3COL = "col-md-4 col-sm-6 col-xs-12";
     const BS_LAYOUT_2COL = "col-md-6 col-sm-12";
     const BS_LAYOUT_1COL = "col-md-12 col-xs-12";
+
+    const BS_LAYOUT_3ON4 = "col-md-9";
+    const BS_LAYOUT_1ON4 = "col-md-3";
 
     const BS_LAYOUT_CELL = "col-md-1 col-sm-2 col-xs-3";
 

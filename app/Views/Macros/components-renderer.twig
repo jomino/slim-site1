@@ -1,6 +1,8 @@
 {% macro setItems(item) %}
 {% import _self as self %}
 {% import 'Macros/Default/info-box.twig' as bsInfo %}
+{% import 'Macros/Default/timeline.twig' as Timeline %}
+{% import 'Macros/Default/pils.twig' as Pils %}
 {% import 'Macros/charts-js.twig' as Chartjs %}
 {% import 'Macros/gauge-js.twig' as Gaugejs %}
 {% import 'Macros/sparkline-js.twig' as Sparkline %}
@@ -55,36 +57,38 @@
             </div>
         {% elseif item.tpl == "cmp-box" %}
             <div{% if item.id %} id="{{ item.id }}"{% endif %} class="box flat{% if item.style %} box-{{ item.style }}{% else %} box-primary{% endif %}{% if item.classes %} {{ item.classes|join(' ') }}{% endif %}{% if item.collapsed %} collapsed-box{% endif %}"{% if item.css %} style="{{ item.css|join('') }}"{% endif %}>
-                <div class="box-header{% if item.title %} with-border{% endif %}">
-                    {% if item.back -%}
-                        <button type="button" class="btn{% if item.back.style %} btn-{{ item.back.style }}{% else %} btn-primary{% endif %} btn-xs btn-history-back" style="margin-top: -3px; cursor: pointer;">
-                            <i class="fa fa-arrow-left"></i>
-                        </button>
-                    {% endif -%}
-                    {% if item.title -%}
-                        {% if item.pils -%}
-                            <div class="pils {% if item.pils.classes -%}{{ item.pils.classes|join(' ') }}{%- endif %}" style="{% if item.pils.styles -%}{{ item.pils.styles|join(' ') }}{%- endif %}">
-                                <span class="fa fa-{% if item.pils.icon -%}{{ item.pils.icon }}{%- endif %}"></span>
+                {%- if item.title or item.back or item.expandable or item.closable %}
+                    <div class="box-header{% if item.title %} with-border{% endif %}">
+                        {% if item.back -%}
+                            <button type="button" class="btn{% if item.back.style %} btn-{{ item.back.style }}{% else %} btn-primary{% endif %} btn-xs btn-history-back" style="margin-top: -3px; cursor: pointer;">
+                                <i class="fa fa-arrow-left"></i>
+                            </button>
+                        {% endif -%}
+                        {% if item.title -%}
+                            {% if item.pils -%}
+                                {{ Pils.render(item.pils) }}
+                            {% endif -%}
+                            <h3 class="box-title"{% if item.pils %} style="margin-top:7px;"{% endif %}>{{ trans(item.title)|capitalize }}
+                                {%- if item.small %}<small>{{ trans(item.small)|capitalize }}</small>{% endif -%}
+                            </h3>
+                        {% endif -%}
+                        {% if item.expandable -%}
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                    <i class="fa {% if item.collapsed %}fa-plus{% else %}fa-minus{% endif %}"></i>
+                                </button>
                             </div>
                         {% endif -%}
-                        <h3 class="box-title"{% if item.pils %} style="margin-top:7px;"{% endif %}>{{ trans(item.title)|capitalize }}</h3>
-                    {% endif -%}
-                    {% if item.expandable -%}
-                        <div class="box-tools pull-right">
-                            <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                                <i class="fa {% if item.collapsed %}fa-plus{% else %}fa-minus{% endif %}"></i>
-                            </button>
-                        </div>
-                    {% endif -%}
-                    {% if item.closable -%}
-                        <div class="box-tools pull-right">
-                            <button type="button" class="btn btn-box-tool" data-widget="remove">
-                                <i class="fa fa-times"></i>
-                            </button>
-                        </div>
-                    {% endif -%}
-                </div>
-                <!-- /.box-header -->
+                        {% if item.closable -%}
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="remove">
+                                    <i class="fa fa-times"></i>
+                                </button>
+                            </div>
+                        {% endif -%}
+                    </div>
+                    <!-- /.box-header -->
+                {% endif -%}
                 <div class="box-body">
                     {% for item_box in item.items %}
                         {{ self.setItems(item_box) }}
@@ -126,10 +130,10 @@
                 <!-- begin_cmp-button_component -->
                 {{ bsButton.render(item) }}
                 <!-- end_cmp-button_component -->
-            {% elseif item.tpl == "cmp-hr" %}
-                <!-- begin_cmp-hr_component -->
-                {{ bsDivider.render(item) }}
-                <!-- end_cmp-hr_component -->
+            {% elseif item.tpl == "cmp-tline" %}
+                <!-- begin_cmp-tline_component -->
+                {{ Timeline.render(item) }}
+                <!-- end_cmp-tline_component -->
             {% elseif item.tpl == "cmp-dlist" %}
                 <!-- begin_cmp-dlist_component -->
                 {{ bsList.render(item) }}
@@ -154,12 +158,15 @@
                 <!-- begin_cmp-info_component -->
                 {{ bsInfo.render(item) }}
                 <!-- end_cmp-info_component -->
+            {% elseif item.tpl == "cmp-hr" %}
+                <!-- begin_cmp-hr_component -->
+                {{ bsDivider.render(item) }}
+                <!-- end_cmp-hr_component -->
             {% elseif item.tpl == "cmp-line" %}
                 <!-- begin_cmp-line_component -->
                 <p{% if item.classes %} class="{{ item.classes|join(' ') -}}"{% endif %}>
                     {{ trans(item.text)|capitalize -}}
-                </p>
-                <!-- end_cmp-line_component -->
+                </p><!-- end_cmp-line_component -->
             {% else %}
                 <!-- tpl_not_found !! -->     
                 <p class="h5 no-wrap text-danger bold">Error: "{{- item.tpl -}}" not found !! </p>

@@ -191,7 +191,7 @@ class BodyDefaultHomeController extends \Core\Controller
         return array(
             "id" => "home-properties-chart",
             "type" => "line",
-            "styles" => array('width: 100%;','max-height: 260px;'), // using "'" seems to catch a bug (PHP Warning:  Division by zero in ... line 194 )
+            "styles" => array('width: 100%;','max-height: 260px;'), // using "'" seems to catch a string parser bug with '%' in it (PHP Warning:  Division by zero in ... line 194 )
             "options" => $chart_default_options,
             "data" => array( "datasets" => [$dataset_1] )
         );

@@ -27,4 +27,12 @@ class Cevtypes extends \Framework\Model
         */
         protected $_ref_cevtype;
     
+        /**
+        * @column
+        * @readwrite
+        * @label ref
+        * @type text
+        */
+        protected $_color;
+    
 }

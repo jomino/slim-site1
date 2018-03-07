@@ -79,7 +79,7 @@ class HeaderDefaultController extends \Core\Controller
                     this
                 );
             };
-            $.jo.debugStop();
+            //$.jo.debugStop();
             _init();
         ';
 
@@ -92,7 +92,7 @@ class HeaderDefaultController extends \Core\Controller
             "id" => $nav_id,
             "icon" => $icons[$type],
             "script" => $nav_script,
-            "href" => $this->router->pathFor("body_{$type}"),
+            "href" => $this->router->pathFor("{$type}_view"),
             "tagged" => array(
                 "classes" => array("label-default"),
                 "text" => "0"
