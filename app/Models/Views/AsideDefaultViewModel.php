@@ -105,6 +105,20 @@ class AsideDefaultViewModel extends \Framework\ViewModel
         array(
             "id" => "actions-title",
             "heading" => array( "label" => "Outils" )
+        ),
+        array(
+            "id" => "calendar-link",
+            "target" => "calendar_all",
+            "label" => "messages.calendar_link",
+            "iconCls" => "fa fa-calendar-o",
+            "type" => "get"
+        ),
+        array(
+            "id" => "mailbox-link",
+            "target" => "mailbox_all",
+            "label" => "messages.mailbox_link",
+            "iconCls" => "fa fa-envelope-o",
+            "type" => "get"
         )
     );
 

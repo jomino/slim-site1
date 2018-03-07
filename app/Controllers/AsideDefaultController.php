@@ -18,7 +18,9 @@ class AsideDefaultController extends \Core\Controller
             "heading_title" => $this->_menuTitle(),
             "contacts_all" => $this->_datas(STATICS::CATEGORY_TYPE_USERS,'body_contacts'),
             "properties_all" => $this->_datas(STATICS::CATEGORY_TYPE_PROPERTY,'body_properties'),
-            "contracts_all" => $this->_datas(STATICS::CATEGORY_TYPE_CONTRACT,'body_gesloc')
+            "contracts_all" => $this->_datas(STATICS::CATEGORY_TYPE_CONTRACT,'body_gesloc'),
+            "calendar_all" => $this->_calendar('calendar_view')/* ,
+            "mailbox_all" => $this->_link('mailbox_view') */
         );
 
         $viewmodel = new \App\Models\Views\AsideDefaultViewModel(array(
@@ -75,6 +77,21 @@ class AsideDefaultController extends \Core\Controller
             "id_cat = ?" => $type
         ));
 
+    }
+
+    private function _calendar()
+    {
+
+        $client = $this->client->model;
+
+        $result = \App\Models\Calendars::first(array(
+            "id_cli = ?" => $client->id_cli,
+            "id_caltype = ?" => STATICS::CALENDAR_TYPE_LOCAL
+        ));
+
+        return array(
+            "href" => $this->router->pathFor('calendar_view',array("id"=>$result->id))
+        );
     }
 
 }
