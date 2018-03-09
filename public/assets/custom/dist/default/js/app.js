@@ -423,7 +423,7 @@ String.prototype.capitalize = function(s){
             url = this._history[this._history.length-1];
         }
         return url;
-    }
+    };
 
     _h.back = function(){
         var url;
@@ -1408,7 +1408,7 @@ String.prototype.capitalize = function(s){
             }
         );
 
-        $(document).on( 'click', '.btn-history-back', function(){
+        $('.btn-history-back').off('click').on('click', function(){
             $.jo.reloadBody();
         });
 

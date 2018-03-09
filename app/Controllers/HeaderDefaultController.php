@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use Framework\DateMethods;
+
 use App\Models\Ingoing;
 
 use App\Statics\Models as STATICS;
@@ -12,8 +14,20 @@ class HeaderDefaultController extends \Core\Controller
     public function __invoke($request, $response, $args)
     {
         if(isset($args["id"])){
-            $response_datas = array("success"=>true,"count"=>5);
+            
+            $_method = array($this,"_".$args["id"]);
+            
+            if(is_callable($_method)){
+                $response_datas = call_user_func($_method);
+            }else{
+                $response_datas = array(
+                    "success" => false,
+                    "error" => "calendar_not_found"
+                );
+            }
+
             return $response->withJson($response_datas);
+
         }else{
 
             $partial = array(
@@ -50,8 +64,9 @@ class HeaderDefaultController extends \Core\Controller
             };
             var _processValues = function(response){
                 var _target = $(\'a span[class*=label]\',$target).first();
-                var _value = response.count || 0;
-                _target.toggleClass( _value>0 ? \'label-warning\':\'label-default\')
+                var _value = parseInt(response.count) || 0;
+                _target.removeClass(\'label-warning label-default\');
+                _target.addClass( _value>0 ? \'label-warning\':\'label-default\')
                     .text(_value);
                 return;
             };
@@ -126,6 +141,45 @@ class HeaderDefaultController extends \Core\Controller
             "id_cat = ?" => $type
         ));
 
+    }
+
+    private function _calendar()
+    {
+
+        $client = $this->client->model;
+
+        $result = \App\Models\Calendars::first(array(
+            "id_cli = ?" => $client->id_cli,
+            "id_caltype = ?" => STATICS::CALENDAR_TYPE_LOCAL
+        ));
+
+        if(!empty($result)){
+
+            $count = \App\Models\Calevents::count( array(
+                "id_cal = ?" => $result->id,
+                "start >= ?" => DateMethods::now()
+            ));
+            
+            return array(
+                "success" => true,
+                "count" => $count
+            );
+
+        }
+
+        return array(
+            "success" => false,
+            "error" => "calendar_not_found"
+        );
+
+    }
+
+    private function _mailbox()
+    {
+        return array(
+            "success" => false,
+            "error" => "mailbox_not_found"
+        );
     }
 
 }
