@@ -1,0 +1,60 @@
+{% extends 'Globals/footable-bs.html.twig' %}
+
+{% import 'Macros/jqloader.twig' as jqLoader %}
+{% import 'Macros/Default/box.twig' as Box %}
+
+{% block block_table_util_top %}
+{# if table_util_top %}
+{% if table_util_top.radios %}
+{% set table_util_form %}
+	<div class="form-inline">
+	{% for radio in table_util_top.radios %}
+		<label class="radio-inline">
+			<input disabled type="radio" name="{{ radio.name }}" value="{{ radio.value }}"{% if radio.checked %} checked{% endif %}>
+			&#160;{{ trans(radio.text)|capitalize }}
+		</label>
+	{% endfor %}
+	</div>
+{% endset %}
+{% endif %}
+{% if table_util_form %}
+{% set table_util = { expandable : 1, title : table_util_top.title, body : table_util_form } %}
+{{ Box.render(table_util) }}
+{% endif %}
+{% if table_util_top.script %}
+{{ jqLoader.jqScript(table_util_top.script) }}
+{% endif %}
+{% endif #}
+{% endblock %}
+
+{% block block_table_id %}{% if table_id %}{{ table_id }}{% endif %}{% endblock %}
+
+{% block script_table_id %}{{ block('block_table_id') }}{% endblock %}
+
+{% block block_table_noheaders %}showHeader: false,{% endblock %}
+
+{% block block_table_paging %}{{ parent() }}{% endblock %}
+
+{% block block_table_defs %}{% if table_defs %}[{% for column_def in table_defs %}
+{ name: {{ column_def.name|raw }}{% if column_def.visible %}
+, visible: {{ column_def.visible|raw }}{% endif %}{% if column_def.type %}
+, type: {{ column_def.type|raw }}{% endif %}{% if column_def.title %}
+, title: '{{ trans(column_def.title)|capitalize }}'{% endif %}{% if column_def.parser %}
+, parser: {{ column_def.parser|raw }}{% endif %}{% if column_def.formatter %}
+, formatter: {{ column_def.formatter|raw }}{% endif %}{% if column_def.style %}
+, style: {{ column_def.style|json_encode|raw }}{% endif %}{% if column_def.sortable %}
+, sortable: {{ column_def.sortable|raw }}{% endif %}
+ } {% if not loop.last %},{% else %}]{% endif %}{% endfor %}{% endif %}
+{% endblock %}
+
+{% block block_table_hdl %}{% if table_hdl %}
+$.post('{{ table_hdl|raw }}'){% endif %}
+{% endblock %}
+
+{% block block_table_util_bot %}
+{% if table_util_bot %}{{ table_util_bot }}{% endif %}
+{% endblock %}
+
+{%- block block_table_scripts %}
+{% if table_scripts %}['{{ table_scripts|join("','")|raw }}']{% endif %}
+{% endblock %}

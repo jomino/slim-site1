@@ -1,0 +1,100 @@
+{
+	"id_msg" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spId,2}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "numeric"
+		}
+	},
+	"id_cli" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spId,2} client" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "numeric"
+		}
+	},
+	"id_msgtype" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spType} {DE} message" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "numeric"
+		}
+	},
+	"received" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spDate} {ET} {spHour} de réception" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "date",
+			"pattern" : "d/m/Y H:i:s"
+		}
+	},
+	"respond" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spDate} {ET} {spHour} de réponse" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "date",
+			"pattern" : "d/m/Y H:i:s"
+		}
+	},
+	"title" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spTitle}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "text"
+		}
+	},
+	"message" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "message" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "text"
+		}
+	},
+	"read" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "message lu" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "ouinon"
+		}
+	}
+}

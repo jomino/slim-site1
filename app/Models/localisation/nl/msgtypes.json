@@ -1,0 +1,30 @@
+{
+	"id_msgtype" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spId,2}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "numeric"
+		}
+    },
+	"ref_msgtype" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "message {spType}" }
+			]
+		},
+		"format" : {
+			"comment" : "type de ",
+			"type" : "values",
+			"values" : {
+				"normal": "normaal",
+				"important": "important"
+			}
+		}
+    }
+}
