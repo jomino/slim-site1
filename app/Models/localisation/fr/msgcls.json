@@ -1,5 +1,5 @@
 {
-	"id_msgtype" : {
+	"id_cls" : {
 		"label" : {
 			"type" : "choice",
 			"choice" : [
@@ -11,20 +11,19 @@
 			"fn" : "numeric"
 		}
     },
-	"ref_msgtype" : {
+	"ref_cls" : {
 		"label" : {
 			"type" : "choice",
 			"choice" : [
-				{ "text" : "message {spRef}" }
+				{ "text" : "{spRef} du message" }
 			]
 		},
 		"format" : {
 			"comment" : "type de ",
 			"type" : "values",
 			"values" : {
-				"draft": "ontwerp",
-				"sent": "verzonden",
-				"received": "ontvangen"
+				"normal": "normal",
+				"important": "important"
 			}
 		}
     }

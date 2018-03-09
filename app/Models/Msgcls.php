@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-class Msgtypes extends \Framework\Model
+class Msgcls extends \Framework\Model
 {    
         /**
         * @read
@@ -17,7 +17,7 @@ class Msgtypes extends \Framework\Model
         * @label id
         * @validate required
         */
-        protected $_id_msgtype;
+        protected $_id_cls;
     
         /**
         * @column
@@ -25,6 +25,6 @@ class Msgtypes extends \Framework\Model
         * @label ref message
         * @type text
         */
-        protected $_ref_msgtype;
+        protected $_ref_cls;
     
 }

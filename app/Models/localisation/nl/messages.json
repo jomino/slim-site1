@@ -15,7 +15,31 @@
 		"label" : {
 			"type" : "choice",
 			"choice" : [
-				{ "text" : "{spId,2} client" }
+				{ "text" : "klant {spId,2}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "numeric"
+		}
+	},
+	"id_user" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{level1,0} {spRef}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "numeric"
+		}
+	},
+	"id_cls" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "prioriteit {spRef}" }
 			]
 		},
 		"format" : {
@@ -27,7 +51,7 @@
 		"label" : {
 			"type" : "choice",
 			"choice" : [
-				{ "text" : "message {spType}" }
+				{ "text" : "berichttype {spRef}" }
 			]
 		},
 		"format" : {
@@ -48,11 +72,11 @@
 			"pattern" : "d/m/Y H:i:s"
 		}
 	},
-	"respond" : {
+	"sent" : {
 		"label" : {
 			"type" : "choice",
 			"choice" : [
-				{ "text" : "antwoord {spDate} {ET} {spHour}" }
+				{ "text" : "verzonden {spDate} {ET} {spHour}" }
 			]
 		},
 		"format" : {
@@ -73,11 +97,11 @@
 			"fn" : "text"
 		}
 	},
-	"message" : {
+	"text" : {
 		"label" : {
 			"type" : "choice",
 			"choice" : [
-				{ "text" : "message" }
+				{ "text" : "bericht" }
 			]
 		},
 		"format" : {
@@ -89,7 +113,7 @@
 		"label" : {
 			"type" : "choice",
 			"choice" : [
-				{ "text" : "message lu" }
+				{ "text" : "lees bericht" }
 			]
 		},
 		"format" : {

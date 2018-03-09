@@ -33,7 +33,8 @@ class HeaderDefaultController extends \Core\Controller
             $partial = array(
                 "items" => array(
                     $this->_link("mailbox"),
-                    $this->_link("calendar")
+                    $this->_link("calendar"),
+                    $this->_link("options")
                 )
             );
 
@@ -47,72 +48,84 @@ class HeaderDefaultController extends \Core\Controller
     {
         $icons = array(
             "mailbox" => "envelope-o",
-            "calendar" => "calendar-o"
+            "calendar" => "calendar-o",
+            "options" => "cog"
         );
 
         $nav_id = "li-nav-{$type}";
 
-        $script_run = '
-            var $target = $(\'#'.$nav_id.'\');
-            var _destroy = function(){
-                $.jo.jobScheduler(\''.$type.'-update\');
-                console.log(\'jobScheduler destroy '.$type.'-update\');
-            }
-            var _processErrors = function(){
-                _destroy();
-                return;
-            };
-            var _processValues = function(response){
-                var _target = $(\'a span[class*=label]\',$target).first();
-                var _value = parseInt(response.count) || 0;
-                _target.removeClass(\'label-warning label-default\');
-                _target.addClass( _value>0 ? \'label-warning\':\'label-default\')
-                    .text(_value);
-                return;
-            };
-            var _loadValues = function(){
-                $.jo.jqXhr(
-                    \''.($this->router->pathFor("header_home",["id"=>$type])).'\',
-                    null,
-                    _processValues,
-                    _processErrors,
-                    \'json\',
-                    \'post\'
+        switch($type){
+            case "options":
+                $_link = array(
+                    "id" => $nav_id,
+                    "icon" => $icons[$type],
+                    "href" => $this->router->pathFor("{$type}_view")
                 );
-            };
-            var _init = function(){
-                $.jo.jobScheduler(
-                    _loadValues, // scheduled callback
-                    3*60000, // interval de 3 min
-                    this, // scope
-                    true, // persistent
-                    \''.$type.'-update\'
-                );
-                $.jo.jobScheduler(
-                    _loadValues,
-                    1000,
-                    this
-                );
-            };
-            //$.jo.debugStop();
-            _init();
-        ';
+            break;
+            default:
+                $script_run = '
+                    var $target = $(\'#'.$nav_id.'\');
+                    var _destroy = function(){
+                        $.jo.jobScheduler(\''.$type.'-update\');
+                        console.log(\'jobScheduler destroy '.$type.'-update\');
+                    }
+                    var _processErrors = function(){
+                        _destroy();
+                        return;
+                    };
+                    var _processValues = function(response){
+                        var _target = $(\'a span[class^="label"]\',$target).first();
+                        var _value = parseInt(response.count) || 0;
+                        _target.removeClass(\'label-warning label-default\');
+                        _target.addClass( _value>0 ? \'label-warning\':\'label-default\')
+                            .text(_value);
+                        return;
+                    };
+                    var _loadValues = function(){
+                        $.jo.jqXhr(
+                            \''.($this->router->pathFor("header_home",["id"=>$type])).'\',
+                            null,
+                            _processValues,
+                            _processErrors,
+                            \'json\',
+                            \'post\'
+                        );
+                    };
+                    var _init = function(){
+                        $.jo.jobScheduler(
+                            _loadValues, // scheduled callback
+                            3*60000, // interval de 3 min
+                            this, // scope
+                            true, // persistent
+                            \''.$type.'-update\'
+                        );
+                        $.jo.jobScheduler(
+                            _loadValues,
+                            1000,
+                            this
+                        );
+                    };
+                    //$.jo.debugStop();
+                    _init();
+                ';
 
-        $nav_script = $this->view->fetch(
-            "Scripts/jqready.html.twig",
-            array( "script_run" => $script_run )
-        );
+                $_link = array(
+                    "id" => $nav_id,
+                    "icon" => $icons[$type],
+                    "script" => $this->view->fetch(
+                        "Scripts/jqready.html.twig",
+                        array( "script_run" => $script_run )
+                    ),
+                    "href" => $this->router->pathFor("{$type}_view"),
+                    "tagged" => array(
+                        "classes" => array("label-default"),
+                        "text" => "0"
+                    )
+                );
 
-        return array(
-            "id" => $nav_id,
-            "icon" => $icons[$type],
-            "script" => $nav_script,
-            "href" => $this->router->pathFor("{$type}_view"),
-            "tagged" => array(
-                "classes" => array("label-default"),
-                "text" => "0"
-            )
-        );
+        }
+
+        return $_link;
 
     }
 

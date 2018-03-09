@@ -6,5 +6,6 @@ CREATE TABLE `msgtypes` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 INSERT INTO `msgtypes` (`id_msgtype`, `ref_msgtype`)
-    VALUES (1, 'normal'),
-        (2, 'important');
+    VALUES (1, 'draft'),
+        (2, 'sent'),
+        (3, 'received');    

@@ -246,7 +246,7 @@ class BodyDefaultGeslocController extends \Core\Controller
 
         if(!is_null($_id)){
             $form_hiddens[] = array(
-                "value" => $client->uri,
+                "value" => $_id,
                 "name" => "idgesloc"
             );
         }

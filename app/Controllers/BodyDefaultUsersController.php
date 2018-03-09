@@ -18,7 +18,7 @@ class BodyDefaultUsersController extends \Core\Controller
 
         $script_datas = array();
 
-        // global
+        // global    
         $script_datas["table_id"] = $table_id;
         $script_datas["table_hdl"] = $router->pathFor('contact_pipe');
 

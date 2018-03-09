@@ -15,7 +15,31 @@
 		"label" : {
 			"type" : "choice",
 			"choice" : [
-				{ "text" : "{spId,2} client" }
+				{ "text" : "{spRef} client" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "numeric"
+		}
+	},
+	"id_user" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spRef} {level1,0}" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "numeric"
+		}
+	},
+	"id_cls" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spRef} priorité" }
 			]
 		},
 		"format" : {
@@ -27,7 +51,7 @@
 		"label" : {
 			"type" : "choice",
 			"choice" : [
-				{ "text" : "{spType} {DE} message" }
+				{ "text" : "{spRef} au type de message" }
 			]
 		},
 		"format" : {
@@ -48,11 +72,11 @@
 			"pattern" : "d/m/Y H:i:s"
 		}
 	},
-	"respond" : {
+	"sent" : {
 		"label" : {
 			"type" : "choice",
 			"choice" : [
-				{ "text" : "{spDate} {ET} {spHour} de réponse" }
+				{ "text" : "{spDate} {ET} {spHour} d\\'envoi" }
 			]
 		},
 		"format" : {
@@ -73,11 +97,23 @@
 			"fn" : "text"
 		}
 	},
-	"message" : {
+	"text" : {
 		"label" : {
 			"type" : "choice",
 			"choice" : [
 				{ "text" : "message" }
+			]
+		},
+		"format" : {
+			"type" : "fn",
+			"fn" : "text"
+		}
+	},
+	"uid" : {
+		"label" : {
+			"type" : "choice",
+			"choice" : [
+				{ "text" : "{spRef} unique du message(s)" }
 			]
 		},
 		"format" : {

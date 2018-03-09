@@ -25,7 +25,16 @@ class MessagesListFootable extends \Framework\ViewModel
             "field" => "id_msg",
             "column" => array(
                 "type" => "'number'",
-                "name" => "'id_msg'", // mandatory
+                "name" => "'id_msg'", // mandatory    
+                "visible" => "false"
+            )
+        ),
+        array(
+            "type" => "field",
+            "field" => "id_cls",
+            "column" => array(
+                "type" => "'number'",
+                "name" => "'id_cls'",
                 "visible" => "false"
             )
         ),

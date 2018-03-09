@@ -45,8 +45,10 @@ class Routes
             /* CALENDAR */
             $this->post('/calendar/view', Controllers\BodyDefaultCalendarController::class.":home")->setName('calendar_view');
             $this->post('/calendar/pipe[/{id}]', Controllers\BodyDefaultCalendarController::class.":pipe")->setName('calendar_pipe');
-            /* MAILBOX */
-            $this->post('/mailbox/view', Controllers\BodyDefaultMailController::class.":home")->setName('mailbox_view');
+            /* MESSAGES */
+            $this->post('/mailbox/view', Controllers\BodyDefaultMsgController::class.":home")->setName('mailbox_view');
+            /* OPTIONS */
+            $this->post('/options/view', Controllers\BodyDefaultOptionsController::class.":home")->setName('options_view');
         });
 
         $app->group('/admin', function () {

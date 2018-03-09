@@ -1073,6 +1073,7 @@ String.prototype.capitalize = function(s){
 
     $.jo.refreshPage = function(domain){
         var last_url = History.last();
+        var domain = domain || _settings.domain || '';
         if(last_url){
             $.jo.loadHtml(last_url.href,'',last_url.params);
             $.jo.reloadAside(domain);

@@ -5,9 +5,9 @@ namespace App\Controllers;
 use Framework\ArrayMethods as ArrayMethods;
 use Framework\DateMethods as DateMethods;
 
-class BodyDefaultMailController extends \Core\Controller
+class BodyDefaultOptionsController extends \Core\Controller
 {
-    private $views_path = "Default/App/Content/Mailbox";
+    private $views_path = "Default/App/Content/Options";
 
     public function home($request, $response, $args)
     {

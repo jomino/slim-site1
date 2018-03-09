@@ -57,6 +57,12 @@ class Models
     const CALEVENT_TYPE_DEFAULT = 1;
     const CALEVENT_TYPE_RDV = 2;
     const CALEVENT_TYPE_REMINDER = 3;
+    
+    const MESSAGE_TYPE_NORMAL = 1;
+    const MESSAGE_TYPE_IMPORTANT = 2;
+    
+    const MESSAGE_TYPE_NOTREAD = 0;
+    const MESSAGE_TYPE_READ = 1;
 
     const BS_LAYOUT_6COL = "col-md-2 col-sm-4 col-xs-6";
     const BS_LAYOUT_4COL = "col-md-3 col-sm-6 col-xs-12";

@@ -15,15 +15,16 @@
 		"label" : {
 			"type" : "choice",
 			"choice" : [
-				{ "text" : "{spType} de message" }
+				{ "text" : "{spRef} du message" }
 			]
 		},
 		"format" : {
 			"comment" : "type de ",
 			"type" : "values",
 			"values" : {
-				"normal": "normal",
-				"important": "important"
+				"draft": "brouillon",
+				"sent": "envoyé(s)",
+				"received": "reçu(s)"
 			}
 		}
     }
