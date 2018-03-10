@@ -47,6 +47,7 @@ class Routes
             $this->post('/calendar/pipe[/{id}]', Controllers\BodyDefaultCalendarController::class.":pipe")->setName('calendar_pipe');
             /* MESSAGES */
             $this->post('/mailbox/view', Controllers\BodyDefaultMsgController::class.":home")->setName('mailbox_view');
+            $this->post('/mailbox/pipe', Controllers\BodyDefaultMsgController::class.":pipe")->setName('mailbox_pipe');
             /* OPTIONS */
             $this->post('/options/view', Controllers\BodyDefaultOptionsController::class.":home")->setName('options_view');
         });

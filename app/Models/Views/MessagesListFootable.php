@@ -49,133 +49,89 @@ class MessagesListFootable extends \Framework\ViewModel
         ),
         array(
             "type" => "field",
-            "field" => "pnom",
-            "column" => array(
-                "type" => "'text'",
-                "name" => "'pnom'",
-                "visible" => "false"
-            )
-        ),
-        array(
-            "type" => "field",
-            "field" => "nom",
-            "column" => array(
-                "type" => "'text'",
-                "name" => "'nom'",
-                "visible" => "false"
-            )
-        ),
-        array(
-            "type" => "field",
-            "field" => "street",
-            "column" => array(
-                "type" => "'text'",
-                "name" => "'street'",
-                "visible" => "false"
-            )
-        ),
-        array(
-            "type" => "field",
-            "field" => "num",
+            "field" => "read",
             "column" => array(
                 "type" => "'number'",
-                "name" => "'num'",
+                "name" => "'read'",
                 "visible" => "false"
             )
         ),
         array(
             "type" => "field",
-            "field" => "cp",
+            "field" => "attach",
             "column" => array(
-                "type" => "'text'",
-                "name" => "'cp'",
-                "visible" => "false"
-            )
-        ),
-        array(
-            "type" => "field",
-            "field" => "ville",
-            "column" => array(
-                "type" => "'text'",
-                "name" => "'ville'",
+                "type" => "'number'",
+                "name" => "'attach'",
                 "visible" => "false"
             )
         ),
         array(
             "index" => 0,
-            "type" => "field",
-            "field" => "id_ref",
+            "name" => "action_message_checked",
+            "type" => "fn",
             "column" => array(
                 "type" => "'text'",
-                "name" => "'id_ref'",
-                "title" => "default.reference",
-                "style" => array("width" => "10%")
+                "name" => "'message_checked'",
+                "style" => array("width" => "32px")
             )
         ),
         array(
             "index" => 1,
+            "name" => "action_message_read",
             "type" => "fn",
-            "delegate" => "nom",
             "column" => array(
-                "title" => "default.name",
-                "name" => "'full_name'",
-                "formatter" => "$.jo.footableFormatter('contact-full-name')",
-                "style" => array("width" => "15%")
+                "type" => "'text'",
+                "name" => "'message_read'",
+                "style" => array("width" => "32px")
             )
         ),
         array(
             "index" => 2,
-            "type" => "fn",
-            "delegate" => "street",
+            "type" => "field",
+            "field" => "contact",
             "column" => array(
-                "title" => "default.adress",
-                "name" => "'full_adress'",
-                "formatter" => "$.jo.footableFormatter('contact-full-adress')",
-                "style" => array("width" => "45%")
+                "type" => "'text'",
+                "name" => "'contact'",
+                "style" => array("min-width" => "10%","white-space" => "nowrap")
             )
         ),
         array(
             "index" => 3,
             "type" => "field",
-            "field" => "phone",
+            "field" => "title",
             "column" => array(
                 "type" => "'text'",
-                "name" => "'phone'",
-                "title" => "default.phone",
-                "style" => array("width" => "15%"),
+                "name" => "'title'",
+                "style" => array("width" => "100%"),
                 "sortable" => "false"
             )
         ),
         array(
             "index" => 4,
-            "type" => "field",
-            "field" => "email",
+            "name" => "action_message_attach",
+            "type" => "fn",
             "column" => array(
                 "type" => "'text'",
-                "name" => "'email'",
-                "title" => "default.email",
-                "style" => array("width" => "15%")
+                "name" => "'message_attach'",
+                "style" => array("width" => "32px")
             )
         ),
         array(
             "index" => 5,
-            "name" => "action_contact_edit",
+            "name" => "action_message_date",
             "type" => "fn",
-            //[+] "action" => array(),
             "column" => array(
                 "type" => "'text'",
-                "name" => "'contact_edit'",
-                "title" => " ",
-                "style" => array("width" => "32px"),
+                "name" => "'message_date'",
+                "style" => array("min-width" => "10%","white-space" => "nowrap"),
                 "sortable" => "false"
-                //[+] "formatter" => string::javascript
             )
         )
     );
 
     public function getColumns()
     {
-        $map = $this->getMap("contacts");
+        $map = $this->getMap();
         for($i=0;$i<sizeof($map);$i++){
             $item = $map[$i];
             if(isset($item["name"]) && !empty($this->_data)){

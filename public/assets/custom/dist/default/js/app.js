@@ -1372,6 +1372,26 @@ String.prototype.capitalize = function(s){
                         });
                         return _ref;
                     break;
+                    case _name=='action-message-checked':
+                        var _ref = '';
+                        _data = _value;
+                        return _ref;
+                    break;
+                    case _name=='action-message-read':
+                        var _ref = '';
+                        _data = _value;
+                        return _ref;
+                    break;
+                    case _name=='action-message-attach':
+                        var _ref = '';
+                        _data = _value;
+                        return _ref;
+                    break;
+                    case _name=='action-message-date':
+                        var _ref = '';
+                        _data = _value;
+                        return _ref;
+                    break;
                     case _name=='short-date-fr':
                         return _shortDate2Fr(_val);
                     break;
