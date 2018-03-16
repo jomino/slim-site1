@@ -8,8 +8,8 @@
     {% endif %}
     {% if item.title %}
       {% if item.pils %}
-        <div class="pils {% if item.pils.classes -%}{{ item.pils.classes|join(' ') }}{%- endif %}" style="{% if item.pils.styles -%}{{ item.pils.styles|join(' ') }}{%- endif %}">
-            <span class="fa fa-{% if item.pils.icon -%}{{ item.pils.icon }}{%- endif %}"></span>
+        <div class="pils{%- if item.pils.classes %} {{ item.pils.classes|join(' ') }}{%- endif -%}" style="{%- if item.pils.styles -%}{{ item.pils.styles|join(' ') }}{%- endif %}">
+            <span class="fa fa-{% if item.pils.icon -%}{{ item.pils.icon }}{% else %}question{%- endif %}"></span>
         </div>
       {% endif %}
       <h3 class="box-title"{% if item.pils %} style="margin-top:7px;"{% endif %}>{{ trans(item.title)|capitalize }}</h3>

@@ -39,13 +39,25 @@
                 _el.val({%- if item.value or item.value == '0' -%}{{- item.value -}}{%- else -%}0{%- endif -%}).trigger('change')
             }, Math.floor(1499*Math.random()) );
         };
+        var _onBeforeLaunch = function(){
+            //$.jo.debugStop();
+            if(!$.fn.knob){
+                window.setTimeout( () => { _loadScripts(); } , 250 );
+            }else{
+                _launch();
+            }
+        };
+        var _loadScripts = function(){
+            //$.jo.debugStop();
+            $.jo.loadScripts( ['{{ asset_path("jqknob_lib","js","vendor")|join("\',\'") }}'] , _onBeforeLaunch );
+        };
             
         if($){
             if($.fn.knob){
                 _launch();
             }else{
                 if($.jo.loadScripts){
-                    $.jo.loadScripts( ['{{ asset_path("jqknob_lib","js","vendor")|join("\',\'") }}'] , _launch );
+                    _loadScripts();
                 }else{
                     $element.remove();
                 }

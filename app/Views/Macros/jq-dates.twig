@@ -98,43 +98,50 @@
 ;(function($,document){
     var JQContentLoaded = function(){
         var $ = $ || window.$;
-        if($){
+        var _launch = function(){
             var _lang = '{{ lang() }}';
             var $element = $('#{{ item.id }}');
             var $hidden = $('input#hidden-{{ item.name }}');
             var formatDate = $.jo.formatDate;
-            /*$element.on('change', function(){
-                //$.jo.debugStop();
-                var formated = formatDate.apply(this,[$(this).val(),'en']);
-                if(formated){ $hidden.val(formated); }
-                else{ $hidden.val(''); }
-            });*/
+            var options = {
+                format: 'DD/MM/YYYY',
+                ignoreReadonly: true,
+                widgetParent: $hidden.parent()
+            };
+            if(_lang!='en'){ options['locale'] = _lang; }
             $hidden.on('change', function(){
                 //$.jo.debugStop();
                 var formated = formatDate.apply(this,[$(this).val(),'fr']);
                 if(formated){ $element.val(formated); }
                 else{ $element.val(''); }
             });
+            $element.on('dp.change', function(e){
+                //$.jo.debugStop();
+                var formated = e.date.format('YYYY-MM-DD');
+                if(formated){ $hidden.val(formated); }
+                else{ $hidden.val(''); }
+            }).datetimepicker(options);
+        };
+        var _onBeforeLaunch = function(){
             //$.jo.debugStop();
+            if(!$.fn.datetimepicker){
+                window.setTimeout( () => { _loadScripts(); } , 250 );
+            }else{
+                _launch();
+            }
+        };
+        var _loadScripts = function(){
+            //$.jo.debugStop();
+            $.jo.loadScripts( ['{{ asset_path("datetimepicker_lib","css","vendor")|join("\',\'") }}','{{ asset_path("datetimepicker_lib","js","vendor")|join("\',\'") }}'] , _onBeforeLaunch );
+        };
+        if($){
             if($.fn.datetimepicker){
-                var _launch = function(){
-                    var options = {
-                        format: 'DD/MM/YYYY',
-                        ignoreReadonly: true,
-                        widgetParent: $hidden.parent()
-                    };
-                    if(_lang!='en'){ options['locale'] = _lang; }
-                    $element.on('dp.change', function(e){
-                        //$.jo.debugStop();
-                        var formated = e.date.format('YYYY-MM-DD');
-                        if(formated){ $hidden.val(formated); }
-                        else{ $hidden.val(''); }
-                    }).datetimepicker(options);
-                };
-                if(_lang!='en'){
-                    $.jo.loadScripts(['/./assets/resources/moment_locale_'+_lang+'.js'], _launch);
+                _launch();
+            }else{
+                if($.jo.loadScripts){
+                    _loadScripts();
                 }else{
-                    _launch();
+                    $element.remove();
                 }
             }
         }

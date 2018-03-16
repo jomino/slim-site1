@@ -1,30 +1,10 @@
 {% extends 'Globals/footable-bs.html.twig' %}
 
-{% import 'Macros/jqloader.twig' as jqLoader %}
-{% import 'Macros/Default/box.twig' as Box %}
-
 {% block block_table_util_top %}
-{# if table_util_top %}
-{% if table_util_top.radios %}
-{% set table_util_form %}
-	<div class="form-inline">
-	{% for radio in table_util_top.radios %}
-		<label class="radio-inline">
-			<input disabled type="radio" name="{{ radio.name }}" value="{{ radio.value }}"{% if radio.checked %} checked{% endif %}>
-			&#160;{{ trans(radio.text)|capitalize }}
-		</label>
-	{% endfor %}
-	</div>
-{% endset %}
-{% endif %}
-{% if table_util_form %}
-{% set table_util = { expandable : 1, title : table_util_top.title, body : table_util_form } %}
-{{ Box.render(table_util) }}
-{% endif %}
-{% if table_util_top.script %}
-{{ jqLoader.jqScript(table_util_top.script) }}
-{% endif %}
-{% endif #}    
+	{%- if table_util_top %}
+		{% set items = table_util_top.items %}
+		{%- include 'Default/App/Renderer/form-renderer.html.twig' %}
+	{% endif -%}    
 {% endblock %}
 
 {% block block_table_id %}{% if table_id %}{{ table_id }}{% endif %}{% endblock %}
@@ -52,7 +32,7 @@ $.post('{{ table_hdl|raw }}'){% endif %}
 {% endblock %}
 
 {% block block_table_util_bot %}
-{% if table_util_bot %}{{ table_util_bot }}{% endif %}
+{%- if table_util_bot %}{{ table_util_bot|raw }}{% endif %}
 {% endblock %}
 
 {%- block block_table_scripts %}

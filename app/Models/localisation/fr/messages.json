@@ -121,7 +121,7 @@
 			"fn" : "text"
 		}
 	},
-	"read" : {
+	"proceed" : {
 		"label" : {
 			"type" : "choice",
 			"choice" : [

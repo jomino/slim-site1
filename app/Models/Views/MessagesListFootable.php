@@ -49,16 +49,19 @@ class MessagesListFootable extends \Framework\ViewModel
         ),
         array(
             "type" => "field",
-            "field" => "read",
+            "field" => "proceed",
             "column" => array(
                 "type" => "'number'",
-                "name" => "'read'",
+                "name" => "'proceed'",
                 "visible" => "false"
             )
         ),
         array(
-            "type" => "field",
-            "field" => "attach",
+            "type" => "method",
+            "method" => array(
+                "fn" => "attach",
+                "params" => "uid"
+            ),
             "column" => array(
                 "type" => "'number'",
                 "name" => "'attach'",
@@ -66,64 +69,102 @@ class MessagesListFootable extends \Framework\ViewModel
             )
         ),
         array(
+            "type" => "field",
+            "field" => "nom",
+            "column" => array(
+                "type" => "'text'",
+                "name" => "'nom'",
+                "visible" => "false"
+            )
+        ),
+        array(
+            "type" => "field",
+            "field" => "pnom",
+            "column" => array(
+                "type" => "'text'",
+                "name" => "'pnom'",
+                "visible" => "false"
+            )
+        ),
+        array(
             "index" => 0,
-            "name" => "action_message_checked",
-            "type" => "fn",
+            "action" => array("action-message-checked"),
             "column" => array(
                 "type" => "'text'",
                 "name" => "'message_checked'",
-                "style" => array("width" => "32px")
+                "style" => array("width" => "32px"),
+                "sortable" => "false",
+                "filterable" => "false"
             )
         ),
         array(
             "index" => 1,
             "name" => "action_message_read",
-            "type" => "fn",
             "column" => array(
                 "type" => "'text'",
                 "name" => "'message_read'",
-                "style" => array("width" => "32px")
+                "style" => array("width" => "32px"),
+                "sortable" => "false"
             )
         ),
         array(
             "index" => 2,
-            "type" => "field",
-            "field" => "contact",
+            "name" => "action_message_name",
+            "options" => array( "classes" => "mailbox-name" ),
             "column" => array(
                 "type" => "'text'",
                 "name" => "'contact'",
-                "style" => array("min-width" => "10%","white-space" => "nowrap")
+                "style" => array("min-width" => "25%","white-space" => "nowrap"),
+                "sortable" => "false"
             )
         ),
         array(
             "index" => 3,
             "type" => "field",
             "field" => "title",
+            "name" => "action_message_title",
+            "options" => array( "classes" => "mailbox-subject" ),
             "column" => array(
                 "type" => "'text'",
                 "name" => "'title'",
-                "style" => array("width" => "100%"),
+                "style" => array("width" => "75%"),
                 "sortable" => "false"
             )
         ),
         array(
             "index" => 4,
-            "name" => "action_message_attach",
-            "type" => "fn",
+            "action" => array("action-message-attach"),
             "column" => array(
                 "type" => "'text'",
                 "name" => "'message_attach'",
-                "style" => array("width" => "32px")
+                "style" => array("width" => "32px"),
+                "sortable" => "false"
             )
         ),
         array(
             "index" => 5,
-            "name" => "action_message_date",
-            "type" => "fn",
+            "action" => array("action-message-date"),
+            "type" => "field",
+            "field" => "received",
+            "options" => array(
+                "classes" => "mailbox-date"
+            ),
             "column" => array(
                 "type" => "'text'",
-                "name" => "'message_date'",
+                "name" => "'received'",
                 "style" => array("min-width" => "10%","white-space" => "nowrap"),
+                "sortable" => "false"
+            )
+        ),
+        array(
+            "index" => 6,
+            "type" => "method",
+            "method" => array( "fn" => "sentOrReceived" ),
+            "action" => array("action-message-sent"),
+            "column" => array(
+                "type" => "'number'",
+                "name" => "'sent_or_received'",
+                "style" => array("width" => "32px"),
                 "sortable" => "false"
             )
         )

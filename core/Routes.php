@@ -43,13 +43,15 @@ class Routes
             $this->post('/geslocpay/save[/{id}]', Controllers\BodyDefaultGeslocpayController::class.":save")->setName('geslocpay_save');
             $this->post('/geslocpay/delete[/{id}]', Controllers\BodyDefaultGeslocpayController::class.":del")->setName('geslocpay_del');
             /* CALENDAR */
-            $this->post('/calendar/view', Controllers\BodyDefaultCalendarController::class.":home")->setName('calendar_view');
+            $this->post('/body/calendar', Controllers\BodyDefaultCalendarController::class.":home")->setName('calendar_view');
             $this->post('/calendar/pipe[/{id}]', Controllers\BodyDefaultCalendarController::class.":pipe")->setName('calendar_pipe');
             /* MESSAGES */
-            $this->post('/mailbox/view', Controllers\BodyDefaultMsgController::class.":home")->setName('mailbox_view');
+            $this->post('/body/mailbox', Controllers\BodyDefaultMsgController::class.":home")->setName('mailbox_view');
             $this->post('/mailbox/pipe', Controllers\BodyDefaultMsgController::class.":pipe")->setName('mailbox_pipe');
+            $this->post('/mailbox/del', Controllers\BodyDefaultMsgController::class.":del")->setName('mailbox_del');
+            $this->post('/mailbox/edit[/{id}]', Controllers\BodyDefaultMsgController::class.":edit")->setName('mailbox_edit');
             /* OPTIONS */
-            $this->post('/options/view', Controllers\BodyDefaultOptionsController::class.":home")->setName('options_view');
+            $this->post('/body/options', Controllers\BodyDefaultOptionsController::class.":home")->setName('options_view');
         });
 
         $app->group('/admin', function () {

@@ -6,6 +6,8 @@ class MainDefaultController extends \Core\Controller
 {
     public function __invoke($request, $response, $args)
     {
+        $locale = $this->language->getLang();
+
         if($request->getAttribute("logged")!=true){
             return $response->withRedirect("/login");
         }else{
@@ -17,7 +19,7 @@ class MainDefaultController extends \Core\Controller
             $elements["footer"] = $this->_footer();
 
             $scripts = $this->view->fetch( "Scripts/jqscript.html.twig", array(
-                "scripts" => array("/./assets/resources/i18next.js"),
+                "scripts" => array("/./assets/resources/i18next.js","/./assets/resources/moment_locale_{$locale}.js"),
                 "script_done" => implode(" ",array(
                     "if(window.i18next && $.jo.getLang){",
                         "i18next.changeLanguage($.jo.getLang().substr(0,2));",

@@ -2,10 +2,10 @@
 <div id="{{- item.id -}}" class="form-group {% if item.classes %}{{ item.classes|join(' ') }}{% endif %}">
     <input type="hidden"{% if item.form %} form="{{ item.form }}"{% endif %} id="hidden-{{ item.name }}" value="{% if item.raw %}{{ item.raw }}{% endif %}">
     {% if item.label %}
-    <label class="col-sm-2 control-label">{{ item.label }}</label>
+    <label class="col-sm-2 control-label">{{ item.label|raw }}</label>
     <div class="col-sm-10">
     {% endif %}
-        <div class="radio">
+        <div class="radio"{% if item.style %} style="{{ item.style|join|raw }}"{% endif %}>
         {% for radio in item.list %}
             <label class="radio-inline">
                 <input type="radio" name="{{ radio.name }}" value="{{ radio.value }}"{% if radio.checked %} checked{% endif %}>
@@ -34,6 +34,9 @@
                     this.checked = $(this).val()==$val;
                 });
             });
+            {%- if item.script %}
+                {{ item.script|raw }}
+            {% endif -%}
         }
     };
     if($){ JQContentLoaded(); }

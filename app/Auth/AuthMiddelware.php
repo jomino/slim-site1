@@ -20,6 +20,9 @@ class AuthMiddelware
         $auth = new Auth();
         $logged = false;
         $error = false;
+        $message = "";
+
+        $logger = $this->context->getContainer()->logger;
 
         $path = $request->getUri()->getPath();
 
@@ -37,12 +40,14 @@ class AuthMiddelware
                         //var_dump($user);
                     }else{
                         $error = true;
+                        $message = "messages.error_log_or_pwd";
                     }
 
                 }
             }
         }else{
             if(preg_match( "#.*/logout#", $path )){
+                $logger->debug( self::class, array("ask_for_logout" => $auth->user()->getUsername()));
                 $auth->logout();
             }else{
                 $logged = true;
@@ -51,6 +56,7 @@ class AuthMiddelware
 
         $request = $request->withAttribute("logged",$logged);
         $request = $request->withAttribute("error_login",$error);
+        $request = $request->withAttribute("error_message",$message);
 
         return $next($request, $response);
     }

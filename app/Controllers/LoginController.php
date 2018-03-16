@@ -2,35 +2,54 @@
 
 namespace App\Controllers;
 
+use App\Statics\Models as STATICS;
+
 class LoginController extends \Core\Controller
 {
     public function __invoke($request, $response, $args)
     {
-        //var_dump($request->getAttribute("logged"));
-        $datas = array("favicon" => "/./assets/images/favicon32.png");
+        $data = array("favicon" => "/./assets/images/favicon32.png");
         if($request->getAttribute("logged")!=true){
             if($request->getAttribute("error_login")==true){
-                $datas = array_merge( $datas, array(
-                    "flash" => $this->_getFlash("error",$this->translator->trans("messages.title_error_login"),$this->translator->trans("messages.msg_error_login"))
-                ));
+                $this->logger->debug(self::class,array("error_login"=>$request->getAttribute("error_message")));
+                $data = array_merge( $data, $this->_error("messages.title_error_login",$request->getAttribute("error_message")));
             }
-            return $this->view->render( $response, "Home/login.html.twig", $datas);
         }else{
-            $model = $this->client->model;
-            $group = $model->getBelongTo("id_grp.ref_grp");
-            return $response->withRedirect("/{$group}/main");
+            $user = $this->client->model;
+            $type = $user->getBelongTo("id_user.id_utype");
+            if($type!=STATICS::USER_TYPE_OTHER){
+                $path = "/" . $user->getBelongTo("id_grp.ref_grp")
+                    . "/" . ( $type!=STATICS::USER_TYPE_SYNDIC ? 
+                    $user->getBelongTo("id_user.id_utype.ref_utype") : "main" );
+
+                $this->logger->debug(self::class,array("success_login"=>$user->log));
+
+                return $response->withRedirect($path);
+
+            }else{
+                $this->client->logout();
+                $data = array_merge( $data, $this->_error("messages.title_login_unconf","messages.msg_login_unconf"));
+                $this->logger->debug(self::class,array("error_login"=>"unconfigured_client_account"));
+            }
         }
+        return $this->view->render( $response, "Home/login.html.twig", $data);
+    }
+
+    private function _error($title,$message)
+    {
+        return array(
+            "flash" => $this->_getFlash( "error", $this->translator->trans($title), $this->translator->trans($message))
+        );
     }
 
     private function _getFlash($type="ok",$title="",$msg="",$info="")
     {
-        $script = array(
+        return array(
             "script" => implode(" ",array(
                 "if($.jo.flash){",
                     "$.jo.flash( '{$type}', '{$title}', '{$msg}', '{$info}');",
                 "}"
             ))
         );
-        return $script;
     }
 }

@@ -78,7 +78,7 @@ class Messages extends \Framework\Model
     * @label message read
     * @comment values[0/1]
     */
-    protected $_read;
+    protected $_proceed;
 
     /**
     * @column

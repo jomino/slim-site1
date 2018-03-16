@@ -7,7 +7,10 @@
             {% endfor %}
         {% endif %}
     {% endif %}
-        <button id="{{ item.id }}" type="{{ item.type }}" class="btn {% if item.classes %}{{ item.classes|join(' ') }}{% endif %}">{% if item.label %}{{ trans(item.label)|capitalize }}{% else %}default{% endif %}</button>
+        <button id="{{ item.id }}" type="{% if item.type %}{{ item.type }}{% else %}button{% endif -%}" class="btn{% if item.classes %} {{ item.classes|join(' ') }}{% else %} btn-primary{% endif %}"{% if item.style %} style="{{ item.style|join|raw }}"{% endif %}>
+            {%- if item.icon %}<span class="{{ item.icon|join(' ') }}"></span>&#160;&#160;{% endif -%}
+            {%- if item.label %}{{ trans(item.label)|capitalize }}{% else %}default{% endif -%}
+        </button>
     {% if item.form %}
     </form>
     {% endif %}

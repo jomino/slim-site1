@@ -5,10 +5,12 @@
 ;(function($,document){
     var _launch = function(){
             $('#{% block script_table_id %}{% endblock %}').footable({
+                {% block block_table_empty %}empty: '{{ trans("messages.empty_result") }}',{% endblock %}
                 {% block block_table_noheaders %}showHeader: true,{% endblock %}
-                paging: {% block block_table_paging %}{ enabled: true }{% endblock %},
-                columns: {% block block_table_defs %}{% endblock %},
-                rows: {% block block_table_hdl %}{% endblock %}
+                {% block block_table_filtering %}filtering: { enabled: true },{% endblock %}
+                {% block block_table_paging %}paging: { enabled: true },{% endblock %}
+                columns: {% block block_table_defs %}[]{% endblock %},
+                rows: {% block block_table_hdl %}[]{% endblock %}
             });
         };
     var loadScripts = function(){

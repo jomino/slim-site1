@@ -21,12 +21,22 @@
                 $element.text('error');
             }
         };
+        var _onBeforeLaunch = function(){
+            if(!$.fn.sparkline || !$.range_map){
+                window.setTimeout( () => { _loadScripts(); } , 250 );
+            }else{
+                _launch();
+            }
+        };
+        var _loadScripts = function(){
+            $.jo.loadScripts( ['{{ asset_path("sparkline_lib","js","vendor")|join("\',\'") }}'] , _onBeforeLaunch );
+        };
         if($){
             if($.fn.sparkline){
                 _launch();
             }else{
                 if($.jo.loadScripts){
-                    $.jo.loadScripts( ['{{ asset_path("sparkline_lib","js","vendor")|join("\',\'") }}'] , _launch );
+                    _loadScripts();
                 }else{
                     $element.text('error');
                 }

@@ -189,10 +189,19 @@ class HeaderDefaultController extends \Core\Controller
 
     private function _mailbox()
     {
+
+        $client = $this->client->model;
+
+        $count = \App\Models\Messages::count( array(
+            "id_user = ?" => $client->id_user,
+            "proceed = ?" => STATICS::MESSAGE_TYPE_NOTREAD
+        ));
+        
         return array(
-            "success" => false,
-            "error" => "mailbox_not_found"
+            "success" => true,
+            "count" => $count+0
         );
+
     }
 
 }

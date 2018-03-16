@@ -5,6 +5,8 @@ namespace App\Auth
 
     use App\Models\Clients;
 
+    use App\Statics\Models as STATICS;
+
     class Client extends \Framework\Auth\User
     {
         public $status;
@@ -16,13 +18,12 @@ namespace App\Auth
             $options = array();
             if($client)
             {
-                $status = $client->getBelongTo("id_user.id_stat.ref_stat");
                 $options = array(
-                    "id" => $client->getRaw()->id_cli,
-                    "username" => $client->getRaw()->log,
-                    "password" => $client->getRaw()->pwd,
-                    "active" => true,
-                    "status" => $status,
+                    "id" => $client->id,
+                    "username" => $client->log,
+                    "password" => $client->pwd,
+                    "active" => (bool) $client->getBelongTo("id_user.id_stat")==STATICS::STATUS_TYPE_ACTIVE,
+                    "status" => $client->getBelongTo("id_user.id_stat.ref_stat"),
                     "model" => $client
                 );
             }
@@ -33,33 +34,31 @@ namespace App\Auth
         }    
     
         /**
-         * Event called on login.
-         * 
-         * @return boolean  false cancels the login
-         */
+        *@override
+        */
         public function onLogin()
         {
 
+            if (!$this->active) {
+                return false;
+            }
+        
             $client = $this->model;
             $client->set("connected", 1);
             $client->set("least", date("YmdHis"));
-            
             $client->update();
 
         }
     
         /**
-         * Event called on logout.
-         */
+        *@override
+        */
         public function onLogout()
         {
-
             $client = $this->model;
             $client->set("connected", 0);
             $client->set("least", date("YmdHis"));
-            
             $client->update();
-
         }
     }
 }

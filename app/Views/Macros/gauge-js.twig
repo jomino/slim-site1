@@ -49,7 +49,20 @@
                 window.setTimeout(()=>{
                     _gauge.set(_val);
                 }, Math.floor(1499*Math.random()) );
+            },
+            _onBeforeLaunch = function(){
+                //$.jo.debugStop();
+                if(typeof(window.Gauge)!='undefined'){
+                    _launch();
+                }else{
+                    window.setTimeout( () => { _loadScripts(); } , 250 );
+                }
+            },
+            _loadScripts = function(){
+                //$.jo.debugStop();
+                $.jo.loadScripts( ['{{ asset_path("gaugejs_lib","js","vendor")|join("\',\'") }}'] , _onBeforeLaunch );
             };
+            
         //$.jo.debugStop();
         if(_options.hasOwnProperty('pointer')){
             $.extend( _default.pointer, _options.pointer );
@@ -63,15 +76,17 @@
         }else{
             delete(_default.renderTicks);
         }
+        
         if(typeof(window.Gauge)!='undefined'){
             _launch();
         }else{
             if($.jo.loadScripts){
-                $.jo.loadScripts( ['{{ asset_path("gaugejs_lib","js","vendor")|join("\',\'") }}'] , _launch );
+                _loadScripts();
             }else{
                 $el.remove();
             }
         }
+
     };
     if($){ JQContentLoaded(); }
     else{ document.addEventListener('DOMContentLoaded',JQContentLoaded); }

@@ -24,7 +24,8 @@ String.prototype.capitalize = function(s){
     };
 
     var _classes = {
-        _glyphicon: 'glyphicon glyphicon-%s'
+        _glyphicon: 'glyphicon glyphicon-%s',
+        _fawesom: 'fa fa-%s'
     };
 
     var _capitalize = String.prototype.capitalize;
@@ -52,6 +53,10 @@ String.prototype.capitalize = function(s){
 
     var _getGlyph = function(name){
         return _classes._glyphicon.replace('%s',name);
+    };
+
+    var _getFAwesom = function(name){
+        return _classes._fawesom.replace('%s',name);
     };
 
     var _onLoadHtmlHandler = function(e){
@@ -143,7 +148,7 @@ String.prototype.capitalize = function(s){
             }
         }
 
-        return null;
+        return 'en';
     };
 
     var startDate, endDate;
@@ -213,6 +218,25 @@ String.prototype.capitalize = function(s){
         }else{
             return false;
         }
+    };
+
+    var _momentLocale = function(options){
+      this.settings = $.extend( {
+        locale: _lang().split('-')[0] || 'en'
+      },  options); 
+      this.m = window.moment;
+    };
+
+    _momentLocale.create = function(options){
+      var _ml = new _momentLocale(options || {});
+      return _ml;
+    };
+
+    var _mlp = _momentLocale.prototype;
+
+    _mlp.fromNow = function(dstr,fstr){
+      var dt = this.m(dstr,fstr);
+      return dt.fromNow();
     };
 
     // number util object
@@ -910,13 +934,22 @@ String.prototype.capitalize = function(s){
           callback = callback || (()=>{}),
           i = 0;
 
+      var _getScript = function(url){
+        return $.ajax({
+          dataType: "script",
+          cache: true,
+          url: url
+        });
+      };
+
       var _loadJS = function(file){
         var isFile = $('script[src="'+file+'"]',$(document)).length;
         if(!isFile){
-          $.getScript( file, function(){
-              _loadedScripts.set(file,false);
+          _getScript(file).done( function(){
               _load();
           });
+        }else{
+          _load();
         }
       };
 
@@ -928,11 +961,10 @@ String.prototype.capitalize = function(s){
                 type: 'text/css',
                 href: file
             })
-            .on('load',function(){
-                _loadedScripts.set(file,false);
-                _load();
-            })
+            .on('load', _load)
             .appendTo('head');
+        }else{
+          _load();
         }
       };
 
@@ -1052,6 +1084,14 @@ String.prototype.capitalize = function(s){
 
     };
 
+    $.jo.refreshBody = function(callback){
+        var last_url = History.last();
+        var callbackFn = callback || null;
+        if(last_url){
+            $.jo.loadHtml(last_url.href,'',last_url.params,callbackFn);
+        }
+    };
+
     $.jo.reloadBody = function(){
         var last_url = History.back();
         if(last_url){
@@ -1082,25 +1122,23 @@ String.prototype.capitalize = function(s){
 
     $.jo.flash = function(type,title,message,info){
         var _info = info || '',
-            _message = title|| '',
+            _message = message|| '',
             _title = title || '',
             _type = type || 'ok', //  ok|error
             _icon = _type=='ok' ? 'check':'ban';
-        if(_type){
-            if($.amaran){
-                $.amaran({
-                    theme: 'awesome ' + _type,
-                    content: {
-                        title: _title,
-                        message: _message,
-                        info: _info,
-                        icon: 'fa fa-' + _icon
-                    },
-                    position: 'bottom right',
-                    inEffect: 'slideBottom',
-                    outEffect: 'slideBottom'
-                });
-            }
+        if($.amaran){
+            $.amaran({
+                theme: 'awesome ' + _type,
+                content: {
+                    title: _title,
+                    message: _message,
+                    info: _info,
+                    icon: 'fa fa-' + _icon
+                },
+                position: 'bottom right',
+                inEffect: 'slideBottom',
+                outEffect: 'slideBottom'
+            });
         }
     }
 
@@ -1373,24 +1411,45 @@ String.prototype.capitalize = function(s){
                         return _ref;
                     break;
                     case _name=='action-message-checked':
-                        var _ref = '';
-                        _data = _value;
-                        return _ref;
+                        return $('<input type="checkbox" value="'+ _row.id_msg +'">');
                     break;
                     case _name=='action-message-read':
-                        var _ref = '';
-                        _data = _value;
-                        return _ref;
+                        var _ref = ['envelope-o','envelope-open-o'];
+                        _data = parseInt(_row.proceed);
+                        return $('<a href="javascript:" data-link="get" data-href="'+_value + '/' + _row.id_msg+'">')
+                          .append($('<span>').addClass([_getFAwesom(_ref[_data]), _data ? 'text-gray':'text-primary'].join(' ')));
                     break;
                     case _name=='action-message-attach':
-                        var _ref = '';
-                        _data = _value;
-                        return _ref;
+                        var _text = '';
+                        if(parseInt(_row.attach)>0){
+                          return $('<span>').addClass([_getFAwesom('link'), 'text-gray'].join(' '));
+                        }else{
+                          return $('<span>').text('');
+                        }
+                    break;
+                    case _name=='action-message-sent':  
+                        var _classes = ['sign-in', 'sign-out'];
+                        return $('<span>').addClass(_getFAwesom(_classes[_row.sent_or_received])+' text-primary');
+                    break;
+                    case _name=='action-message-name':
+                        var $text = $('<span>').css('margin-left','25px').text([ _capitalize(_row.pnom), _capitalize(_row.nom)].join(' '));
+                        if(parseInt(_row.proceed)>0){  $text.addClass('mail-read'); }
+                        return $('<a href="javascript:" data-link="get" data-href="'+_value + '/' + _row.id_msg+'">').append($text);
+                    break;
+                    case _name=='action-message-title':
+                        var $text = $('<span>').css('margin-left','25px').text(_val);
+                        if(parseInt(_row.proceed)>0){
+                          $text.addClass('mail-read');
+                        }
+                        return $('<a href="javascript:" data-link="get" data-href="'+_value + '/' + _row.id_msg+'">').append($text);
                     break;
                     case _name=='action-message-date':
-                        var _ref = '';
-                        _data = _value;
-                        return _ref;
+                        _data = $.jo.momentLocale.fromNow(_row.received,'YYYY-MM-DD HH:mm:ss');
+                        var $el = $('<span>').text(_data);
+                        if(parseInt(_row.proceed)>0){
+                          $el.addClass('mail-read');
+                        }
+                        return  $el;
                     break;
                     case _name=='short-date-fr':
                         return _shortDate2Fr(_val);
@@ -1411,6 +1470,8 @@ String.prototype.capitalize = function(s){
     };
 
     $.jo.initHandlers = function(item) {
+    
+        $.jo.momentLocale = _momentLocale.create();
 
         $('.sidebar-menu').tree();
 
@@ -1451,7 +1512,7 @@ String.prototype.capitalize = function(s){
 
         // generic init
         if($.fn.iCheck){
-            $('input:checkbox , input:radio').iCheck({ checkboxClass: 'icheckbox_flat-blue', radioClass: 'iradio_flat-blue' });
+            $('input:checkbox , input:radio').iCheck({ checkboxClass: 'icheckbox_square-blue', radioClass: 'iradio_square-blue' });
         }
         
     };

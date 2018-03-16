@@ -178,6 +178,7 @@ dl a:focus {
   padding-bottom: 10px !important;
 }
 
+/* fullcalendar  */
 .fc .glyphicon {
   color: #467D9E;
 }
@@ -214,15 +215,19 @@ dl a:focus {
   margin: 5px 5px;
 }
 
-.min-height-60{
+.min-height-60 {
   min-height: 60px;
 }
 
-.min-height-80{
+.min-height-80 {
   min-height: 82px;
 }
 
-.form-rowspan-2{
+.valign-middel {
+  vertical-align: middle;
+}
+
+.form-rowspan-2 {
   min-height: 165px;
 }
 
@@ -232,6 +237,26 @@ dl a:focus {
 
 .footable-filtering {
 	display: none;
+}
+
+.footable td > span.mail-read,
+.footable td > a > span.mail-read {
+  color: #8c8b8b;
+}
+
+.footable td > a,
+.footable td > a:hover,
+.footable td > a:active,
+.footable td > a:focus {
+  outline: none;
+  text-decoration: none;
+  color: inherit;
+}
+
+.footable .mailbox-name,
+.footable .mailbox-subject,
+.footable .mailbox-date {
+  font-weight: 600;
 }
 
 .jo-bg-yellow {
@@ -262,6 +287,26 @@ dl a:focus {
 
 .jo-bg-blue {
   background-color: #3E8BB9;
+}
+
+.jo-text-yellow {
+  color: #EFD28D;
+}
+
+.jo-text-orange {
+  color: #FF7700;
+}
+
+.jo-text-red {
+  color: #A30000;
+}
+
+.jo-text-aqua {
+  color: #00AFB5;
+}
+
+.jo-text-blue {
+  color: #3E8BB9;
 }
 
 .jo-gesloc-coins-0 {

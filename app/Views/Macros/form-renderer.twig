@@ -8,6 +8,7 @@
 {% import 'Macros/bs-divider.twig' as bsDivider %}
 {% import 'Macros/jq-currency.twig' as jqCurrency %}
 {% import 'Macros/jq-dates.twig' as jqDate %}
+{% import 'Macros/Default/pils.twig' as Pils %}
     {% if item.items %}
     <!-- begin_with_items-{% if item.id %}{{ item.id|raw }}{% endif %} -->
         {% if item.tpl == "form-panel" %}
@@ -62,6 +63,63 @@
                 {% endfor %} 
                 </div>
             </div>
+        {% elseif item.tpl == "form-box" %}
+            <div{% if item.id %} id="{{ item.id }}"{% endif %} class="box flat{% if item.style %} box-{{ item.style }}{% else %} box-primary{% endif %}{% if item.classes %} {{ item.classes|join(' ') }}{% endif %}{% if item.collapsed %} collapsed-box{% endif %}"{% if item.css %} style="{{ item.css|join('') }}"{% endif %}>
+                {%- if item.title or item.back or item.expandable or item.closable %}
+                    <div class="box-header{% if item.title %} with-border{% endif %}">
+                        {% if item.back -%}
+                            <button type="button" class="btn{% if item.back.style %} btn-{{ item.back.style }}{% else %} btn-primary{% endif %} btn-xs btn-history-back" style="margin-top: -3px; cursor: pointer;">
+                                <i class="fa fa-arrow-left"></i>
+                            </button>
+                        {% endif -%}
+                        {% if item.title -%}
+                            {% if item.pils -%}
+                                {{ Pils.render(item.pils) }}
+                            {% endif -%}
+                            <h3 class="box-title"{% if item.pils %} style="margin-top:7px;"{% endif %}>{{ trans(item.title)|capitalize }}
+                                {%- if item.small %}<small>{{ trans(item.small)|capitalize }}</small>{% endif -%}
+                            </h3>
+                        {% endif -%}
+                        {% if item.header.components -%}
+                            {% for component in item.header.components %}
+                            <div class="box-tools">
+                                {{ self.setItems(component) }}
+                            </div>
+                            {% endfor -%}
+                        {% endif -%}
+                        {% if item.expandable -%}
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                    <i class="fa {% if item.collapsed %}fa-plus{% else %}fa-minus{% endif %}"></i>
+                                </button>
+                            </div>
+                        {% endif -%}
+                        {% if item.closable -%}
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="remove">
+                                    <i class="fa fa-times"></i>
+                                </button>
+                            </div>
+                        {% endif -%}
+                    </div>
+                    <!-- /.box-header -->
+                {% endif -%}
+                <div class="box-body no-padding">
+                    {% for item_box in item.items %}
+                        {% if item.layout %}<div class="{{ item.layout }}">{% endif %}
+                            {{ self.setItems(item_box) }}
+                        {% if item.layout %}</div>{% endif %}
+                    {% endfor %}
+                </div>
+                <!-- /.box-body -->
+                {% if item.footer %}
+                    <div class="box-footer">
+                        {{ item.footer|raw }}
+                    </div>
+                    <!-- box-footer -->
+                {% endif %}
+            </div>
+            <!-- /.box -->
         {% else %}
             {% if item.tpl %}<div class="{{ item.tpl }}">{% endif %}
             {% for item_n in item.items %}

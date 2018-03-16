@@ -255,7 +255,7 @@ class BodyDefaultGeslocpayController extends \Core\Controller
         
         $form_items = array($_items);
 
-        $form_action = $this->router->pathFor('geslocpay_save')."/{$_id}";
+        $form_action = $this->router->pathFor('geslocpay_save',array("id"=>$_id));
 
         $form = array(
             "form_id" => $form_id,

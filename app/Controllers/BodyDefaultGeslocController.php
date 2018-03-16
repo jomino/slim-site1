@@ -114,8 +114,6 @@ class BodyDefaultGeslocController extends \Core\Controller
     public function pipe($request, $response, $args)
     {
 
-        $params = json_decode($request->getBody(),false);
-
         $client = $this->client->model;
 
         $where = array(

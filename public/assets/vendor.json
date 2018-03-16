@@ -12,10 +12,6 @@
         "bootstrap-progressbar": {
             "js" : ["bootstrap-progressbar.min.js"],
             "css" : ["css/bootstrap-progressbar-3.3.4.min.css"]
-        },
-        "eonasdan-bootstrap-datetimepicker": {
-            "js" : ["build/js/bootstrap-datetimepicker.min.js"],
-            "css" : ["build/css/bootstrap-datetimepicker.min.css"]
         }
     },
     "jquery_lib": {
@@ -66,7 +62,7 @@
         "icheck":
         {
             "js" : ["icheck.min.js"],
-            "css" : ["skins/flat/_all.css"]
+            "css" : ["skins/square/_all.css"]
         }
     },
     "fullcalendar_lib":
@@ -74,7 +70,7 @@
         "fullcalendar":
         {
             "js" : ["dist/fullcalendar.min.js","dist/gcal.min.js","dist/locale-all.js"],
-            "css" : ["dist/fullcalendar.min.css"]
+            "css" : ["dist/fullcalendar.min.css","../admin-lte/dist/css/alt/AdminLTE-fullcalendar.min.css"]
         }
     },
     "fa_lib": {
@@ -100,7 +96,7 @@
     },
     "moment_lib": {
         "moment": {
-            "js": ["moment.js"]
+            "js": ["min/moment.min.js","min/moment-with-locales.min.js"]
         }
     },
     "chartjs_lib": {
@@ -123,17 +119,23 @@
             "js": ["js/jquery.sparkline.min.js"]
         }
     },
+    "datetimepicker_lib": {
+        "eonasdan-bootstrap-datetimepicker": {
+            "js" : ["build/js/bootstrap-datetimepicker.min.js"],
+            "css" : ["build/css/bootstrap-datetimepicker.min.css"]
+        }
+    },
     "util_lib": {
         "select2": {
             "js": ["dist/js/select2.full.min.js"],
-            "css": ["dist/css/select2.min.css"]
+            "css": ["dist/css/select2.min.css","../admin-lte/dist/css/alt/AdminLTE-select2.min.css"]
         },
         "i18next": {
             "js": ["i18next.min.js"]
         },
         "amaranjs": {
             "js": ["dist/js/jquery.amaran.min.js"],
-            "css": ["dist/css/amaran.min.css","dist/css/animate.min.css"]
+            "css": ["dist/css/amaran.min.css"]
         }
     }
 }
