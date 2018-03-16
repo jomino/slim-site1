@@ -27,7 +27,8 @@ class LoginController extends \Core\Controller
                 return $response->withRedirect($path);
 
             }else{
-                $this->client->logout();
+                $auth = new App\Auth\Auth();
+                $auth->logout();
                 $data = array_merge( $data, $this->_error("messages.title_login_unconf","messages.msg_login_unconf"));
                 $this->logger->debug(self::class,array("error_login"=>"unconfigured_client_account"));
             }
