@@ -1,0 +1,69 @@
+{% macro render(item) %}
+<div id="{{ item.id }}" class="wizard{% if item.classes %} {{ item.classes|join(' ') }}{%- endif %}"{% if item.styles %} style="{{ item.styles|join(' ') }}"{% endif %}>
+    {% for step in item.steps -%}
+        <h3>{{ trans(step.title)|capitalize }}</h3>
+        <section data-mode="async" data-url="{{ step.url|raw }}"></section>
+    {% endfor %}
+</div>
+<script type="text/javascript">
+;(function($,document){
+    var JQContentLoaded = function(){
+        var $ = $ || window.$;
+        var $element = $('#{{ item.id }}');
+        var _settings = $.extend({
+                headerTag: 'h3',
+                bodyTag: 'section',
+                transitionEffect: 'slideLeft',
+                loadingTemplate: '<span class="fa fa-refresh fa-spin" style="font-size: 85%;"></span> #text#',
+                onContentLoaded: $.jo.jqStepsHandler('content-loaded',$element),
+                onStepChanging: $.jo.jqStepsHandler('before-change',$element),
+                onStepChanged: $.jo.jqStepsHandler('after-change',$element),
+                onFinishing: $.jo.jqStepsHandler('before-finish',$element),
+                onFinished: $.jo.jqStepsHandler('after-finish',$element)
+            }, {
+                {% if item.labels -%}
+                    labels: {{ item.labels|json_encode|raw }},
+                {%- else %}
+                    labels: {
+                        cancel: 'Cancel',
+                        current: 'current step:',
+                        pagination: 'Pagination',
+                        finish: 'Finish',
+                        next: 'Next',
+                        previous: 'Previous',
+                        loading: 'Loading ...'
+                    },
+                {%- endif %}
+            });
+        var _launch = function(){
+            $element.steps(_settings);
+        };
+        var _onBeforeLaunch = function(){
+            //$.jo.debugStop();
+            if(!$.fn.steps){
+                window.setTimeout( () => { _loadScripts(); } , 250 );
+            }else{
+                _launch();
+            }
+        };
+        var _loadScripts = function(){
+            //$.jo.debugStop();
+            $.jo.loadScripts( ['{{ asset_path("jqsteps_lib","css","vendor")|join("\',\'") }}','{{ asset_path("jqsteps_lib","js","vendor")|join("\',\'") }}'] , _onBeforeLaunch );
+        };
+
+        if($.fn.steps){
+            _launch();
+        }else{
+            if($.jo.loadScripts){
+                _loadScripts();
+            }else{
+                $element.remove();
+            }
+        }
+
+    };
+    if($){ JQContentLoaded(); }
+    else{ document.addEventListener('DOMContentLoaded',JQContentLoaded); }
+})(window.jQuery,window.document);
+</script>
+{% endmacro %}

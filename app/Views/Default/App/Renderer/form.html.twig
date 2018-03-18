@@ -60,6 +60,8 @@
             var formManager = $.jo.formManager;
             var _init = function(){
                 formManager.register( _form, $.extend({},_getValues()));
+                {% if form_script_init %}{{ form_script_init|raw }}
+                {% else %}return;{% endif %}
             };
             var _getValues = function(){
                 var data = {};
@@ -73,8 +75,8 @@
                 var _text = [];
                 if(repsonse.success){
                     formManager.remove(_form);
-                    $.jo.refreshPage('default');
                     $.jo.flash('ok','{{ trans("messages.title_success_alert")|capitalize }}','{{ trans("messages.msg_success_alert")|capitalize }}');
+                    window.setTimeout(function(){ $.jo.refreshPage(); }, 1500);
                 }else{
                     if(typeof repsonse.message == 'object'){
                         $.each( repsonse.message, function(i){
@@ -93,16 +95,9 @@
                         }
                     });
                 }
-                {% if form_script_success %}{{ form_script_success|raw }}
-                {% else %}return;{% endif %}
             };
             var _error = function(e){
-                $('body').MessageBox({
-                    title: '{{ trans("messages.title_attention_alert")|capitalize }}:',
-                    text: '{{ trans("messages.no_send_form") }}'
-                });
-                {% if form_script_error %}{{ form_script_error|raw }}
-                {% else %}return;{% endif %}
+                $.jo.flash('error','{{ trans("messages.title_attention_alert")|capitalize }}','{{ trans("messages.no_send_form") }}');
             };
             var _send = function(){
                 //$.jo.debugStop();
@@ -122,55 +117,59 @@
                 $form.validate().resetForm();
                 $('.form-group',$form).removeClass('has-error');
             };
-            $submit.on('click',function(e){
-                //$.jo.debugStop();
-                if(!Object.keys(_isError).length && $form.validate().form()){
-                    _send();
-                }else{
-                    $('body').MessageBox({
-                        title: '{{ trans("messages.title_attention_alert")|capitalize }}:',
-                        text: '{{ trans("messages.form_has_errors") }}'
-                    });
-                }
-            });
-            $reset.on('click',function(e){
-                _reset();
-            });
+            if($submit.length){
+                $submit.on('click',function(e){
+                    //$.jo.debugStop();
+                    if(!Object.keys(_isError).length && $form.validate().form()){
+                        _send();
+                    }else{
+                        $('body').MessageBox({
+                            title: '{{ trans("messages.title_attention_alert")|capitalize }}:',
+                            text: '{{ trans("messages.form_has_errors") }}'
+                        });
+                    }
+                });
+            }
+            if($reset.length){
+                $reset.on('click',function(e){
+                    _reset();
+                });
+            }
             if($.fn.iCheck){
                 $('input').iCheck({ radioClass: 'iradio_flat-blue' });
             }
             {% if form_validate %}
-            var _rules = {{ form_validate|json_encode()|raw }};
-            var _launch = function(){
-                $form.validate($.extend({
-                    debug: true,
-                    showErrors: function(errorMap, errorList){
-                        $.each( errorMap, function(i){
-                            _isError[i] = this+'';
-                            $('input[id="hidden-'+i+'"]').parent().addClass('has-error');
-                        });
-                        this.defaultShowErrors();
-                    },
-                    success: function(label, element){
-                        if(Object.keys(_isError).indexOf(element.name)>-1){
-                            delete(_isError[element.name]);
-                            $('input[id="hidden-'+element.name+'"]').parent().removeClass('has-error');
+                var _rules = {{ form_validate|json_encode()|raw }};
+                var _launch = function(){
+                    $form.validate($.extend({
+                        debug: false,
+                        showErrors: function(errorMap, errorList){
+                            $.each( errorMap, function(i){
+                                _isError[i] = this+'';
+                                $('input[id="hidden-'+i+'"]').parent().addClass('has-error');
+                            });
+                            this.defaultShowErrors();
+                        },
+                        success: function(label, element){
+                            if(Object.keys(_isError).indexOf(element.name)>-1){
+                                delete(_isError[element.name]);
+                                $('input[id="hidden-'+element.name+'"]').parent().removeClass('has-error');
+                            }
+                        },
+                        errorPlacement: function($label,$element){
+                            var $last = $element.parents('.form-group').children().last();
+                            $label.insertAfter($last);
                         }
-                    },
-                    errorPlacement: function($label,$element){
-                        var $last = $element.parents('.form-group').children().last();
-                        $label.insertAfter($last);
+                    }, _rules));
+                    _init();
+                };
+                if($.fn.validate){
+                    if(_lang!='en'){
+                        $.jo.loadScripts(['/./assets/resources/jq_validation_messages_'+_lang+'.js'], _launch);
+                    }else{
+                        _launch();
                     }
-                }, _rules));
-                _init();
-            };
-            if($.fn.validate){
-                if(_lang!='en'){
-                    $.jo.loadScripts(['/./assets/resources/jq_validation_messages_'+_lang+'.js'], _launch);
-                }else{
-                    _launch();
                 }
-            }
             {% else %}
                 window.setTimeout( function(){
                     _init();

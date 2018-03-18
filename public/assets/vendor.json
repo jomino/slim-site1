@@ -125,6 +125,12 @@
             "css" : ["build/css/bootstrap-datetimepicker.min.css"]
         }
     },
+    "jqsteps_lib": {
+        "jquery.steps": {
+            "js" : ["build/jquery.steps.js"],
+            "css" : ["demo/css/jquery.steps.css"]
+        }
+    },
     "util_lib": {
         "select2": {
             "js": ["dist/js/select2.full.min.js"],

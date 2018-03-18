@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use App\Statics\Models as STATICS;
+
 class MainDefaultController extends \Core\Controller
 {
     public function __invoke($request, $response, $args)
@@ -99,9 +101,17 @@ class MainDefaultController extends \Core\Controller
     {
 
         $router = $this->container->get('router');
+
+        $client = $this->client->model;
+
+        $result = \App\Models\Ingoing::count(array(
+            "id_cli = ?" => $client->id_cli
+        ));
+
+        $route = $result>0 ? "body_home":"body_start";
         
         $proxy_datas = array(
-            "fwHref" => $router->pathFor('body_home'),
+            "fwHref" => $router->pathFor($route),
             "fwFor" => ".content",
             "fwParams" => ""
         );

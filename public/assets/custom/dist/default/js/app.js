@@ -1469,6 +1469,37 @@ String.prototype.capitalize = function(s){
         return (()=>{});
     };
 
+    $.jo.jqStepsHandler = function(evtName,$el) {
+        var emptyFn = ()=>{};
+
+        if(!$el){ return emptyFn; }
+
+        var _options = {
+            'before-change': function(event, currentIndex, newIndex){
+                return true;
+            },
+            'after-change': function(event, currentIndex, priorIndex){
+                return;
+            },
+            'before-finish': function(event, currentIndex){
+                return true;
+            },
+            'after-finish': function(event, currentIndex){
+                return;
+            },
+            'content-loaded': function(event, currentIndex){
+                return;
+            }
+        };
+
+        if(evtName){
+            return _options[evtName];
+        }else{
+            return emptyFn;
+        }
+
+    };
+
     $.jo.initHandlers = function(item) {
     
         $.jo.momentLocale = _momentLocale.create();

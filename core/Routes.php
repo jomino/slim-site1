@@ -18,9 +18,16 @@ class Routes
         $app->group('/default', function () {
             /* MAIN */
             $this->get('/main', Controllers\MainDefaultController::class);
-            $this->post('/body/home', Controllers\BodyDefaultHomeController::class)->setName('body_home');
-            $this->post('/aside/home', Controllers\AsideDefaultController::class)->setName('aside_home');
+            /* STARTUP */
+            $this->post('/body/start', Controllers\BodyDefaultStartupController::class)->setName('body_start');
+            $this->post('/start/edit[/{id}]', Controllers\BodyDefaultStartupController::class.":edit")->setName('start_edit');
+            $this->post('/start/save[/{id}]', Controllers\BodyDefaultStartupController::class.":save")->setName('start_save');
+            /* HEADER */
             $this->post('/header/home[/{id}]', Controllers\HeaderDefaultController::class)->setName('header_home');
+            /* ASSIDE */
+            $this->post('/aside/home', Controllers\AsideDefaultController::class)->setName('aside_home');
+            /* BODY */
+            $this->post('/body/home', Controllers\BodyDefaultHomeController::class)->setName('body_home');
             /* USERS */
             $this->post('/body/contacts', Controllers\BodyDefaultUsersController::class.":home")->setName('body_contacts');
             $this->post('/contacts/pipe', Controllers\BodyDefaultUsersController::class.":pipe")->setName('contact_pipe');

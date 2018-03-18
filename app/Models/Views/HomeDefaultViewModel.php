@@ -27,17 +27,17 @@ class HomeDefaultViewModel extends \Framework\ViewModel
                 array(
                     "tpl" => "cmp-info",
                     "style" => "light-blue-gradient",
-                    "target" => "info_box_contacts"
+                    "handler" => "info_box_contacts"
                 ),
                 array(
                     "tpl" => "cmp-info",
                     "style" => "light-blue-gradient",
-                    "target" => "info_box_properties"
+                    "handler" => "info_box_properties"
                 ),
                 array(
                     "tpl" => "cmp-info",
                     "style" => "light-blue-gradient",
-                    "target" => "info_box_contracts"
+                    "handler" => "info_box_contracts"
                 )
             )
         ),
@@ -49,7 +49,7 @@ class HomeDefaultViewModel extends \Framework\ViewModel
                     "tpl" => "cmp-box",
                     "style" => "primary",
                     "title" => "messages.contact_box_title",
-                    "target" => "pils_box_contacts",
+                    "handler" => "pils_box_contacts",
                     "css" => array("min-height: 450px;"),
                     "items" => array(
                         array(
@@ -60,7 +60,7 @@ class HomeDefaultViewModel extends \Framework\ViewModel
                         array(
                             "tpl" => "cmp-dlist",
                             "type" => "list-unstyled",
-                            "target" => "list_box_contacts"
+                            "handler" => "list_box_contacts"
                         )
                     )
                 ),
@@ -68,15 +68,15 @@ class HomeDefaultViewModel extends \Framework\ViewModel
                     "tpl" => "cmp-box",
                     "style" => "primary",
                     "title" => "messages.properties_box_title",
-                    "target" => "pils_box_properties",
+                    "handler" => "pils_box_properties",
                     "css" => array("min-height: 450px;"),
                     "items" => array(
                         array(
                             "tpl" => "cmp-chart",
-                            "target" => "chart_box_properties"
+                            "handler" => "chart_box_properties"
                         ),
                         array(
-                            "target" => "chart_detail_properties"
+                            "handler" => "chart_detail_properties"
                         )
                     )
                 ),
@@ -84,20 +84,20 @@ class HomeDefaultViewModel extends \Framework\ViewModel
                     "tpl" => "cmp-box",
                     "style" => "primary",
                     "title" => "messages.contracts_title",
-                    "target" => "pils_box_contracts",
+                    "handler" => "pils_box_contracts",
                     "css" => array("min-height: 450px;"),
                     "items" => array(
                         array(
                             "tpl" => "cmp-dlist",
                             "type" => "dl-list",
                             "horizontal" => 1,
-                            "target" => "list_box_contracts"
+                            "handler" => "list_box_contracts"
                         ),
                         array(
                             // items added by BodyDefaultHomeController class 
                             "tpl" => "row",
                             "layout" => STATICS::BS_LAYOUT_3COL,
-                            "target" => "knobs_box_contracts"
+                            "handler" => "knobs_box_contracts"
                         )
                     )
                 )
@@ -118,10 +118,10 @@ class HomeDefaultViewModel extends \Framework\ViewModel
 
             $item = $items[$j];
 
-            if(isset($item["target"]) && isset($datas[$item["target"]])){
-                $_datas = call_user_func_array($datas[$item["target"]],[$this->_container]);
+            if(isset($item["handler"]) && isset($datas[$item["handler"]])){
+                $_datas = call_user_func_array($datas[$item["handler"]],[$this->_container]);
                 $item = array_merge_recursive($item,$_datas);
-                unset($item["target"]);
+                unset($item["handler"]);
             }
 
             if(!isset($item["id"])){
