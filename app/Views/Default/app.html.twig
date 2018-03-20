@@ -40,7 +40,6 @@
 {% endblock %}
 
 {# BODY #}
-{% block body_id %}{{ parent() }}{% endblock %}
 
 {% block doc_flash %}
     {% if flash %}
@@ -83,6 +82,14 @@
     {% else %}
         {{ parent() }}
     {% endif %}
+{% endblock %}
+
+{% block body_id %}
+    {%- if domain %}
+         {{- domain }}
+    {%- else %}
+        {{- parent() }}
+    {% endif -%}
 {% endblock %}
 
 {% block doc_body %}

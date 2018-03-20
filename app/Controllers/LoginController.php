@@ -8,26 +8,27 @@ class LoginController extends \Core\Controller
 {
     public function __invoke($request, $response, $args)
     {
+        $auth = new \App\Auth\Auth();
         $data = array("favicon" => "/./assets/images/favicon32.png");
         if($request->getAttribute("logged")!=true){
             if($request->getAttribute("error_login")==true){
                 $this->logger->debug(self::class,array("error_login"=>$request->getAttribute("error_message")));
                 $data = array_merge( $data, $this->_error("messages.title_error_login",$request->getAttribute("error_message")));
             }
+            $this->logger->debug(self::class,array("success_logout"=>""));
         }else{
-            $user = $this->client->model;
+            $user = $auth->user()->model;
             $type = $user->getBelongTo("id_user.id_utype");
             if($type!=STATICS::USER_TYPE_OTHER){
-                $path = "/" . $user->getBelongTo("id_grp.ref_grp")
+                $domain = "/" . $user->getBelongTo("id_grp.ref_grp")
                     . "/" . ( $type!=STATICS::USER_TYPE_SYNDIC ? 
                     $user->getBelongTo("id_user.id_utype.ref_utype") : "main" );
 
-                $this->logger->debug(self::class,array("success_login"=>$user->log));
+                $this->logger->debug(self::class,array("success_login"=>$user->log,"domain"=>$domain));
 
-                return $response->withRedirect($path);
+                return $response->withRedirect($domain);
 
             }else{
-                $auth = new \App\Auth\Auth();
                 $auth->logout();
                 $data = array_merge( $data, $this->_error("messages.title_login_unconf","messages.msg_login_unconf"));
                 $this->logger->debug(self::class,array("error_login"=>"unconfigured_client_account"));

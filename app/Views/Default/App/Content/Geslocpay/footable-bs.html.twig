@@ -12,7 +12,7 @@
 
 {% block script_table_id %}{{ block('block_table_id') }}{% endblock %}
 
-{% block block_table_paging %}{ enabled: false }{% endblock %}
+{% block block_table_paging %}{{ parent() }}{% endblock %}
 
 {% block block_table_defs %}{% if table_defs %}[{% for column_def in table_defs %}
 { name: {{ column_def.name|raw }}{% if column_def.visible %}

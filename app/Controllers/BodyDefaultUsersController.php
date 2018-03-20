@@ -10,6 +10,7 @@ class BodyDefaultUsersController extends \Core\Controller
 
     public function home($request, $response, $args)
     {
+        $client = $this->client->model;
         $router = $this->router;
         $assets = $this->assets;
         $translator = $this->translator;
@@ -84,11 +85,13 @@ class BodyDefaultUsersController extends \Core\Controller
             );"
         );
 
+        $view_path = $this->views_path."/Contacts/footable-bs.html.twig";
+
         /*print("<pre>");
         print_r($script_datas);
         print("</pre>");*/
 
-        return $this->view->render( $response, "{$this->views_path}/Contacts/footable-bs.html.twig", $script_datas);
+        return $this->view->render( $response, $view_path, $script_datas);
         
     }
 
@@ -289,13 +292,15 @@ class BodyDefaultUsersController extends \Core\Controller
             )
         );
 
-        return $this->view->render( $response, "{$this->views_path}/Contacts/edit-bs.html.twig", $box_datas);
+        $view_path = $this->views_path."/Contacts/edit-bs.html.twig";
+
+        return $this->view->render( $response, $view_path, $box_datas);
         
     }
 
     public function save($request, $response, $args)
     {
-
+        return;
     }
 
 }

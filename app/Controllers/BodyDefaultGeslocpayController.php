@@ -114,11 +114,13 @@ class BodyDefaultGeslocpayController extends \Core\Controller
             "body" => $table_util_body
         );
 
+        $view_path = $this->views_path."/Geslocpay/footable-bs.html.twig";
+
         /*print("<pre>");
         print_r($script_datas);
         print("</pre>");*/
 
-        return $this->view->render( $response, "{$this->views_path}/Geslocpay/footable-bs.html.twig", $script_datas);
+        return $this->view->render( $response, $view_path, $script_datas);
 
 
     }
@@ -264,7 +266,9 @@ class BodyDefaultGeslocpayController extends \Core\Controller
             "form_items" => $form_items
         );
 
-        return $this->view->render( $response, "Default/App/Renderer/form.html.twig", $form);
+        $view_path = "Default/App/Renderer/form.html.twig";
+
+        return $this->view->render( $response, $view_path, $form);
 
     }
 

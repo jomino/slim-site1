@@ -15,6 +15,7 @@ class BodyDefaultHomeController extends \Core\Controller
 
     public function __invoke($request, $response, $args)
     {
+
         $self = self::class;
 
         $datas = array(
@@ -36,9 +37,11 @@ class BodyDefaultHomeController extends \Core\Controller
             "datas" => $datas
         ));
 
+        $view_path = "Default/App/Renderer/components-renderer.html.twig";
+
         //$this->logger->debug( self::class, $viewmodel);
 
-        return $this->view->render( $response, "Default/App/Renderer/components-renderer.html.twig", $viewmodel->items );
+        return $this->view->render( $response, $view_path, $viewmodel->items );
         
     }
 
@@ -366,6 +369,7 @@ class BodyDefaultHomeController extends \Core\Controller
     {
         $view = $this->container->get("view");
         $translator = $this->container->get("translator");
+        $client = $this->container->get("client")->model;
 
         $spark_datas = array();
         $spark_values = array();
@@ -438,8 +442,9 @@ class BodyDefaultHomeController extends \Core\Controller
             "colors" => $spark_colors
         );
 
-        return $view->fetch(
-            "Default/App/Renderer/sparkline-js.html.twig",
+        $view_path = ucfirst($client->getBelongTo('id_grp.ref_grp'))."/App/Renderer/sparkline-js.html.twig";
+
+        return $view->fetch( $view_path,
             array( "items" => array($datas_to_fetch) )
         );
 
@@ -459,7 +464,6 @@ class BodyDefaultHomeController extends \Core\Controller
             "tpl" => "cmp-jqknob",
             "classes" => array("text-center"),
             "raw" => "not_in_use",
-            "skin" => "tron",
             "max" => sizeof($ingoings),
             "bgColor" => "#eee",
             "width" => 85,
@@ -576,7 +580,7 @@ class BodyDefaultHomeController extends \Core\Controller
     private function _infoBoxDatas($category)
     {
 
-        $client = $this->client->model;
+        $client = $this->container->get("client")->model;
         $translator = $this->container->get("translator");
         $view = $this->container->get("view");
 
@@ -607,12 +611,13 @@ class BodyDefaultHomeController extends \Core\Controller
                     $datas["icon"] = array( "fa" => "user-circle" );
                 break;
                 default:
+                    $default_path = ucfirst($client->getBelongTo('id_grp.ref_grp'));
                     $datas["number"] = $progress." %";
                     $datas["progress"] = $progress;
                     $datas["title"] = "messages.limited_to_abo_title";
                     $datas["describ"] = $translator->trans("messages.limited_to_abo_describ")." {$_count}/{$_max} max.";
                     $datas["icon"] = array( "raw" => $view->fetch(
-                        "Default/App/Renderer/charts-renderer.html.twig",
+                        $default_path."/App/Renderer/charts-renderer.html.twig",
                         array( "items" => array( $this->_gauge($_count,$_max)))
                     ));
             }

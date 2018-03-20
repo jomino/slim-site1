@@ -8,6 +8,7 @@
 !/public/assets/vendor/admin-lte/*
 !/public/assets/vendor/Ionicons/*
 !/public/assets/vendor/sparkline/*
+!/public/assets/vendor/jquery.steps/*
 /sql/*.svg
 /sql/*.xml
 /logs/*

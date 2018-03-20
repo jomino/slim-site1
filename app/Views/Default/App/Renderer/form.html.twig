@@ -76,7 +76,8 @@
                 if(repsonse.success){
                     formManager.remove(_form);
                     $.jo.flash('ok','{{ trans("messages.title_success_alert")|capitalize }}','{{ trans("messages.msg_success_alert")|capitalize }}');
-                    window.setTimeout(function(){ $.jo.refreshPage(); }, 1500);
+                    {% if form_success_callback %}{{ form_success_callback|raw }}
+                    {% else %}window.setTimeout(function(){ $.jo.refreshPage(); }, 1500);{% endif %}
                 }else{
                     if(typeof repsonse.message == 'object'){
                         $.each( repsonse.message, function(i){
@@ -117,17 +118,20 @@
                 $form.validate().resetForm();
                 $('.form-group',$form).removeClass('has-error');
             };
+            var _submit = function(){
+                if(!Object.keys(_isError).length && $form.validate().form()){
+                    _send();
+                }else{
+                    $('body').MessageBox({
+                        title: '{{ trans("messages.title_attention_alert")|capitalize }}:',
+                        text: '{{ trans("messages.form_has_errors") }}'
+                    });
+                }
+            };
             if($submit.length){
                 $submit.on('click',function(e){
                     //$.jo.debugStop();
-                    if(!Object.keys(_isError).length && $form.validate().form()){
-                        _send();
-                    }else{
-                        $('body').MessageBox({
-                            title: '{{ trans("messages.title_attention_alert")|capitalize }}:',
-                            text: '{{ trans("messages.form_has_errors") }}'
-                        });
-                    }
+                    _submit();
                 });
             }
             if($reset.length){
@@ -136,7 +140,7 @@
                 });
             }
             if($.fn.iCheck){
-                $('input').iCheck({ radioClass: 'iradio_flat-blue' });
+                $('input').iCheck({ checkboxClass: 'icheckbox_square-blue', radioClass: 'iradio_flat-blue' });
             }
             {% if form_validate %}
                 var _rules = {{ form_validate|json_encode()|raw }};

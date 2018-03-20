@@ -9,9 +9,9 @@ class AuthMiddelware
     
     private $context;
     
-    public function __construct($context)
+    public function __construct($app)
     {
-        $this->context = $context;
+        $this->app = $app;
     }
 
     public function __invoke($request, $response, $next)
@@ -22,7 +22,7 @@ class AuthMiddelware
         $error = false;
         $message = "";
 
-        $logger = $this->context->getContainer()->logger;
+        $logger = $this->app->getContainer()->logger;
 
         $path = $request->getUri()->getPath();
 
@@ -37,7 +37,7 @@ class AuthMiddelware
                     $user = $auth->login( $req_log, md5($req_pwd));
                     if(!empty($user)){
                         $logged = true;
-                        //var_dump($user);
+                        $logger->debug( self::class, array("ask_for_login" => $auth->user()->getUsername()));
                     }else{
                         $error = true;
                         $message = "messages.error_log_or_pwd";

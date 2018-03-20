@@ -8,7 +8,11 @@ class MainDefaultController extends \Core\Controller
 {
     public function __invoke($request, $response, $args)
     {
+
+        $domain = "default";
+
         $locale = $this->language->getLang();
+        $client = $this->client->model;
 
         if($request->getAttribute("logged")!=true){
             return $response->withRedirect("/login");
@@ -29,9 +33,10 @@ class MainDefaultController extends \Core\Controller
                 ))
             ));
 
-            return $this->view->render( $response, "Default/app.html.twig", array(
+            return $this->view->render( $response, ucfirst($domain)."/app.html.twig", array(
                 "favicon" => "/./assets/images/favicon32.png",
                 "scripts" => $scripts,
+                "domain" => $domain,
                 "body" => array(
                     "elements" => $elements
                 )
@@ -129,10 +134,6 @@ class MainDefaultController extends \Core\Controller
         return array(
             "version" => "1.0.0"
         );
-
-    }
-    protected function _asideContacts()
-    {
 
     }
 

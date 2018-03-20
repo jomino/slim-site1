@@ -8,14 +8,14 @@ use \App\Controllers\Test as Test;
 class Routes
 {
     public function __construct($app)
-    {
-        
+    {      
+        /* ROUTES */
         $app->get('/', Controllers\LoginController::class);
 
         $app->map(['POST','GET'],'/login', Controllers\LoginController::class)->setName('login');
         $app->map(['POST','GET'],'/logout', Controllers\LogoutController::class)->setName('logout');
         
-        $app->group('/default', function () {
+        $app->group( '/default', function () {
             /* MAIN */
             $this->get('/main', Controllers\MainDefaultController::class);
             /* STARTUP */

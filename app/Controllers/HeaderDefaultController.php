@@ -13,6 +13,7 @@ class HeaderDefaultController extends \Core\Controller
 
     public function __invoke($request, $response, $args)
     {
+
         if(isset($args["id"])){
             
             $_method = array($this,"_".$args["id"]);
@@ -22,7 +23,7 @@ class HeaderDefaultController extends \Core\Controller
             }else{
                 $response_datas = array(
                     "success" => false,
-                    "error" => "calendar_not_found"
+                    "error" => "page_not_found"
                 );
             }
 

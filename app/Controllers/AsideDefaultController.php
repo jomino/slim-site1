@@ -27,8 +27,6 @@ class AsideDefaultController extends \Core\Controller
             "datas" => $datas
         ));
 
-        //$partial = array( "items" => $viewmodel->getItems() );
-
         return $this->view->render( $response, "Default/App/Renderer/sidebar-renderer.html.twig", $viewmodel->getItems() );
 
     }

@@ -16,7 +16,7 @@
         <![endif]-->
         {% endblock %}
     </head>
-    <body class="{% block body_cls %}{% endblock %}"{% block body_id %} data-id="default"{% endblock %}>
+    <body class="{% block body_cls %}{% endblock %}" data-id="{% block body_id %}default{% endblock %}">
         {% block doc_flash %}{% endblock %}
         {% block doc_body %}{% endblock %}
         {% block doc_logger %}{% endblock %}
