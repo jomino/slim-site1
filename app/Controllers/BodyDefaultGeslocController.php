@@ -54,7 +54,7 @@ class BodyDefaultGeslocController extends \Core\Controller
         $script_datas["table_id"] = $table_id;
         $script_datas["table_hdl"] = $router->pathFor('gesloc_pipe');
 
-        $model = new \App\Models\Views\GeslocListFootable(array(
+        $model = new \App\Models\Views\GeslocDefaultListFootable(array(
             "data" => $_data
         ));
 
@@ -164,7 +164,7 @@ class BodyDefaultGeslocController extends \Core\Controller
 
             if(!empty($valid_recs)){
 
-                $model = new \App\Models\Views\GeslocListFootable();
+                $model = new \App\Models\Views\GeslocDefaultListFootable();
                 $col_models = $model->getMap("gesloc");
 
                 for($j=0;$j<sizeof($valid_recs);$j++){

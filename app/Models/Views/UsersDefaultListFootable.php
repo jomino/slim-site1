@@ -4,18 +4,12 @@ namespace App\Models\Views;
 
 use Framework\ArrayMethods as ArrayMethods;
 
-class GeslocListFootable extends \Framework\ViewModel
+class UsersDefaultListFootable extends \Framework\ViewModel
 {
-
     /**
     *@readwrite
     */
     protected $_data;
-    
-    /**
-    *@readwrite
-    */
-    protected $_assets;
 
     /**
     *@read
@@ -23,54 +17,43 @@ class GeslocListFootable extends \Framework\ViewModel
     protected $_footableFormatter = "$.jo.footableFormatter('%s','%s')";
 
     /**
-    *@read
+    * @read
     */
     protected $_map = array(
-        "gesloc" => array(
+        "contacts" => array(
             array(
                 "type" => "field",
-                "field" => "idgesloc",
+                "field" => "id_user",
                 "column" => array(
                     "type" => "'number'",
-                    "name" => "'idgesloc'", // mandatory
+                    "name" => "'id_user'", // mandatory
                     "visible" => "false"
                 )
             ),
             array(
                 "type" => "field",
-                "field" => "gesloc.idpro",
-                "delegate" => "id_user",
+                "field" => "id_utype",
                 "column" => array(
                     "type" => "'number'",
-                    "name" => "'idpro'", // mandatory
+                    "name" => "'id_utype'",
                     "visible" => "false"
                 )
             ),
             array(
                 "type" => "field",
-                "field" => "gesloc.idloc",
-                "delegate" => "id_user",
+                "field" => "pnom",
                 "column" => array(
-                    "type" => "'number'",
-                    "name" => "'idloc'", // mandatory
+                    "type" => "'text'",
+                    "name" => "'pnom'",
                     "visible" => "false"
                 )
             ),
             array(
                 "type" => "field",
-                "field" => "id_prop",
+                "field" => "nom",
                 "column" => array(
-                    "type" => "'number'",
-                    "name" => "'id_prop'", // mandatory
-                    "visible" => "false"
-                )
-            ),
-            array(
-                "type" => "field",
-                "field" => "endebit",
-                "column" => array(
-                    "type" => "'number'",
-                    "name" => "'endebit'", // mandatory
+                    "type" => "'text'",
+                    "name" => "'nom'",
                     "visible" => "false"
                 )
             ),
@@ -113,78 +96,67 @@ class GeslocListFootable extends \Framework\ViewModel
             array(
                 "index" => 0,
                 "type" => "field",
-                "field" => "ref",
+                "field" => "id_ref",
                 "column" => array(
                     "type" => "'text'",
-                    "name" => "'ref'",
+                    "name" => "'id_ref'",
                     "title" => "default.reference",
-                    "style" => array("min-width" => "10%")
+                    "style" => array("width" => "10%")
                 )
             ),
             array(
                 "index" => 1,
-                "name" => "gesloc_edit_tenant",
-                "type" => "field",
-                "field" => "gesloc.idloc",
-                "delegate" => array("pnom","nom"),
-                //"action" => array('gesloc-edit-user','idloc'),
+                "type" => "fn",
+                "delegate" => "nom",
                 "column" => array(
-                    "type" => "'text'",
-                    "name" => "'tenant'",
-                    "title" => "default.tenant",
-                    "style" => array("min-width" => "10%","white-space" => "nowrap")
+                    "title" => "default.name",
+                    "name" => "'full_name'",
+                    "formatter" => "$.jo.footableFormatter('contact-full-name')",
+                    "style" => array("width" => "15%")
                 )
             ),
             array(
                 "index" => 2,
-                "name" => "gesloc_edit_owner",
-                "type" => "field",
-                "field" => "gesloc.idpro",
-                "delegate" => array("pnom","nom"),
-                //"action" => array('gesloc-edit-user','idpro'),
+                "type" => "fn",
+                "delegate" => "street",
                 "column" => array(
-                    "type" => "'text'",
-                    "name" => "'owner'",
-                    "title" => "default.owner",
-                    "style" => array("min-width" => "10%","white-space" => "nowrap")
+                    "title" => "default.adress",
+                    "name" => "'full_adress'",
+                    "formatter" => "$.jo.footableFormatter('contact-full-adress')",
+                    "style" => array("width" => "45%")
                 )
             ),
             array(
                 "index" => 3,
-                "name" => "gesloc_full_adress",
-                "type" => "fn",
-                "delegate" => "street",
-                //"action" => array('gesloc-full-adress'),
+                "type" => "field",
+                "field" => "phone",
                 "column" => array(
-                    "title" => "default.adress",
-                    "name" => "'full_adress'",
-                    "style" => array("width" => "100%"),
+                    "type" => "'text'",
+                    "name" => "'phone'",
+                    "title" => "default.phone",
+                    "style" => array("width" => "15%"),
                     "sortable" => "false"
-                    //[+] "formatter" => string::javascript
                 )
             ),
             array(
                 "index" => 4,
-                "name" => "action_pay",
-                "type" => "fn",
-                //[+] "action" => array(),
+                "type" => "field",
+                "field" => "email",
                 "column" => array(
                     "type" => "'text'",
-                    "name" => "'action_pay'",
-                    "title" => " ",
-                    "style" => array("width" => "32px"),
-                    "sortable" => "false"
-                    //[+] "formatter" => string::javascript
+                    "name" => "'email'",
+                    "title" => "default.email",
+                    "style" => array("width" => "15%")
                 )
             ),
             array(
                 "index" => 5,
-                "name" => "action_gesloc_edit",
+                "name" => "action_contact_edit",
                 "type" => "fn",
                 //[+] "action" => array(),
                 "column" => array(
                     "type" => "'text'",
-                    "name" => "'gesloc_edit'",
+                    "name" => "'contact_edit'",
                     "title" => " ",
                     "style" => array("width" => "32px"),
                     "sortable" => "false"
@@ -196,8 +168,7 @@ class GeslocListFootable extends \Framework\ViewModel
 
     public function getColumns()
     {
-        $assets = $this->assets;
-        $map = $this->getMap("gesloc");
+        $map = $this->getMap("contacts");
         for($i=0;$i<sizeof($map);$i++){
             $item = $map[$i];
             if(isset($item["name"]) && !empty($this->_data)){

@@ -23,7 +23,7 @@ class BodyDefaultUsersController extends \Core\Controller
         $script_datas["table_id"] = $table_id;
         $script_datas["table_hdl"] = $router->pathFor('contact_pipe');
 
-        $model = new \App\Models\Views\UsersListFootable(array(
+        $model = new \App\Models\Views\UsersDefaultListFootable(array(
             "data" => array(
                 "action_contact_edit" => array(
                     "action" => array(
@@ -182,7 +182,7 @@ class BodyDefaultUsersController extends \Core\Controller
 
             if(!empty($valid_recs)){
 
-                $model = new \App\Models\Views\UsersListFootable();
+                $model = new \App\Models\Views\UsersDefaultListFootable();
                 $col_models = $model->getMap("contacts");
 
                 for($j=0;$j<sizeof($valid_recs);$j++){

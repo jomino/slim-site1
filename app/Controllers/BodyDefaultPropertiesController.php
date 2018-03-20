@@ -23,7 +23,7 @@ class BodyDefaultPropertiesController extends \Core\Controller
         $script_datas["table_id"] = $table_id;
         $script_datas["table_hdl"] = $router->pathFor('properties_pipe');
 
-        $model = new \App\Models\Views\PropertiesListFootable(array(
+        $model = new \App\Models\Views\PropertiesDefaultListFootable(array(
             "data" => array(
                 "action_properties_edit" => array(
                     "action" => array(
@@ -155,7 +155,7 @@ class BodyDefaultPropertiesController extends \Core\Controller
 
             if(!empty($valid_recs)){
 
-                $model = new \App\Models\Views\PropertiesListFootable();
+                $model = new \App\Models\Views\PropertiesDefaultListFootable();
                 $col_models = $model->getMap("properties");
 
                 for($j=0;$j<sizeof($valid_recs);$j++){

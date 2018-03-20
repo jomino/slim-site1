@@ -4,13 +4,18 @@ namespace App\Models\Views;
 
 use Framework\ArrayMethods as ArrayMethods;
 
-class GeslocpayListFootable extends \Framework\ViewModel
+class GeslocDefaultListFootable extends \Framework\ViewModel
 {
 
     /**
     *@readwrite
     */
     protected $_data;
+    
+    /**
+    *@readwrite
+    */
+    protected $_assets;
 
     /**
     *@read
@@ -21,16 +26,7 @@ class GeslocpayListFootable extends \Framework\ViewModel
     *@read
     */
     protected $_map = array(
-        "geslocpay" => array(
-            array(
-                "type" => "field",
-                "field" => "idpay",
-                "column" => array(
-                    "type" => "'number'",
-                    "name" => "'idpay'", // mandatory
-                    "visible" => "false"
-                )
-            ),
+        "gesloc" => array(
             array(
                 "type" => "field",
                 "field" => "idgesloc",
@@ -42,115 +38,139 @@ class GeslocpayListFootable extends \Framework\ViewModel
             ),
             array(
                 "type" => "field",
-                "field" => "agence",
+                "field" => "gesloc.idpro",
+                "delegate" => "id_user",
                 "column" => array(
-                    "type" => "'text'",
-                    "name" => "'agence'", // mandatory
+                    "type" => "'number'",
+                    "name" => "'idpro'", // mandatory
                     "visible" => "false"
                 )
             ),
             array(
                 "type" => "field",
-                "field" => "rem",
+                "field" => "gesloc.idloc",
+                "delegate" => "id_user",
                 "column" => array(
-                    "type" => "'text'",
-                    "name" => "'rem'", // mandatory
+                    "type" => "'number'",
+                    "name" => "'idloc'", // mandatory
                     "visible" => "false"
                 )
             ),
             array(
-                "type" => "list",
-                "list" => "\App\Models\Gptypes",
-                "field" => "ref_gptype", // mandatory
+                "type" => "field",
+                "field" => "id_prop",
                 "column" => array(
-                    "type" => "'array'",
-                    "name" => "'gptypes'", // mandatory
+                    "type" => "'number'",
+                    "name" => "'id_prop'", // mandatory
+                    "visible" => "false"
+                )
+            ),
+            array(
+                "type" => "field",
+                "field" => "endebit",
+                "column" => array(
+                    "type" => "'number'",
+                    "name" => "'endebit'", // mandatory
+                    "visible" => "false"
+                )
+            ),
+            array(
+                "type" => "field",
+                "field" => "street",
+                "column" => array(
+                    "type" => "'text'",
+                    "name" => "'street'",
+                    "visible" => "false"
+                )
+            ),
+            array(
+                "type" => "field",
+                "field" => "num",
+                "column" => array(
+                    "type" => "'number'",
+                    "name" => "'num'",
+                    "visible" => "false"
+                )
+            ),
+            array(
+                "type" => "field",
+                "field" => "cp",
+                "column" => array(
+                    "type" => "'text'",
+                    "name" => "'cp'",
+                    "visible" => "false"
+                )
+            ),
+            array(
+                "type" => "field",
+                "field" => "ville",
+                "column" => array(
+                    "type" => "'text'",
+                    "name" => "'ville'",
                     "visible" => "false"
                 )
             ),
             array(
                 "index" => 0,
                 "type" => "field",
-                //"field" => "paytype.ref_gptype#display",
-                "field" => "paytype",
-                "action" => array("gesloc-pay-gptype"),
+                "field" => "ref",
                 "column" => array(
                     "type" => "'text'",
-                    "name" => "'paytype'",
-                    "title" => " ",
-                    "style" => array("width" => "15%")
+                    "name" => "'ref'",
+                    "title" => "default.reference",
+                    "style" => array("min-width" => "10%")
                 )
             ),
             array(
                 "index" => 1,
+                "name" => "gesloc_edit_tenant",
                 "type" => "field",
-                "field" => "refpay",
+                "field" => "gesloc.idloc",
+                "delegate" => array("pnom","nom"),
+                //"action" => array('gesloc-edit-user','idloc'),
                 "column" => array(
                     "type" => "'text'",
-                    "name" => "'refpay'",
-                    "title" => "default.reference_cb",
-                    "style" => array("min-width" => "15%"),
-                    "sortable" => "false"
+                    "name" => "'tenant'",
+                    "title" => "default.tenant",
+                    "style" => array("min-width" => "10%","white-space" => "nowrap")
                 )
             ),
             array(
                 "index" => 2,
+                "name" => "gesloc_edit_owner",
                 "type" => "field",
-                "field" => "dt_debit",
-                "action" => array("short-date-fr"),
+                "field" => "gesloc.idpro",
+                "delegate" => array("pnom","nom"),
+                //"action" => array('gesloc-edit-user','idpro'),
                 "column" => array(
                     "type" => "'text'",
-                    "title" => "default.due_date",
-                    "name" => "'dt_debit'",
-                    "style" => array("width" => "15%")
+                    "name" => "'owner'",
+                    "title" => "default.owner",
+                    "style" => array("min-width" => "10%","white-space" => "nowrap")
                 )
             ),
             array(
                 "index" => 3,
-                "type" => "field",
-                "field" => "debitsum",
-                "action" => array("number-gt-zero"),
+                "name" => "gesloc_full_adress",
+                "type" => "fn",
+                "delegate" => "street",
+                //"action" => array('gesloc-full-adress'),
                 "column" => array(
-                    "type" => "'number'",
-                    "name" => "'debitsum'",
-                    "title" => " € ",
-                    "style" => array("width" => "15%"),
+                    "title" => "default.adress",
+                    "name" => "'full_adress'",
+                    "style" => array("width" => "100%"),
                     "sortable" => "false"
+                    //[+] "formatter" => string::javascript
                 )
             ),
             array(
                 "index" => 4,
-                "type" => "field",
-                "field" => "dt_credit",
-                "action" => array("short-date-fr"),
-                "column" => array(
-                    "type" => "'text'",
-                    "title" => "default.pay_date",
-                    "name" => "'dt_credit'",
-                    "style" => array("width" => "15%")
-                )
-            ),
-            array(
-                "index" => 5,
-                "type" => "field",
-                "field" => "creditsum",
-                "action" => array("number-gt-zero"),
-                "column" => array(
-                    "type" => "'number'",
-                    "name" => "'creditsum'",
-                    "title" => " € ",
-                    "style" => array("width" => "100%"),
-                    "sortable" => "false"
-                )
-            ),
-            array(
-                "index" => 6,
-                "name" => "action_edit_pay",
+                "name" => "action_pay",
                 "type" => "fn",
                 //[+] "action" => array(),
                 "column" => array(
                     "type" => "'text'",
-                    "name" => "'edit_pay'",
+                    "name" => "'action_pay'",
                     "title" => " ",
                     "style" => array("width" => "32px"),
                     "sortable" => "false"
@@ -158,13 +178,13 @@ class GeslocpayListFootable extends \Framework\ViewModel
                 )
             ),
             array(
-                "index" => 7,
-                "name" => "action_delete_pay",
+                "index" => 5,
+                "name" => "action_gesloc_edit",
                 "type" => "fn",
                 //[+] "action" => array(),
                 "column" => array(
                     "type" => "'text'",
-                    "name" => "'del_pay'",
+                    "name" => "'gesloc_edit'",
                     "title" => " ",
                     "style" => array("width" => "32px"),
                     "sortable" => "false"
@@ -176,7 +196,8 @@ class GeslocpayListFootable extends \Framework\ViewModel
 
     public function getColumns()
     {
-        $map = $this->getMap("geslocpay");
+        $assets = $this->assets;
+        $map = $this->getMap("gesloc");
         for($i=0;$i<sizeof($map);$i++){
             $item = $map[$i];
             if(isset($item["name"]) && !empty($this->_data)){

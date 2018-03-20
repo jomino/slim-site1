@@ -88,7 +88,7 @@ class BodyDefaultGeslocpayController extends \Core\Controller
         
         $table_util_body = $view->fetch("Default/App/Renderer/form.html.twig",$form_datas);
 
-        $table_vmodel = new \App\Models\Views\GeslocpayListFootable(array(
+        $table_vmodel = new \App\Models\Views\GeslocpayDefaultListFootable(array(
             "data" => array(
                 "action_edit_pay" => array(
                     "action" => array( "gesloc-edit-pay", $form_id )
@@ -166,7 +166,7 @@ class BodyDefaultGeslocpayController extends \Core\Controller
 
             if(!empty($valid_recs)){
 
-                $viewmodel = new \App\Models\Views\GeslocpayListFootable();
+                $viewmodel = new \App\Models\Views\GeslocpayDefaultListFootable();
                 $col_models = $viewmodel->getMap("geslocpay");
 
                 for($j=0;$j<sizeof($valid_recs);$j++){

@@ -4,7 +4,7 @@ namespace App\Models\Views;
 
 use Framework\ArrayMethods as ArrayMethods;
 
-class UsersListFootable extends \Framework\ViewModel
+class PropertiesDefaultListFootable extends \Framework\ViewModel
 {
     /**
     *@readwrite
@@ -20,40 +20,22 @@ class UsersListFootable extends \Framework\ViewModel
     * @read
     */
     protected $_map = array(
-        "contacts" => array(
+        "properties" => array(
             array(
                 "type" => "field",
-                "field" => "id_user",
+                "field" => "id_prop",
                 "column" => array(
                     "type" => "'number'",
-                    "name" => "'id_user'", // mandatory
+                    "name" => "'id_prop'", // mandatory
                     "visible" => "false"
                 )
             ),
             array(
                 "type" => "field",
-                "field" => "id_utype",
+                "field" => "price",
                 "column" => array(
                     "type" => "'number'",
-                    "name" => "'id_utype'",
-                    "visible" => "false"
-                )
-            ),
-            array(
-                "type" => "field",
-                "field" => "pnom",
-                "column" => array(
-                    "type" => "'text'",
-                    "name" => "'pnom'",
-                    "visible" => "false"
-                )
-            ),
-            array(
-                "type" => "field",
-                "field" => "nom",
-                "column" => array(
-                    "type" => "'text'",
-                    "name" => "'nom'",
+                    "name" => "'price'",
                     "visible" => "false"
                 )
             ),
@@ -94,6 +76,16 @@ class UsersListFootable extends \Framework\ViewModel
                 )
             ),
             array(
+                "type" => "list",
+                "list" => "\App\Models\Ptypes",
+                "field" => "ref_ptype", // mandatory
+                "column" => array(
+                    "type" => "'array'",
+                    "name" => "'ptypes'", // mandatory
+                    "visible" => "false"
+                )
+            ),
+            array(
                 "index" => 0,
                 "type" => "field",
                 "field" => "id_ref",
@@ -101,62 +93,51 @@ class UsersListFootable extends \Framework\ViewModel
                     "type" => "'text'",
                     "name" => "'id_ref'",
                     "title" => "default.reference",
-                    "style" => array("width" => "10%")
+                    "style" => array("min-width" => "10%")
                 )
             ),
             array(
                 "index" => 1,
-                "type" => "fn",
-                "delegate" => "nom",
+                "type" => "field",
+                "field" => "id_ptype",
+                "action" => array("property-ptype"),
                 "column" => array(
-                    "title" => "default.name",
-                    "name" => "'full_name'",
-                    "formatter" => "$.jo.footableFormatter('contact-full-name')",
-                    "style" => array("width" => "15%")
+                    "type" => "'text'",
+                    "name" => "'id_ptype'",
+                    "title" => "default.type",
+                    "style" => array("min-width" => "10%")
                 )
             ),
             array(
                 "index" => 2,
+                "type" => "field",
+                "field" => "name",
+                "column" => array(
+                    "title" => "default.name",
+                    "name" => "'name'",
+                    "style" => array("min-width" => "10%")
+                )
+            ),
+            array(
+                "index" => 3,
                 "type" => "fn",
                 "delegate" => "street",
                 "column" => array(
                     "title" => "default.adress",
                     "name" => "'full_adress'",
-                    "formatter" => "$.jo.footableFormatter('contact-full-adress')",
-                    "style" => array("width" => "45%")
-                )
-            ),
-            array(
-                "index" => 3,
-                "type" => "field",
-                "field" => "phone",
-                "column" => array(
-                    "type" => "'text'",
-                    "name" => "'phone'",
-                    "title" => "default.phone",
-                    "style" => array("width" => "15%"),
+                    "formatter" => "$.jo.footableFormatter('property-full-adress')",
+                    "style" => array("width" => "100%"),
                     "sortable" => "false"
                 )
             ),
             array(
                 "index" => 4,
-                "type" => "field",
-                "field" => "email",
-                "column" => array(
-                    "type" => "'text'",
-                    "name" => "'email'",
-                    "title" => "default.email",
-                    "style" => array("width" => "15%")
-                )
-            ),
-            array(
-                "index" => 5,
-                "name" => "action_contact_edit",
+                "name" => "action_properties_edit",
                 "type" => "fn",
                 //[+] "action" => array(),
                 "column" => array(
                     "type" => "'text'",
-                    "name" => "'contact_edit'",
+                    "name" => "'properties_edit'",
                     "title" => " ",
                     "style" => array("width" => "32px"),
                     "sortable" => "false"
@@ -168,7 +149,7 @@ class UsersListFootable extends \Framework\ViewModel
 
     public function getColumns()
     {
-        $map = $this->getMap("contacts");
+        $map = $this->getMap("properties");
         for($i=0;$i<sizeof($map);$i++){
             $item = $map[$i];
             if(isset($item["name"]) && !empty($this->_data)){

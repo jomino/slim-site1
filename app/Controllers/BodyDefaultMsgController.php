@@ -28,7 +28,7 @@ class BodyDefaultMsgController extends \Core\Controller
 
         $mailbox_edit_path = $router->pathFor("mailbox_edit");
 
-        $model = new \App\Models\Views\MessagesListFootable(array(
+        $model = new \App\Models\Views\MessagesDefaultListFootable(array(
             "data" => array(
                 "action_message_read" => array(
                     "action" => array(
@@ -292,7 +292,7 @@ class BodyDefaultMsgController extends \Core\Controller
     public function pipe($request, $response, $args)
     {
 
-        $viewmodel = new \App\Models\Views\MessagesListFootable();
+        $viewmodel = new \App\Models\Views\MessagesDefaultListFootable();
 
         $client = $this->client->model;
 
@@ -326,8 +326,7 @@ class BodyDefaultMsgController extends \Core\Controller
 
         if(!empty($valid_recs)){
 
-            $model = new \App\Models\Views\MessagesListFootable();
-            $col_models = $model->getMap();
+            $col_models = $viewmodel->getMap();
 
             for($j=0;$j<sizeof($valid_recs);$j++){
 

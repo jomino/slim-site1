@@ -4,7 +4,7 @@ namespace App\Models\Views;
 
 use Framework\ArrayMethods as ArrayMethods;
 
-class MessagesListFootable extends \Framework\ViewModel
+class MessagesDefaultListFootable extends \Framework\ViewModel
 {
     /**
     *@readwrite
