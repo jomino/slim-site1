@@ -53,10 +53,11 @@ class Routes
             $this->post('/body/calendar', Controllers\BodyDefaultCalendarController::class.":home")->setName('calendar_view');
             $this->post('/calendar/pipe[/{id}]', Controllers\BodyDefaultCalendarController::class.":pipe")->setName('calendar_pipe');
             /* MESSAGES */
-            $this->post('/body/mailbox', Controllers\BodyDefaultMsgController::class.":home")->setName('mailbox_view');
-            $this->post('/mailbox/pipe', Controllers\BodyDefaultMsgController::class.":pipe")->setName('mailbox_pipe');
-            $this->post('/mailbox/del', Controllers\BodyDefaultMsgController::class.":del")->setName('mailbox_del');
-            $this->post('/mailbox/edit[/{id}]', Controllers\BodyDefaultMsgController::class.":edit")->setName('mailbox_edit');
+            $this->post('/body/mailbox', Controllers\BodyDefaultMessagesController::class.":home")->setName('mailbox_view');
+            $this->post('/mailbox/pipe', Controllers\BodyDefaultMessagesController::class.":pipe")->setName('mailbox_pipe');
+            $this->post('/mailbox/del', Controllers\BodyDefaultMessagesController::class.":del")->setName('mailbox_del');
+            $this->post('/mailbox/edit[/{id}]', Controllers\BodyDefaultMessagesController::class.":edit")->setName('mailbox_edit');
+            $this->post('/mailbox/send[/{id}]', Controllers\BodyDefaultMessagesController::class.":send")->setName('mailbox_send');
             /* OPTIONS */
             $this->post('/body/options', Controllers\BodyDefaultOptionsController::class.":home")->setName('options_view');
         });

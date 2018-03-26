@@ -223,5 +223,10 @@ namespace Framework
             
             return $result;
         }
+        
+        public static function ellipsis($string,$num=0)
+        {
+            return strlen($string)>$num ? substr($string,0,$num)." ..." : $string;
+        }
     }    
 }

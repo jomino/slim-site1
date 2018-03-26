@@ -2,6 +2,10 @@ body{
   background-color: #444444;
 }
 
+textarea {
+  resize: none;
+}
+
 hr.form-hr {
   border-top: 1px solid #444444;
 	height: 8px;
@@ -239,6 +243,14 @@ dl a:focus {
 	display: none;
 }
 
+.footable tbody tr.footable-empty > td {
+  color: #8c8b8b;
+  font-style: italic;
+  margin-left: 2em;
+  text-align: left !important;
+  font-size: 18px !important;
+}
+
 .footable td > span.mail-read,
 .footable td > a > span.mail-read {
   color: #8c8b8b;
@@ -257,6 +269,24 @@ dl a:focus {
 .footable .mailbox-subject,
 .footable .mailbox-date {
   font-weight: 600;
+}
+
+.mailbox-msg-view blockquote > h4 {
+  color: rgb(97, 97, 97);
+  font-style: italic;
+}
+
+.mailbox-msg-view blockquote span {
+  font-size: 85%;
+}
+
+.mailbox-msg-view p {
+  margin-bottom: 25px;
+}
+
+.mailbox-msg-view .row {
+  margin-left: 0px;
+  margin-right: 0px;
 }
 
 .jo-bg-yellow {

@@ -1,0 +1,28 @@
+{% macro render(item) %}
+{%- if item.header %}
+<h4>
+    {{- trans(item.header.title)|capitalize }}
+    {% if item.header.small %}&#160;<small>{{ trans(item.header.small) }}</small>{% endif -%}
+</h4>
+{% endif -%}
+{%- if item.list %}
+<div class="panel-group accordion" id="{{ item.id }}">
+    {% for item_n in item.list -%}
+        <div class="panel panel-default">
+            <div class="panel-heading accordion-toggle">
+                <h3 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#{{ item.id }}" href="#{{ item_n.id }}">
+                        {{ trans(item_n.label)|capitalize -}}
+                    </a>
+                </h3>
+            </div>
+            <div id="{{ item_n.id }}" class="collapse{% if not item_n.collapsed %} in{% endif %}">
+                <div class="panel-body">
+                    {{ item_n.body|raw -}}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endif -%}
+{% endmacro %}

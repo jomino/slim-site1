@@ -134,7 +134,7 @@ class BodyDefaultCalendarController extends \Core\Controller
                 array_push( $events_by_dates[$date_key], array(
                     "icon" => "info-circle",
                     "content" => array(
-                        "time" => DateMethods::format($result->start,"H:i"),
+                        "time" => DateMethods::format($result->start,"%R"),
                         "header" => array( "title" => $result->title ),
                         "body" => $result->description
                     )

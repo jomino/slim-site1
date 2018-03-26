@@ -33,11 +33,12 @@ String.prototype.capitalize = function(s){
     var _loadedScripts = new Map(),
         _isBusy = false;
 
-    var History, Modal, NumberLocale;
+    var History, Modal, NumberLocale, LocalStorage;
 
     var _init = function(){
         _setLocalDomain();
         History = _history.create();
+        LocalStorage = _localStorage.create();
         Modal = { create: _modal.create };
         NumberLocale = _numberLocale.create({ lang: _lang() });
         $.jo.formManager.init();
@@ -589,6 +590,36 @@ String.prototype.capitalize = function(s){
         return _itis;
     };
 
+    // LocalStorage obj.
+    var _localStorage = function(){
+        this._wls = window.localStorage;
+    };
+
+    _localStorage.count = 0;
+
+    _localStorage.create = function(){
+        return new _localStorage();
+    };
+
+    var _ls = _localStorage.prototype = new Object();
+
+    _ls.set = function(name,value){
+        this._wls.setItem(name,value);
+        _localStorage.count++;
+        return true;
+    };
+
+    _ls.get = function(name){
+        return this._wls.getItem(name);
+    };
+
+    _ls.del = function(name){
+        _localStorage.count = _localStorage.count>0 ? _localStorage.count-1:0;
+        this._wls.removeItem(name);
+        return !this._wls.getItem(name);
+    };
+
+
     /* jq plugin */
     $.jo.awaiter = function(element, options){
 
@@ -715,6 +746,13 @@ String.prototype.capitalize = function(s){
     $.messageBox = $.jo.msgbox;
     
     /* utils */
+
+    $.jo.localStorage = {
+        get: function(name){ return LocalStorage.get(name); },
+        set: function(name,value){ return LocalStorage.set(name,value); },
+        del: function(name){ return LocalStorage.del(name); },
+        count: function(name){ return LocalStorage.count; }
+    };
 
     $.jo.formManager = {
         manager: null,
@@ -1432,7 +1470,8 @@ String.prototype.capitalize = function(s){
                         return $('<span>').addClass(_getFAwesom(_classes[_row.sent_or_received])+' text-primary');
                     break;
                     case _name=='action-message-name':
-                        var $text = $('<span>').css('margin-left','25px').text([ _capitalize(_row.pnom), _capitalize(_row.nom)].join(' '));
+                        var _text = [ _capitalize(_row.pnom), _capitalize(_row.nom)].join(' ');
+                        var $text = $('<span>').css('margin-left','25px').text(_text);
                         if(parseInt(_row.proceed)>0){  $text.addClass('mail-read'); }
                         return $('<a href="javascript:" data-link="get" data-href="'+_value + '/' + _row.id_msg+'">').append($text);
                     break;

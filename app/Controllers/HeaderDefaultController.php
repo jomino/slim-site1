@@ -31,13 +31,21 @@ class HeaderDefaultController extends \Core\Controller
 
         }else{
 
-            $partial = array(
-                "items" => array(
-                    $this->_link("mailbox"),
-                    $this->_link("calendar"),
-                    $this->_link("options")
-                )
-            );
+            $_items = array($this->_link("options"));
+
+            $_calendar = $this->_link("calendar");
+
+            if(!empty($_calendar)){
+                array_unshift($_items,$_calendar);
+            }
+
+            $_mailbox = $this->_link("mailbox");
+
+            if(!empty($_mailbox)){
+                array_unshift($_items,$_mailbox);
+            }
+
+            $partial = array( "items" => $_items );
 
             return $this->view->render( $response, "Default/App/Renderer/navbar-renderer.html.twig", $partial );
 
@@ -68,7 +76,7 @@ class HeaderDefaultController extends \Core\Controller
                     var $target = $(\'#'.$nav_id.'\');
                     var _destroy = function(){
                         $.jo.jobScheduler(\''.$type.'-update\');
-                        console.log(\'jobScheduler destroy '.$type.'-update\');
+                        // console.log(\'jobScheduler destroy '.$type.'-update\');
                     }
                     var _processErrors = function(){
                         _destroy();
@@ -77,9 +85,17 @@ class HeaderDefaultController extends \Core\Controller
                     var _processValues = function(response){
                         var _target = $(\'a span[class^="label"]\',$target).first();
                         var _value = parseInt(response.count) || 0;
-                        _target.removeClass(\'label-warning label-default\');
-                        _target.addClass( _value>0 ? \'label-warning\':\'label-default\')
-                            .text(_value);
+                        if(_value>0){
+                            $target.removeClass(\'hidden\');
+                            _target.removeClass(\'label-default label-warning\')
+                                .addClass(\'label-warning\').text(_value);
+                        }else{
+                            if($target.visible()){
+                                _target.removeClass(\'label-default label-warning\')
+                                    .addClass(\'label-default\').text(\'0\');
+                                $target.addClass(\'hidden\');
+                            }
+                        }
                         return;
                     };
                     var _loadValues = function(){
@@ -113,6 +129,7 @@ class HeaderDefaultController extends \Core\Controller
                 $_link = array(
                     "id" => $nav_id,
                     "icon" => $icons[$type],
+                    "classes" => array("hidden"),
                     "script" => $this->view->fetch(
                         "Scripts/jqready.html.twig",
                         array( "script_run" => $script_run )

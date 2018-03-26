@@ -224,8 +224,6 @@ class BodyDefaultPropertiesController extends \Core\Controller
             ));
         }
 
-        $_items = array();
-
         // form
         $viewmodel = new \App\Models\Views\PropertiesDefaultEditViewModel(array(
             "logger" => $this->logger,
@@ -285,7 +283,7 @@ class BodyDefaultPropertiesController extends \Core\Controller
 
     public function save($request, $response, $args)
     {
-
+        return;
     }
 
 }

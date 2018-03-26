@@ -1,0 +1,35 @@
+{% macro render(item) %}
+<div class="form-group"{% if item.style %} style="{{ item.style|join|raw }}"{% endif %}>
+    <input type="hidden"{% if item.form %} form="{{ item.form }}"{% endif %} id="hidden-{{ item.name }}"{% if item.raw %} value="{{ item.raw }}"{% endif %}>
+    {% if item.label %}<label class="control-label text-nowrap" for="{{ item.id }}">{{ trans(item.label)|capitalize }}</label>{% endif %}
+    <textarea class="form-control{% if item.classes %} {{ item.classes|join(' ') }}{% endif %}" id="{{ item.id }}" name="{{ item.name }}"{% if item.form %} form="{{ item.form }}"{% endif %}{% if item.placeholder %} placeholder="{{ trans(item.placeholder)|capitalize }}"{% endif %}{% if item.readonly %} readonly{% endif %} aria-describedby="{{ item.id }}-status">
+        {%- if item.value %}{{ item.value|raw }}{% endif -%}
+    </textarea>
+<script type="text/javascript">
+;(function($,document){
+    var JQContentLoaded = function(){
+        var $ = $ || window.$;
+        if($){
+            var $element = $('#{{ item.id }}');
+            var $hidden = $('input#hidden-{{ item.name }}');
+            $element.on('change', function(){
+                $.jo.debugStop();
+                var _val = $hidden.val(), $val = $(this).val();
+                if(_val!=$val){ $hidden.val($val).change(); }
+            });
+            $hidden.on('change', function(){
+                $.jo.debugStop();
+                var _val = $element.val(), $val = $(this).val();
+                if(_val!=$val){ $element.val($val).change(); }
+            });
+            {%- if item.script %}
+                {{ item.script|raw }}
+            {% endif -%}
+        }
+    };
+    if($){ JQContentLoaded(); }
+    else{ document.addEventListener('DOMContentLoaded',JQContentLoaded); }
+})(window.jQuery,window.document);
+</script>
+</div>
+{% endmacro %}

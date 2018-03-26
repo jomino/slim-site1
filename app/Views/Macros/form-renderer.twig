@@ -1,6 +1,7 @@
 {% macro setItems(item) %}
 {% import _self as self %}
 {% import 'Macros/bs-input.twig' as bsInput %}
+{% import 'Macros/bs-textarea.twig' as bsTextarea %}
 {% import 'Macros/bs-radio.twig' as bsRadio %}
 {% import 'Macros/bs-checkbox.twig' as bsCheckbox %}
 {% import 'Macros/bs-select.twig' as bsSelect %}
@@ -139,6 +140,10 @@
                 <!-- begin_form-input_component -->
                 {{ bsInput.render(item) }}
                 <!-- end_form-input_component -->
+            {% elseif item.tpl == "form-textarea" %}
+                <!-- begin_form-textarea_component -->
+                {{ bsTextarea.render(item) }}
+                <!-- end_form-textarea_component -->
             {% elseif item.tpl == "form-radio" %}
                 <!-- begin_form-radio_component -->
                 {{ bsRadio.render(item) }}

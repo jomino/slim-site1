@@ -131,6 +131,12 @@
             "css" : ["demo/css/jquery.steps.css"]
         }
     },
+    "wysihtml5_lib": {
+        "bootstrap3-wysihtml5-bower": {
+            "js" : ["dist/bootstrap3-wysihtml5.all.min.js"],
+            "css" : ["dist/bootstrap3-wysihtml5.min.css"]
+        }
+    },
     "util_lib": {
         "select2": {
             "js": ["dist/js/select2.full.min.js"],

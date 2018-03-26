@@ -145,28 +145,28 @@
             {% if form_validate %}
                 var _rules = {{ form_validate|json_encode()|raw }};
                 var _launch = function(){
-                    $form.validate($.extend({
-                        debug: false,
-                        showErrors: function(errorMap, errorList){
-                            $.each( errorMap, function(i){
-                                _isError[i] = this+'';
-                                $('input[id="hidden-'+i+'"]').parent().addClass('has-error');
-                            });
-                            this.defaultShowErrors();
-                        },
-                        success: function(label, element){
-                            if(Object.keys(_isError).indexOf(element.name)>-1){
-                                delete(_isError[element.name]);
-                                $('input[id="hidden-'+element.name+'"]').parent().removeClass('has-error');
+                        $form.validate($.extend({
+                            debug: false,
+                            showErrors: function(errorMap, errorList){
+                                $.each( errorMap, function(i){
+                                    _isError[i] = this+'';
+                                    $('input[id="hidden-'+i+'"]').parent().addClass('has-error');
+                                });
+                                this.defaultShowErrors();
+                            },
+                            success: function(label, element){
+                                if(Object.keys(_isError).indexOf(element.name)>-1){
+                                    delete(_isError[element.name]);
+                                    $('input[id="hidden-'+element.name+'"]').parent().removeClass('has-error');
+                                }
+                            },
+                            errorPlacement: function($label,$element){
+                                var $last = $element.parents('.form-group').children().last();
+                                $label.insertAfter($last);
                             }
-                        },
-                        errorPlacement: function($label,$element){
-                            var $last = $element.parents('.form-group').children().last();
-                            $label.insertAfter($last);
-                        }
-                    }, _rules));
-                    _init();
-                };
+                        }, _rules));
+                        _init();
+                    };
                 if($.fn.validate){
                     if(_lang!='en'){
                         $.jo.loadScripts(['/./assets/resources/jq_validation_messages_'+_lang+'.js'], _launch);

@@ -1,9 +1,9 @@
 {% macro render(item) %}
-<div id="{{- item.id -}}" class="form-group {% if item.classes %}{{ item.classes|join(' ') }}{% endif %}">
-    <input type="hidden"{% if item.form %} form="{{- item.form -}}"{% endif %} id="hidden-{{- item.name -}}" value="{{ item.raw }}">
+<div id="{{ item.id }}" class="form-group {% if item.classes %}{{ item.classes|join(' ') }}{% endif %}">
+    <input type="hidden"{% if item.form %} form="{{ item.form }}"{% endif %} id="hidden-{{ item.name }}"{% if item.raw or item.raw == 0 %} value="{{ item.raw }}"{% endif -%}>
     <div class="checkbox">
-        <label class="checkbox-inline"{% if item.tooltip %} data-toggle="tooltip" title="{{- item.tooltip|trans|capitalize -}}">
-            <input type="checkbox" id="input-{{- item.id -}}" name="{{- item.name -}}"{% endif %}{% if item.raw %} checked{% endif %}>
+        <label class="checkbox-inline"{% if item.tooltip %} data-toggle="tooltip" title="{{- item.tooltip|trans|capitalize -}}"{% endif -%}>
+            <input type="checkbox" id="input-{{ item.id }}"{% if item.checked %} checked{% endif %}>
             &#160;{% if item.label %}{{ trans(item.label)|capitalize }}{% endif %}
         </label>
     </div>
@@ -13,9 +13,10 @@
     var JQContentLoaded = function(){
         var $ = $ || window.$;
         if($){
-            var $element = $('input:checkbox',$('#{{- item.id -}}')).first();
-            var $hidden = $('input#hidden-{{ item.name }}');
-            $(window.document).on('ifToggled', $element, function(e){
+            $.jo.debugStop();
+            var $element = $('#input-{{ item.id }}');
+            var $hidden = $('#hidden-{{ item.name }}');
+            $(document).on('ifToggled', '#input-{{ item.id }}', function(e){
                 var _el = e.target;
                 var _val = $hidden.val();
                 $hidden.val(_el.checked ? '1':'0').change();
@@ -27,6 +28,12 @@
             });
             {% if item.readonly %}
                 $element.iCheck('disable');
+            {% endif %}
+            {% if item.checked %}
+                $element.iCheck('check');
+            {% endif %}
+            {% if item.script %}
+                {{ item.script|raw }}
             {% endif %}
         }
     };

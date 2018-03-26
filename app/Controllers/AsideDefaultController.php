@@ -19,8 +19,8 @@ class AsideDefaultController extends \Core\Controller
             "contacts_all" => $this->_datas(STATICS::CATEGORY_TYPE_USERS,'body_contacts'),
             "properties_all" => $this->_datas(STATICS::CATEGORY_TYPE_PROPERTY,'body_properties'),
             "contracts_all" => $this->_datas(STATICS::CATEGORY_TYPE_CONTRACT,'body_gesloc'),
-            "calendar_all" => $this->_calendar('calendar_view')/* ,
-            "mailbox_all" => $this->_link('mailbox_view') */
+            "calendar_all" => $this->_calendar('calendar_view'),
+            "mailbox_all" => $this->_mailbox('mailbox_view')
         );
 
         $viewmodel = new \App\Models\Views\AsideDefaultViewModel(array(
@@ -89,6 +89,13 @@ class AsideDefaultController extends \Core\Controller
 
         return array(
             "href" => $this->router->pathFor('calendar_view',array("id"=>$result->id))
+        );
+    }
+
+    private function _mailbox()
+    {
+        return array(
+            "href" => $this->router->pathFor('mailbox_view')
         );
     }
 

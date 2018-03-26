@@ -84,20 +84,23 @@
 {% if item.list|length %}
     {% if item.reset %}
         <option{% if not item.value and item.value != '0' %} selected="selected"{% endif %} value="-1">    
-            {{ trans('messages.html_select')|capitalize }}
+            {{- trans('messages.html_select')|capitalize -}}
         </option>
+    {% else %}
+        {% if item.value == '0' or item.value == '' or not item.value %}
+            <option value=""></option>
+        {% endif %}
     {% endif %}
     {% for list_item in item.list %}
-        <option {% if list_item.name == item.value %} selected="selected"{% endif %}
-            {% if list_item.value or list_item.value == '0' %} value="{{ list_item.value|raw }}"
-            {% else %} value=""{% endif %}>    
-            {% if list_item.name %}{{ list_item.name|raw }}
-            {% else %} - {% endif %}    
+        <option {%- if list_item.name == item.value %} selected="selected"{% endif %}
+            {%- if list_item.value or list_item.value == '0' %} value="{{ list_item.value|raw }}"
+            {%- else %} value=""{%- endif %}>    
+            {%- if list_item.name %}{{ list_item.name|raw }}
+            {%- else %} - {%- endif -%}    
         </option>
     {% endfor %}
 {% endif %}
 </select>
-<!-- <div id="{{ item.id }}-status" class="help-block with-errors"></div> -->
 <script type="text/javascript">
 ;(function($,document){
     var JQContentLoaded = function(){

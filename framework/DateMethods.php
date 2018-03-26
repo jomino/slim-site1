@@ -34,7 +34,8 @@ namespace Framework
                 return "NaD";
             }else{
                 $dt = new \DateTime($date, new \DateTimeZone("Europe/Brussels"));
-                return $dt->format($pattern);
+                setlocale(LC_TIME, "french");
+                return strftime( $pattern, $dt->getTimestamp() );
             }
         }
         
@@ -44,6 +45,7 @@ namespace Framework
                 return null;
             }else{
                 if(is_null($date2)){ $date2 = static::now("en",$strict); }
+                $tz = new \DateTimeZone("Europe/Brussels");
                 $dt1 = new \DateTime($date1, $tz);
                 $dt2 = new \DateTime($date2, $tz);
                 $interval = $dt1->diff($dt2);
